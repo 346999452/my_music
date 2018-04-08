@@ -1,0 +1,18 @@
+{% if error %}
+
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'login' %}">登录</a></li>
+    </ul>
+
+{% else %}
+
+    <form id="logoutForm" action="/logout" method="post" class="navbar-right">
+        {% csrf_token %}
+        <ul class="nav navbar-nav navbar-right">
+            <li><span class="navbar-brand">你好！ {{ username }}</span></li>
+            <li><a href="{% url 'logout' %}">注销</a></li>
+        </ul>
+
+    </form>
+
+{% endif %}

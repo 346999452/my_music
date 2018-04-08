@@ -1,0 +1,25 @@
+{% extends "./layout.html" %}
+
+{% block content %}
+
+    <div class="jumbotron">
+        <h3>搜索</h3>
+        <form action="/" method="get">
+          <input type="text" class="form-control floating-label" name="url" placeholder="请输入歌曲关键词">
+          <span class="help-block">URL形如<code>http://music.163.com/#/song?id=22635188</code>如有疑问请看<a href="/about">这里</a></span>
+          <input type="submit" class="btn btn-raised btn-primary"></input>
+        </form>
+        <br>
+        {% if valid == True %}
+        {% include 'result_new.html' %}
+        {% else %}
+        {% endif %}
+        {% if url_legal == False %}
+        <span class="label label-danger">非法的URL</span>
+        {% endif %}
+        {% if id_legal == False %}
+        <span class="label label-danger">非法的歌曲ID</span>
+        {% endif %}
+    </div>
+
+{% endblock %}

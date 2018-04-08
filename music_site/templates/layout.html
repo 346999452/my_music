@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南辙一曲风华顾</title>
+    {% load staticfiles %}
+
+    <!-- 标签图标 -->
+    <link rel="shortcut icon" type="favicon/ico"  href="{% static 'image/favicon.ico' %}" />
+
+    <!-- 加载外部css文件 -->
+    <!-- 样式设置的四种方式:
+            1.行内样式
+            2.嵌入式
+            3.链接式
+            4.导入式
+            这里用的链接式-->
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Bootstrap Material Design -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/ripples.min.css"%}">
+    {% block head %}{% endblock %}
+    <link href="{% static "css/sticky-footer-navbar.css"%}" rel="stylesheet">
+    <!-- 加载外部js文件 -->
+    <script src="{% static 'js/modernizr-2.6.2.js' %}"></script>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">我的个人音乐网站</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'music' %}">单曲</a></li>
+                    <li><a href="{% url 'play_list' %}">歌单</a></li>
+                    <li><a href="{% url 'album' %}">专辑</a></li>
+                </ul>
+                {% include './loginpartial.html' %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <br>
+        {% block content %}{% endblock %}
+    </div>
+
+    <hr/>
+    <footer class="footer">
+        <div class="container">
+            <div align="center" style="color:rgba(255,255,255, 0.84)">
+                <br> Create by '南辙一曲风华顾' - &copy; {{ year }} - 我的个人主页
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/respond.js' %}"></script>
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

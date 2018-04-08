@@ -1,0 +1,40 @@
+{% extends "./layout.html" %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            <form action="." method="post" class="form-horizontal">
+                {% csrf_token %}
+                <h4>请用本地账户登录</h4>
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" name="loginname" placeholder="请输入账号：">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="password" class="form-control" name="password" placeholder="请输入密码：">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="submit" value="登陆" class="btn btn-default">
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-default" href="{% url 'regist' %}">注册</a>
+                    </div>
+                </div>
+                {% if key_error %}
+                    <p class="validation-summary-errors">账号/密码错误</p>
+                {% endif %}
+            </form>
+        </section>
+    </div>
+    <div class="col-md-4">
+        <section id="socialLoginForm"></section>
+    </div>
+</div>
+{% endblock %}
