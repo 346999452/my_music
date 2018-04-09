@@ -34,31 +34,46 @@
           <div class="content-header">
             <h2><i class="fa fa-music red"></i>热门推荐</h2>
             <div class="tab">
-              <a href="category/piano">华语</a>
+              <a href="/?play_list=华语">华语</a>
               <span class="line">|</span>
-              <a href="category/guitar">流行</a>
+              <a href="/?play_list=流行">流行</a>
               <span class="line">|</span>
-              <a href="category/cartoon">摇滚</a>
+              <a href="/?play_list=摇滚">摇滚</a>
               <span class="line">|</span>
-              <a href="category/elect">电子</a>
+              <a href="/?play_list=电子">电子</a>
               <span class="line">|</span>
-              <a href="category/elect">民谣</a>
+              <a href="/?play_list=民谣">民谣</a>
             </div>
             <!--<span class="more"><a href="#">更多</a></span>-->
           </div>
           <ul class="music-list clearfix">
-            {% for i in play_list %}
-                <li>
-                  <div class="u-cover">
-                    <img src="{{ i.id }}">
-                    <a title="Refrain - Anan Ryoko" href="./music/22712173.html" class="msk"></a>
-                  </div>
-                  <p class="dec">
-                    <a title="Refrain - Anan Ryoko" href="./music/22712173.html">{{ i.singer }}</a>
-                  </p>
-                  <div class="author">{{ i.identity }}</div>
-                </li>
-            {% endfor %}
+            {% if commend %}
+                {% for i in play_list %}
+                    <li>
+                      <div class="u-cover">
+                        <img src="{{ i.id }}">
+                        <a title="{{ i.singer }}" href="./music/22712173.html" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="{{ i.singer }}" href="./music/22712173.html">{{ i.singer }}</a>
+                      </p>
+                      <div class="author">{{ i.identity }}</div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                {% for i in play_list %}
+                    <li>
+                      <div class="u-cover">
+                        <img src="{{ i.id }}">
+                        <a title="{{ i.identity }}" href="./music/22712173.html" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="{{ i.identity }}" href="./music/22712173.html">{{ i.identity }}</a>
+                      </p>
+                      <div class="author">{{ i.img }}</div>
+                    </li>
+                {% endfor %}
+            {% endif %}
           </ul>
         </div>
         <div class="hot-recommand">
@@ -70,10 +85,10 @@
                 <li>
                   <div class="u-cover">
                     <img src="{{ i.img }}">
-                    <a title="Refrain - Anan Ryoko" href="./music/22712173.html" class="msk"></a>
+                    <a title="{{ i.name }}" href="./music/22712173.html" class="msk"></a>
                   </div>
                   <p class="dec">
-                    <a title="Refrain - Anan Ryoko" href="./music/22712173.html">{{ i.name }}</a>
+                    <a title="{{ i.name }}" href="./music/22712173.html">{{ i.name }}</a>
                   </p>
                   <div class="author">{{ i.artist }}</div>
                 </li>
@@ -95,12 +110,12 @@
                 <li class="music-list-item">
                   <div class="title">
                     <div class="title_wrap">
-                      <span class="rank">{{ i.rank }}</span>
-                      <a href="./music/22712173.html" title="Refrain">{{ i.title }}</a>
+                      <span class="rank">{{ i.rank }}.</span>
+                      <a href="/ac/music/?id={{ i.id }}" title="Refrain">{{ i.name }}</a>
                     </div>
                   </div>
                   <div class="info">
-                    <span class="avatar"><p>{{ i.artist }}</p></span>
+                    <span class="avatar"><p></p></span>
                   </div>
                 </li>
                 {% endfor %}
@@ -115,12 +130,12 @@
                 <li class="music-list-item">
                   <div class="title">
                     <div class="title_wrap">
-                      <span class="rank">{{ i.rank }}</span>
-                      <a href="./music/22712173.html" title="Refrain">{{ i.title }}</a>
+                      <span class="rank">{{ i.rank }}.</span>
+                      <a href="/ac/music/?id={{ i.id }}" title="Refrain">{{ i.name }}</a>
                     </div>
                   </div>
                   <div class="info">
-                    <span class="avatar"><p>{{ i.artist }}</p></span>
+                    <span class="avatar"><p></p></span>
                   </div>
                 </li>
                 {% endfor %}
@@ -137,8 +152,8 @@
                 <li class="music-list-item">
                   <div class="title">
                     <div class="title_wrap">
-                      <span class="rank">{{ i.rank }}</span>
-                      <a href="./music/22712173.html" title="Refrain">{{ i.title }}</a>
+                      <span class="rank">{{ i.rank }}.</span>
+                      <a href="/ac/music/?id={{ i.id }}" title="{{ i.name }}">{{ i.name }}</a>
                     </div>
                   </div>
                   <div class="info">
@@ -157,8 +172,8 @@
                 <li class="music-list-item">
                   <div class="title">
                     <div class="title_wrap">
-                      <span class="rank">{{ i.rank }}</span>
-                      <a href="./music/22712173.html" title="Refrain">{{ i.title }}</a>
+                      <span class="rank">{{ i.rank }}.</span>
+                      <a href="/ac/music/?id={{ i.id }}" title="{{ i.title }}">{{ i.title }}</a>
                     </div>
                   </div>
                   <div class="info">
@@ -219,6 +234,26 @@
     {% load staticfiles %}
     <script type="text/javascript" src="{% static "js/music/jquery.min.js"%}"></script>
     <script type="text/javascript" src="{% static "js/music/HBSlider.js"%}"></script>
-    <script type="text/javascript" src="{% static "js/music/lunbo.js"%}"></script>
+    <script type="text/javascript">
+        var sliderData = [];
+        {% for i in lunbo_list %}
+            var data = {
+                title: '',
+                pic: '{{ i.img }}',
+                url: '{{ i.url }}'
+            };
+            sliderData.push(data);
+        {% endfor %}
+
+      $(function () {
+        HBSlider.setConfig({
+          autoPlay: true,
+          delay: 5
+        });
+        HBSlider.setItems(sliderData);
+        HBSlider.init();
+        HBSlider.play();
+      });
+    </script>
 {% endblock %}
 

@@ -21,5 +21,5 @@ from music_site.views import home
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ac/', include(url_1)),
-    url(r'^$', home, name='home')
+    url(r'^$', home.as_view(), name='home')
 ]

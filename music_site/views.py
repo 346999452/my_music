@@ -18,22 +18,6 @@ from other_class.yun_music import Yun_Music
     FBV
 """
 
-def home(request):
-    ym = Yun_Music()
-    info = ym.get_index()
-
-    dict = {'new_song_list': ym.get_top_10(),
-            'up_song_list': ym.get_top_10('云音乐飙升榜'),
-            'original_song_list': ym.get_top_10('网易原创歌曲榜'),
-            'hot_song_list': ym.get_top_10('云音乐热歌榜'),
-            'singer_list': info[3],
-            'popular_anchor': info[4],
-            'play_list': info[5],
-            'album_list': info[7],
-            'img': 'http://p1.music.126.net/EBUS_i_M8M8xKMW0dSOfPg==/109951163236930035.jpg'
-        }
-    return render(request, 'index.html', Methods.add_username(request, dict))
-
 def rank(request):
     return
 
@@ -52,8 +36,106 @@ from .forms import *
 from datetime import datetime
 from urllib.request import quote
 
+class home(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
+        self.info = self.get_index()
+        self.dict = {
+                'new_song_list': self.info[1],
+                'up_song_list': self.info[0],
+                'original_song_list':self.info[2],
+                'hot_song_list': self.get_top_10('云音乐热歌榜'),
+                'singer_list': self.info[3],
+                'popular_anchor': self.info[4],
+                'play_list': self.info[5],
+                'album_list': self.info[7],
+                'lunbo_list': self.info[6]
+            }
+
+    def get(self, request):
+        self.dict['commend'] = True
+        if request.GET.get('play_list'):
+            self.dict['play_list'] = self.get_play_list(request.GET.get('play_list'))[: 10]
+            self.dict['commend'] = False
+        return render(request, 'index.html', self.add_username(request, self.dict))
+
+    def post(self, request):
+        return
+
+class play_music(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
+        self.info = self.get_index()
+        self.dict = {
+            'popular_anchor': self.info[4],
+        }
+
+    def get(self, request):
+        id = request.GET.get('id')
+        info = self.song_detail(id)
+        play_music_page = self.get_play_music(id)
+        list_name = {
+            'name': info.get('name'),
+            'id': info.get('id'),
+            'artist_name': info['artists'][0]['name'],
+            'artist_id': info['artists'][0]['id'],
+            'album_name': info['album']['name'],
+            'album_id': info['album']['id'],
+            'album_img': info['album']['picUrl']
+        }
+        self.dict['src'] = self.get_music_src(id)
+        self.dict['lyric'] = self.get_lyric(id)
+        self.dict['info'] = list_name
+        self.dict['play_list']= play_music_page[0]
+        self.dict['similar_music'] = play_music_page[1]
+        return render(request, 'music.html', self.add_username(request, self.dict))
+
+class play_list(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
+        self.dict = {}
+
+    def get(self, request):
+        categogy = request.GET.get('cat')
+        self.dict['play_list'] = self.get_play_list(categogy)
+        return render(request, 'play_list.html', self.add_username(request, self.dict))
+
+    def post(self, request):
+        pass
+
+
+class album(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
+
+    def get(self, request):
+        id = request.GET.get('id')
+        pass
+
+    def post(self, request):
+        pass
+
+
+class artist(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
+
+    def get(self, request):
+        id = request.GET.get('id')
+        pass
+
+    def post(self, request):
+        pass
+
 class register(View):
-    dict = {}
+    def __init__(self):
+        View.__init__(self)
+        self.dict = {}
 
     def get(self, request):
         return render(request, 'register.html', Methods.add_username(request, self.dict))
@@ -61,19 +143,16 @@ class register(View):
     def post(self, request):
         usr = user_form(request.POST)
         if usr.is_valid():
-            img = request.POST.get('face')
             loginname = Methods.hash(usr.cleaned_data['loginname'])
             try:
                 user.objects.get(loginname=loginname)
                 self.dict['user_exit'] = True
                 return render(request, 'register.html', Methods.add_username(request, self.dict))
             except:
-                face_url = Methods.get_str()
                 user(
                     username=usr.cleaned_data['username'],
                     loginname=loginname,
-                    password=Methods.hash(usr.cleaned_data['password']),
-                    face=face_url
+                    password=Methods.hash(usr.cleaned_data['password'])
                 ).save()
                 return HttpResponseRedirect('/ac/login')
         else:

@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<script>
+document.createElement("header");
+document.createElement("nav");	
+</script>	
+<style>
+body{
+	margin: 0;
+}
+.header{
+	background: url(img1/hbg.png) repeat 0 0 ;
+	height: 71px;
+	position: relative;
+}
+.wrap{
+	position: relative;
+	margin: 0 auto;
+	height: 71px;
+	width: 1019px;
+	background: url(img1/hbg4.png) no-repeat 526px 22px;
+}
+.wrap img{
+	margin-top: 22px;
+	float: left
+}
+.nav1{
+	position: relative;
+	float: left;
+	height: 71px;
+}
+.nav1 a{
+	text-decoration: none;
+	font: 15px "宋体";
+	color: #fff;
+	padding:27px 0px;
+	float: left;
+	margin-right: -2px;
+}
+.nas1{
+	padding: 27px 0 27px 19px;
+}
+.nas2{
+	padding: 27px 19px 27px 0px;
+	background: url(img1/hbg2.png) no-repeat right 32px;
+}
+#nas22{
+	padding-right: 45px;
+
+}
+.bg1{
+	padding: 27px 0 27px 19px;
+	background: url(img1/hbg1.png) no-repeat left 0px;
+}
+.bg2{
+	padding: 27px 19px 27px 0px;
+	background: url(img1/hbg1.png) no-repeat right 0px;
+}
+.abg{
+	background: url(img1/hbg2.png) no-repeat left 32px;
+}
+.nav1 a:hover{
+	background: url(img1/hbg1.png) 0 0 no-repeat;
+}
+.aa1{
+	overflow: hidden;
+	width: 98px;
+	left: 0px;
+	bottom: 0px;
+} 
+.aa2{
+	overflow: hidden;
+	width: 98px;
+	left: 0px;
+	bottom: 0px;
+	/*background: url(img1/.png) right 0 repeat;*/
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+.aa2:hover .nas1{
+	background: url(img1/hbg1.png) right 0 no-repeat;
+}
+.aa3:hover .nas2{
+	background: url(img1/hbg1.png) right 0 no-repeat;
+}
+.aa4:hover .nas2{
+	background: url(img1/hbg1.png) right 0 no-repeat;
+}
+.aa1:hover,
+.aa2:hover,
+.aa3:hover,
+.aa4:hover{
+	opacity: .7;
+	filter:alpha(opacity=70);
+}
+.aa3{
+	display: inline;
+	overflow: hidden;
+	width: 68px;
+	left: 0px;
+	bottom: 0px;
+}
+.aa4{
+	display: inline;
+	overflow: hidden;
+	width: 169px;
+	left: 0px;
+	bottom: 0px;
+	background: ;
+}
+input{
+	line-height: 22px;
+	height: 26px;
+	margin:21px 0 0 100px;
+	padding: 0 18px;
+	border-radius:16px;
+	outline: none;
+}
+.search{
+	width: 13px;
+	height: 13px;
+	overflow: hidden;
+	position: absolute;
+	left: 705px;
+	bottom: 29px;
+	background: url(img1/icon.gif) -39px 0px ;	
+}
+.download{
+	overflow: hidden;
+	position: relative;
+	left: 315px;
+	bottom: 27px;
+	cursor: pointer;
+}
+.download a{
+	color: #666;
+}
+.downloadh{
+	position: absolute;
+	width: 215px;
+	height: 56px;
+	left: 748px;
+	bottom: 69px;
+	background: url(img1/downloadh.gif) 0px 0px ;
+	opacity: 0;
+	filter:alpha(opacity=0);
+}
+.downloadh:hover{
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+.downloada{
+	width: 12px;
+	height: 8px;
+	overflow: hidden;
+	position: absolute;
+	left: 940px;
+	bottom: 32px;
+	background: url(img1/icon.gif) -52px 0px ;
+}
+.sheader{
+	height: 34px;
+	background: #c70c0c;
+	border-bottom: 1px solid #030303;
+}
+.nav2s{
+	width: 16px;
+	height: 7px;
+	position: absolute;
+	/*left: 215px;
+	bottom: 0px;*/
+	overflow: hidden;
+	background: url(img1/icon.gif) -64px 0px ;
+}
+.nav2sactive{
+	left: 215px;
+	bottom: 0px;
+}
+.nav2 a{
+	font: 12px "宋体";
+	text-decoration: none;
+	margin-top: 8px;
+	margin-right: 20px;
+	padding: 3px 8px 5px 8px;
+	color: #fff;
+	float: left;
+}
+#nav2a{
+	background: #7c0100;
+	border-radius: 10px;
+	padding: 3px 10px 5px 10px;
+	margin: 8px 31px 0  358px;
+	padding-left: 9px;
+}
+.nav2 span{
+	border-radius: 10px;
+	padding: 3px 8px 5px 8px;
+}
+.nav2 a:hover{
+	background: #7c0100;
+	border-radius: 15px;
+}
+#nav2a a:hover{
+	background: #7c0100;
+	border-radius: 15px;
+}
+.spic2a{
+	width: 19px;
+	height: 36px;
+	position: absolute;
+	left: 1200px;
+	bottom: 150px;
+	opacity: .7;
+	filter:alpha(opacity=70);
+	background: url(img1/icon.gif) -99px 0px ;
+}
+.spic1a{
+	width: 19px;
+	height: 36px;
+	position: absolute;
+	left: 120px;
+	bottom: 150px;
+	opacity: .7;
+	filter:alpha(opacity=70);
+	background: url(img1/icon.gif) -80px 0px ;
+}
+.spic1a:hover{
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+.spic2a:hover{
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+.section1{
+	height: 336px;
+	background: #81a69e;
+	position: relative;
+	z-index: 2;
+}
+.wrap1{
+	width: 982px;
+	height: 336px;
+	margin: 0 auto;
+	z-index: 3;
+	position: relative;
+}
+.wrap1 img{
+	float: right;
+}
+.section2{
+	width: 100%;
+	height: 1500px;
+	background: #f5f5f5;
+}
+.wrap2{
+	background: #fff;
+	width: 982px;
+	height: 1500px;
+	margin: 0 auto;
+	border: 1px solid #d3d3d3;
+	border-top: none;
+}
+.ul2{
+	display: inline;
+}
+.main{
+	width: 708px;
+	overflow: hidden;
+}
+.wrap22{
+	width: 708px;
+	overflow: hidden;
+}
+
+.mainh{
+	width: 680px;
+	height: 53px;
+	margin: 0 20px;
+	/**margin-left: 35px;*/
+	padding: 10px 0px;
+	border-bottom: 2px solid #c10d0c;
+}
+.ul1{
+	float: left;
+	margin: 0px 0 0px 20px;
+	padding: 0; 
+}
+.ul1 li,
+.ul2 li,
+.ul3 li{
+	float: left;
+}
+li{
+	list-style: none;
+}
+.lilogo{
+	float: left;
+	padding: 0;
+	margin: 25px 0 0px 0;
+	padding: 0px 0 0px 34px;
+	background: url(img1/ullogo.png) no-repeat;
+}
+.lilogo a{
+	font: 24px "宋体";
+	color: #000;
+	margin: 0 6px 0 0;
+}
+.lilogo1{
+	float: left;
+	font: 12px "宋体";
+	color: #666666;
+	padding: 35px 11px 0px    0px;
+}
+.lilogo1 a{
+	font: 12px "宋体";
+	color: #666666;
+	margin: 5px  0    12px   0px;
+	padding: 0px 11px 0px    0px;
+	border-right: 1px solid #dcccdc;
+}
+.lilogo1:hover,
+.bm a:hover,
+.nav3a2:hover,
+.ul3p1:hover,
+.ul3p2:hover,
+.nav4a2:hover,
+.bul4 span:hover,
+.ul4a1:hover,
+.sidea2:hover,
+.ul4a:hover{
+	text-decoration: underline;
+}
+.lilogo2,
+.lilogo3{
+		border: 0;
+}
+.lilogo3{
+	float: right;
+	margin: 0px;
+	padding: 32px 27px 0 0px;
+	font: 13px "宋体";
+	background: url(img1/lilogo.png) right 30px no-repeat;
+}
+.lilogo3 a{
+	color: #666;
+}
+.lilogo3 a:hover{
+	text-decoration: underline;
+}
+img{
+	border: none;
+	vertical-align: top;
+}
+a{
+	text-decoration: none;
+}
+.clearFix{
+	clear: both;
+}
+.p1{
+	width: 138px;
+	height: 138px;
+	border: 1px solid #dedede;
+}
+.bo{
+	margin: 0;
+	display: inline-block;
+	position: relative;
+	bottom: 0px;
+}
+.img{
+	width: 140px;
+	display: inline;
+	position: relative;
+	float: left;
+}	
+.mask{
+	width: 139px;
+	height: 27px;
+	background: #000;
+	opacity: .7;
+	filter:alpha(opacity=70);
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+}
+.maska{
+	width: 20px;
+	height: 16px;
+	left: 110px;
+	bottom: 5px;
+	position: absolute;
+	background: url(img1/icon.gif) -170px 0px ;
+}
+.maska:hover{
+	opacity: .7;
+	filter:alpha(opacity=70);
+}
+.text{
+	font: 12px "宋体";
+	color: #ccc;
+	padding-left: 20px;
+	position: absolute;
+	bottom: 3px;
+	left: 0px;
+}
+.texta{
+	width: 14px;
+	height: 12px;
+	left: 4px;
+	bottom: 0px;
+	position: absolute;
+	background: url(img1/icon.gif) -151px -4px ;
+}
+.texta:hover{
+	opacity: .7;
+	filter:alpha(opacity=70);
+}
+.masklogo{
+	position: absolute;
+	bottom: 5px;
+	left: 100px;
+}
+.bm a{
+	font: 14px/20px "宋体";
+	color: #000;
+}
+#bmlogo{
+	padding-left: 42px;
+	background: url(img1/bm.png) left 0 no-repeat;
+}
+.bm{
+	margin: 8px 0 0 0;
+}
+.ul2{
+	float: left;
+	width: 683px;
+	height: 462px;
+	padding: 0;
+	margin: 20px 0 0 20px;
+}
+.ui2li{
+	width: 140px;
+	height: 183px;
+	margin:0 40px 48px 0;
+	float: left;
+	display: inline;
+}
+#ul2li{
+	width: 140px;
+	margin:0 3px 48px 0;
+	float: left;
+	display: inline;
+}
+.side{
+	width: 250px;
+	height: 1500px;
+	border: 1px solid #d3d3d3;
+	border-right: 0;
+	float: left;
+	position: relative;
+	margin-left: 20px;
+}
+.main{
+	width:708px;
+	height: 1500px;
+	float: left;
+}
+.ad{
+	width:689px;
+	display: inline;
+	margin-left: 20px;
+}
+.nav3{
+	margin: 36px 0 0px 20px;
+	padding: 0px 0 9px 34px;
+	border-bottom: 2px solid #c10d0c;
+	background: url(img1/ullogo.png) no-repeat;
+}
+.nav3a1{
+	font: 20px "宋体";
+	color: #000;
+	margin-right: 6px
+}
+.nav3a2{
+	padding: 5px 27px 0 500px;
+	font: 13px "宋体";
+	color: #000;
+	background: url(img1/lilogo.png) right 3px no-repeat;
+}
+.bul3{
+	border: 1px solid #d3d3d3;
+	margin: 20px 0 0 20px;
+	width: 687px;
+	height: 186px;
+}
+.ul3{
+	width: 685px;
+	height: 184px;
+	margin: 0;
+	padding: 0;
+	border: 1px solid #fff;
+	background: #f5f5f5;
+}
+.ul3 p{
+	margin: 0;
+	padding: 
+}
+.ul3p1{
+	font: 13px/27px "宋体";
+	color: #000;
+}
+.ul3p2{
+	font: 12px "宋体";
+}
+.ul3 li{
+	width: 116px;
+	display: inline;
+	margin: 28px 13px 0 0;
+}
+#ul3li{
+	width: 116px;	
+	display: inline;
+	margin-left: 27px;
+}
+.nav4{
+	width: ;
+	height: 30px;
+	margin: 36px 0 0px 20px;
+	padding: 0px 0 9px 34px;
+	border-bottom: 2px solid #c10d0c;
+	background: url(img1/ullogo.png) no-repeat;
+}
+.nav4a1{
+	font: 20px "宋体";
+	color: #000;
+	margin-right: 0px
+}
+.nav4a2{
+	padding: 5px 21px 0 546px;
+	font: 12px "宋体";
+	color: #000;
+	background: url(img1/lilogo.png) right 3px no-repeat;
+}
+.wrap4,
+.wrap5,
+.wrap6{
+	border: 1px solid #d3d3d3;
+	margin: 20px 0 0 20px;
+	width: 227px;
+	height: 470px;
+}
+.w4bg,
+.w5bg,
+.w6bg{
+	width: 225px;
+	height: 468px;
+	margin: 0;
+	padding: 0;
+	border: 1px solid #fff;
+	background: #f4f4f4;
+}
+.bul4 span,
+.bul4 img{
+		float: left;
+}
+.bul4{
+	width: 225px;
+	height: 118px;
+	position: relative;
+}
+.bul4 img{
+	margin: 18px 0 10px 18px;
+}
+.bul4 span{
+	font: 16px "宋体";
+	padding: 28px 0 13px 10px;
+}
+.ba1{
+	width: 22px;
+	height: 22px;
+	left: 108px;
+	bottom: 38px;
+	position: absolute;
+	opacity: 0.7;
+	filter:alpha(opacity=70);
+	background: url(img1/icon.gif) -192px 0px ;
+}
+.ba2{
+	width: 22px;
+	height: 22px;
+	left: 142px;
+	bottom: 36px;
+	position: absolute;
+	opacity: 0.7;
+	filter:alpha(opacity=70);
+	background: url(img1/icon.gif) -214px 0px ;
+}
+.ba1:hover{
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+.ba2:hover{
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+.ul4{
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+.bul4bg1 img,
+.bul4bg2 img{
+	margin: 0;
+}
+.bul4bg1 img{
+	position: relative;
+	left: 12px;
+	bottom: 1px;
+}
+.bul4bg2 img{
+	position: relative;
+	left: 25px;
+	bottom: 1px;
+}
+.bul4bg22{
+	position: relative;
+}
+.ul4 li{
+	width: 225px;
+	height: 30px;
+	position: relative;
+	font: 12px/30px arial,"宋体";
+	text-indent: 27px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
+
+}
+.ul4as{
+	width: 225px;
+	height: 30px;
+	left: 0px;
+	bottom: 0px;
+	position: absolute;
+	opacity: 0;
+	filter:alpha(opacity=0);
+}
+.ul4as:hover{
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+.ul4s1{
+	width: 17px;
+	height: 17px;
+	left: 140px;
+	bottom: 6px;
+	position: absolute;
+	background: url(img1/icon.gif) -116px -25px ;
+}
+.ul4s2{
+	width: 17px;
+	height: 17px;
+	left: 170px;
+	bottom: 6px;
+	position: absolute;
+	background: url(img1/icon.gif) -141px -25px ;
+}
+.ul4s3{
+	width: 17px;
+	height: 17px;
+	left: 195px;
+	bottom: 6px;
+	position: absolute;
+	background: url(img1/icon.gif) -171px -25px ;
+}
+.ul4li1{
+	background: #e8e8e8;
+}
+.ul4 a{
+	color: #000;
+}
+.ul4a{
+	display: -inline-block;
+	width: 60px;
+	height: 14px;
+	font-size: 12px;
+	position: relative;
+	text-overflow: ellipsis;
+}
+.ul4sp{
+	font-size: 16px;
+	padding-right: 8px;
+}
+.ul4sp1{
+	color: #c80d0c;
+}
+.ul4a1{
+	margin-left: 114px;
+}
+.wrap4{
+	margin-left: 20px;
+	padding: 0;
+	margin-right: 0;
+	display: inline;
+}
+.wrap5,
+.wrap6{
+	margin-left: 0;
+	margin-right: 0;
+	padding: 0;
+}
+.wrap4,
+.wrap5,
+.wrap6{
+	float: left;
+	display: inline;
+}
+.wrap5,
+.w5bg,
+.wrap6,
+.w6bg{
+	border-left: none;
+}
+.footer{
+	height: 124px;
+	border-top: 1px solid #d3d3d3;
+	background: #f9f9f9;
+}
+.ul5{
+	height: 50px;
+	margin-top: 45px;
+	padding: 0;
+}
+.ul5 p,
+.ul5 span{
+	margin: 0;
+	font: 12px/22px "宋体";
+	color: #666;
+}
+.ul5 li{
+	float: left;
+}
+.ul5li1{
+	padding-left: 55px;
+	background: url(img1/footer1.png) no-repeat 0px 5px;
+}
+.ul5li2{
+	padding-left: 110px;
+	background: url(img1/footer2.png) no-repeat 70px 5px;
+}
+.ul5li3{
+	padding-left: 80px;
+}
+.ul5sp{
+	padding:2px 0 2px 60px;
+	background: url(img1/footer3.png) no-repeat 40px 0px;
+}
+.side1{
+	display: inline;
+	float: left;
+	width: 248px;
+	height: 122px;
+	border: 1px solid #fff;
+	border-top: none;
+	background: url(img1/side1.png);
+	position: relative;
+}
+.side{
+	position: relative;
+}
+.side1 img{
+	position: absolute;
+	left: 74px;
+	bottom: 16px;
+	opacity: .7;
+	filter:alpha(opacity=70);
+}
+.loginh{
+	position: absolute;
+	width: 100px;
+	height: 30px;
+	left: 74px;
+	bottom: 16px;
+	background: url(img1/loginh.gif) 0px 0px ;
+	opacity: 0;
+	filter:alpha(opacity=0);
+}
+.loginh:hover{
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+.sidenav{
+	display: inline;
+	width: 210px;
+	margin-left: 20px;
+	border-bottom: 1px solid #ccc;
+	float: left;	
+}
+.sidea1{
+	font: bold 12px "宋体";
+	color: #333354;
+	float: left;
+	padding: 20px 0 9px 0px;
+}
+.sidea2{
+	font: 12px "宋体";
+	color: #666;
+	float: left;
+	padding: 20px 0 9px 90px;
+}
+.sideul1{
+	display: inline;
+	width: 250px;
+	margin: 0;
+	padding: 0;
+}
+.sideul1 a{
+	width: 210px;
+	height: 62px;
+ 	margin: 20px 0 0 0px;
+	position: absolute;
+}
+.sideul1a1{
+	left: 0px;
+	bottom: 1262px;
+}
+.sideul1a2{
+	left: 0px;
+	bottom: 1180px;
+}
+.sideul1a3{
+	left: 0px;
+	bottom: 1098px;
+}
+.sideul1a4{
+	left: 0px;
+	bottom: 1016px;
+}
+.sideul1a5{
+	left: 0px;
+	bottom: 936px;
+}
+.sideul1a6{
+	left: 0px;
+	bottom: 856px;
+}
+.sideul1a1:hover,
+.sideul1a2:hover,
+.sideul1a3:hover,
+.sideul1a4:hover,
+.sideul1a5:hover,
+.sideul1a6:hover{
+	opacity: 0.7;
+	filter:alpha(opacity=70);
+}
+.sidenav2{
+	left: 0;
+	bottom: 0;
+	position: absolute;
+}
+.sidenav2{
+	left: 0px;
+	bottom: 808px;
+}
+
+.sideul2{
+	left: 0;
+	bottom: 0;
+	position: absolute;
+}
+.sideul2{
+	left: 0px;
+	bottom: 500px;
+}
+.sideul1 a:hover{
+	opacity: .7;
+}
+.sideu1li img,
+.sideu1li div{
+	float: left;
+	display: inline;
+}
+.sideu1li{
+	width: 210px;
+	height: 62px;
+	display: inline;
+	float: left;
+	margin: 20px 0 0 20px;
+}
+.sideu1li div{
+	display: inline;
+	width: 147px;
+	height: 60px;
+	background: #fafafa;
+	border: 1px solid #d3d3d3;
+	border-left: none;
+}
+.sul1p1{
+	margin: 11px 0 7px 14px;
+	font: bold 15px arial,"宋体";
+	color: #000;
+}
+.sul1p2{
+	margin: 0px 0 5px 14px;
+	font: bold 13px arial,"宋体";
+	color: #666;
+}
+#sideu1li2 div{
+	width: 208px;
+	height: 28px;
+	border: 1px solid #d3d3d3;
+}
+#sideu1li2 p{
+	font: bold 12px "宋体";
+	color: #000;
+	margin: 8px 0 0 50px;
+	letter-spacing: 1px;
+}
+.sidenav2{
+	display: inline;
+	margin-left: 20px;
+	border-bottom: 1px solid #ccc;
+	float: left;	
+}
+.sidea3{
+	display: inline;
+	font: bold 12px "宋体";
+	color: #333354;
+	float: left;
+	padding: 20px 170px 8px 0px;
+}
+.sideul2{
+	display: inline;
+	width: 210px;
+	float: left;
+	margin: 20px 0 0 20px;
+	padding: 0;
+}
+.sideu2li{
+	display: inline;
+	float: left;
+	margin: 0px 0 15px 0px;
+	padding: 0;
+}
+.sideu2li img,
+.sideu2li div{
+	float: left;
+}
+.sideu2li div{
+	margin-left: 10px;
+}
+.sul2p1{
+	font: bold 12px/22px "宋体";
+	color: #000;
+	padding-right: 16px;
+	background: url(img1/sul2p1.png) no-repeat right 0;
+}
+.sul2p2{
+	font: 12px/18px "宋体";
+	color: #666;
+	margin: 0px 0 0px 0;
+	padding: 0px;
+}
+.ul4bg1{
+	position: relative;
+	left: 43px;
+	bottom: -5px;
+	opacity: 0;
+}	
+.ul4bg2{
+	position: relative;
+	left: 51px;
+	bottom: -5px;
+	opacity: 0;
+}	
+.ul4bg3{
+	position: relative;
+	left: 59px;
+	bottom: -5px;
+	opacity: 0;
+}
+
+.asidetop{
+	width: 37px;
+	height: 28px;
+	border: 1px solid #d4d4d4;
+	border-radius: 4px;
+	background: #f3f4f3;
+	padding: 20px 0 0 14px;
+	position: fixed;
+	left:1180px;
+	bottom: 220px;
+	font: 12px arial;
+	color: #656666;
+	z-index: 1;
+}
+.asidetop:hover{
+	background: #dad1d1;
+}
+.ul1 a:hover{
+	text-decoration: underline;
+}
+.download{
+	font: 12px "宋体";
+	color: #787878;
+	border: none;
+}
+.option{
+	border: none;
+}
+.main,
+.side{
+	float: left;
+}
+.wrap22,
+.side{
+	float: left;
+	display: inline;
+}
+.ful5{
+	width: 982px;
+	margin: 0 auto;
+}
+</style>
+</head>
+<link href="css/headImg.css" rel="stylesheet">
+<script src="js/headImg.js"></script>
+<script src="js/miaov.js"></script>		
+<script src="js/login.js"></script>
+<body>
+<div class="header">
+	<div class="wrap">
+		<a href="#"><img src="img1/logo.png"/></a>
+		<div class="nav1">
+			<a class="aa1" href="#">
+				<span class="bg1"><span class="bg2">发现音乐</span></span>
+			</a>
+
+			<a class="aa2 aa22" href="download.html">
+				<span class="nas1"><span class="nas2">我的音乐</span></span>
+			</a>
+
+			<a class="abg aa3" href="musican.html">
+				<span class="nas1"><span class="nas2">朋友</span></span>
+			</a>
+
+			<a class="abg aa4" href="kehuduan.html">
+				<span class="nas1"><span class="nas2" id="nas22">下载客户端</span></span>
+			</a>
+		</div>
+		<span class="nav2s nav2sactive"></span>
+		<input type="text" placeholder="单曲/歌手/专辑/歌单/MV/用户"/>
+		<div>
+		<a href="#">
+		<span class="search"></span>
+		
+		</a>
+		</div>
+		<span class="download"><a href="download.html">登录</a></span>
+		<a href="#" class="downloada"></a>
+		<span class="downloadaBtn"></span>
+		<div class="downloadaW">
+			
+			<ul>
+				<li><span id='downloadSpan1'></span><a href="#">手机号登录</a></li>
+				<li><span id='downloadSpan2'></span><a href="#">微信登录</a></li>
+				<li><span id='downloadSpan3'></span><a href="#">QQ登录</a></li>
+				<li><span id='downloadSpan4'></span><a href="#">新浪微博登录</a></li>
+				<li><span id='downloadSpan5'></span><a href="#">网易邮箱账号登录</a></li>
+			</ul>
+		</div>	
+	</div>
+</div>
+<div class="sheader">
+	<div class="nav2">
+		<a id="nav2a" href="#" class="active"><span>推荐</span></a>
+		<a href="#"><span>排行榜</span></a>
+		<a href="#"><span>歌单</span></a>
+		<a href="#"><span>主播电台</span></a>
+		<a href="#"><span>歌手</span></a>
+		<a href="#"><span>新碟上架</span></a>
+	</div>
+</div>
+<div class="section1">
+	<div class="wrap1">
+		<ul id="w1List">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<img src="img1/download.png"/>
+		<a href="kehuduan.html" class="downloadh"></a>
+		<div id="bannerWrap">
+			<ul id="w1List2">
+				<li>
+					<img src="img1/banner0.jpg"/ id="banner">
+				</li>
+				<li>
+					<img src="img1/banner1.jpg"/ id="banner">
+				</li>
+			</ul>
+		</div>	
+	</div>
+	<a href="javascript:;" class="spic1a"></a>
+	<a href="javascript:;" class="spic2a"></a>
+</div>
+<div class="section2">
+<div class="wrap2">
+<div class="wrap22">
+	<div class="main">
+	<div class="mainh">
+		<p class="lilogo"><a href="#">热门推荐</a></p>
+		<ul class="ul1">
+		<li class="lilogo1"><a href="#">华语</a></li>
+		<li class="lilogo1"><a href="#">流行</a></li>
+		<li class="lilogo1"><a href="#">摇滚</a></li>
+		<li class="lilogo1"><a href="#">民谣</a></li>
+		<li class="lilogo1 lilogo2"><a href="#">电子</a></li>
+		</ul>
+		<span class="lilogo3"><a href="#">更多</a></span>
+		</div>
+		<div class="clearFix"></div>
+		<ul class="ul2">
+			<li class="ui2li">
+				<div class="img">
+					<div class="bo">
+						<img class="p1" src="img1/img.jpg" />
+						<span class="mask">
+							<a href="#" class="maska"></a>
+						</span>
+   						<span class="text"><a href="#" class="texta"></a>19万</span>
+					</div>
+   					<p class="bm">
+   						<a href="#">岁月未存慈悲，愿你始<br/>终不疑真心</a>
+   					</p>
+   				</div>	
+			</li>
+			<li class="ui2li">
+				<div class="img">
+					<div class="bo">
+						<img class="p1" src="img1/img2.jpg" />
+						<span class="mask">
+							<a href="#" class="maska"></a>
+						</span>
+   						<span class="text"><a href="#" class="texta"></a>19万</span>
+					</div>
+   					<p class="bm">
+   						<a href="#">咂了这一小口自由</a>
+   					</p>
+   				</div>	
+			</li>
+			<li class="ui2li">
+				<div class="img">
+					<div class="bo">
+						<img class="p1" src="img1/img3.jpg"/>
+						<span class="mask">
+							<a href="#" class="maska"></a>
+						</span>
+   						<span class="text"><a href="#" class="texta"></a>19万</span>
+					</div>
+   					<p class="bm">
+   						<a href="#">[华语说唱]说的比唱的<br/>好听</a>
+   					</p>
+   				</div>	
+			</li>
+			<li class="ui2li" id="ul2li">
+				<div class="img">
+					<div class="bo">
+						<img class="p1" src="img1/img4.jpg" />
+						<span class="mask">
+							<a href="#" class="maska"></a>
+						</span>
+   						<span class="text"><a href="#" class="texta"></a>19万</span>
+					</div>
+   					<p class="bm" id="bmlogo">
+   						<a href="#">经典戁逃1981</a>
+   					</p>
+   				</div>	
+			</li>
+			<li class="ui2li">
+				<div class="img">
+					<div class="bo">
+						<img class="p1" src="img1/img5.jpg" />
+						<span class="mask">
+							<a href="#" class="maska"></a>
+						</span>
+   						<span class="text"><a href="#" class="texta"></a>19万</span>
+					</div>
+   					<p class="bm">
+   						<a href="#">给我一把弹不累的吉他</a>
+   					</p>
+   				</div>	
+			</li>
+			<li class="ui2li">
+				<div class="img">
+					<div class="bo">
+						<img class="p1" src="img1/img6.jpg" />
+						<span class="mask">
+							<a href="#" class="maska"></a>
+						</span>
+   						<span class="text"><a href="#" class="texta"></a>19万</span>
+					</div>
+   					<p class="bm" id="bmlogo">
+   						<a href="#">健身房搭讪指南</a>
+   					</p>
+   				</div>	
+			</li>
+			<li class="ui2li">
+				<div class="img">
+					<div class="bo">
+						<img class="p1" src="img1/img7.jpg" />
+						<span class="mask">
+							<a href="#" class="maska"></a>
+						</span>
+   						<span class="text"><a href="#" class="texta"></a>19万</span>
+					</div>
+   					<p class="bm">
+   						<a href="#">梦也缓缓 精选百首古风</a>
+   					</p>
+   				</div>	
+			</li>
+			<li class="ui2li" id="ul2li">
+				<div class="img">
+					<div class="bo">
+						<img class="p1" src="img1/img8.jpg" />
+						<span class="mask">
+							<a href="#" class="maska"></a>
+						</span>
+   						<span class="text"><a href="#" class="texta"></a>19万</span>
+					</div>
+   					<p class="bm" id="bmlogo">
+   						<a href="#">SHOW ME THE<br/>MONEY EP09</a>
+   					</p>
+   				</div>
+				<div class="clearFix"></div>   					
+			</li>
+		</ul>
+		<img class="ad" src="img1/ad.png"/>
+		<div class="nav3">
+			<a class="nav3a1" href="#">新碟上架</a>
+			<a class="nav3a2" href="#">更多</a>
+		</div>
+		<div class="bul3">	
+			<ul class="ul3">
+				<li id="ul3li">
+					<a href="#"><img src="img1/ul3logo1.png"/></a>
+					<a href="#"><p class="ul3p1">十三亿分贝 第二期</p></a>
+					<p class="ul3p2">群星</p>
+				</li>
+				<li>
+					<a href="#"><img src="img1/ul3logo2.png"/></a>
+					<a href="#"><p class="ul3p1">Just LOVE</p></a>
+					<p class="ul3p2">西野カナ</p>
+				</li>
+				<li>
+					<a href="#"><img src="img1/ul3logo3.png"/></a>
+					<a href="#"><p class="ul3p1">天堂边缘</p></a>
+					<p class="ul3p2">陈洁仪</p>
+				</li>
+				<li>
+					<a href="#"><img src="img1/ul3logo4.png"/></a>
+					<a href="#"><p class="ul3p1">Highlight</p></a>
+					<p class="ul3p2">Beast</p>
+				</li>
+				<li>
+					<a href="#"><img src="img1/ul3logo5.png"/></a>
+					<a href="#"><p class="ul3p1">冲破</p></a>
+					<p class="ul3p2">谢霆锋</p>
+				</li>
+				<div class="clearFix"></div>
+			</ul>
+			</div>
+			<div class="nav4">
+				<a class="nav4a1" href="#">榜单</a>
+				<a class="nav4a2" href="#">更多</a>
+			</div>
+		<div class="wrap4">
+			<div class="w4bg">
+				<div class="bul4">
+					<a href="#"><img src="img1/ul4li1.png"/></a>
+					<span>云音乐飙升榜</span>
+					<a href="#" class="ba1"></a>
+					<a href="#" class="ba2"></a>
+					<div class="clearFix"></div>
+				</div>
+				<ul class="ul4">
+					<li class="ul4li ul4li1">
+					<span class="ul4sp ul4sp1">1</span>
+					<a class="ul4a" href="#">耿耿于怀</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp ul4sp1">2</span>
+					<a class="ul4a" href="#">还魂门</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp ul4sp1">3</span>
+					<a class="ul4a" href="#">在，也不见</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">4</span>
+					<a class="ul4a" href="#">7 Years</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp">5</span>
+					<a class="ul4a" href="#">One Dance</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">6</span>
+					<a class="ul4a" href="#">红蔷薇白玫瑰</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp">7</span>
+					<a class="ul4a" href="#">别说</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">8</span>
+					<a class="ul4a" href="#">再见之前</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp">9</span>
+					<a class="ul4a" href="#">If You</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">10</span>
+					<a class="ul4a" href="#">Treasure</a>
+					<a href="#" class="ul4as .ul4li1">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<a class="ul4a1" href="#">查看全部》</a>
+					</li>
+
+				</ul>
+			</div>
+			</div>
+		
+
+		<div class="wrap5">
+			<div class="w5bg">
+				<div class="bul4">
+					<a href="#"><img src="img1/ul4li2.png"/></a>
+					<span>云音乐新歌榜</span>
+					<a href="#" class="ba1"></a>
+					<a href="#" class="ba2"></a>
+					<div class="clearFix"></div>
+				</div>
+				<ul class="ul4">
+					<li class="ul4li ul4li1">
+					<span class="ul4sp ul4sp1">1</span>
+					<a class="ul4a" href="#">南方姑娘</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li class="ul4li ul4li2">
+
+					<li>
+					<span class="ul4sp ul4sp1">2</span>
+					<a class="ul4a" href="#">红蔷薇白玫瑰</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp ul4sp1">3</span>
+					<a class="ul4a" href="#">皆非</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">4</span>
+					<a class="ul4a" href="#">这就是命</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp">5</span>
+					<a class="ul4a" href="#">I am Done</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">6</span>
+					<a class="ul4a" href="#">告白气球</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp">7</span>
+					<a class="ul4a" href="#">后来</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">8</span>
+					<a class="ul4a" href="#">Confortable</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp">9</span>
+					<a class="ul4a" href="#">Why So Lonely</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">10</span>
+					<a class="ul4a" href="#">Lights Out</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<a class="ul4a1" href="#">查看全部》</a>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+
+		<div class="wrap6">
+			<div class="w6bg">
+				<div class="bul4">
+					<a href="#"><img src="img1/ul4li3.png"/></a>
+					<span>网易原创歌曲</span>
+					<a href="#" class="ba1"></a>
+					<a href="#" class="ba2"></a>
+					<div class="clearFix"></div>
+				</div>
+				<ul class="ul4">
+					<li class="ul4li ul4li1">
+					<span class="ul4sp ul4sp1">1</span>
+					<a class="ul4a" href="#">纯洁2016</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp ul4sp1">2</span>
+					<a class="ul4a" href="#">致我们</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp ul4sp1">3</span>
+					<a class="ul4a" href="#">假如有一天</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">4</span>
+					<a class="ul4a" href="#">临江仙</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp">5</span>
+					<a class="ul4a" href="#">Boom</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">6</span>
+					<a class="ul4a" href="#">焦点/Highlight</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp">7</span>
+					<a class="ul4a" href="#">米店</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">8</span>
+					<a class="ul4a" href="#">离开北京</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<span class="ul4sp">9</span>
+					<a class="ul4a" href="#">回忆</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li2">
+					<span class="ul4sp">10</span>
+					<a class="ul4a" href="#">自由</a>
+					<a href="#" class="ul4as">
+						<span class="ul4s1"></span>
+						<span class="ul4s2"></span>
+						<span class="ul4s3"></span>
+					</a>
+					</li>
+
+					<li class="ul4li ul4li1">
+					<a class="ul4a1" href="#">查看全部》</a>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+		<div class="clearFix"></div>
+
+
+		
+	</div>
+	</div>
+	<div class="side">
+		<div class="side1">
+		<img src="img1/sidea.png"/>
+			<a href="download.html" class="loginh"></a>
+		</div>
+		<div class="sidenav">
+			<a class="sidea1" href="#">入驻歌手</a>
+			<a class="sidea2" href="#">查看全部》</a>
+			<div class="clearFix"></div>
+		</div>
+		<ul class="sideul1">
+			<a href="#" class="sideul1a1">
+				<li class="sideu1li">
+					<img src="img1/sideul11.png"/>
+					<div>
+						<p class="sul1p1">张惠妹aMEI</p>
+						<p class="sul1p2">台湾歌手张惠妹</p>
+					</div>	
+				</li>	
+			</a>
+
+			<a href="#" class="sideul1a2">
+				<li class="sideu1li">
+					<img src="img1/sideul12.png"/>
+					<div>
+						<p class="sul1p1">尚雯婕</p>
+						<p class="sul1p2">原创电子唱作人</p>
+					</div>
+				</li>	
+			</a>
+			<a href="#" class="sideul1a3">
+				<li class="sideu1li">
+					<img src="img1/sideul13.png"/>
+					<div>
+						<p class="sul1p1">羽泉组合</p>
+						<p class="sul1p2">国内知名演唱组合...</p>
+					</div>
+				</li>	
+			</a>
+
+			<a href="#" class="sideul1a4">
+				<li class="sideu1li">
+					<img src="img1/sideul14.png"/>
+					<div>
+						<p class="sul1p1">李志</p>
+						<p class="sul1p2">个体音乐人李志</p>
+					</div>
+				</li>	
+			</a>
+
+			<a href="#" class="sideul1a5">
+				<li class="sideu1li">
+					<img src="img1/sideul15.png"/>
+					<div>
+						<p class="sul1p1">马頔麻油叶</p>
+						<p class="sul1p2">民谣音乐人</p>
+					</div>	
+				</li>	
+			</a>
+			<a href="#" class="sideul1a6">
+				<li class="sideu1li" id="sideu1li2">
+					<div>
+						<p class="sideu1li2p">申请成为网易音乐人</p>
+					</div>	
+				</li>	
+			</a>
+		</ul>
+		<div class="sidenav2">
+			<a class="sidea3" href="#">热门DJ</a>
+		</div>
+		<ul class="sideul2">
+			<li class="sideu2li">
+				<a href="#">
+					<img src="img1/sideul21.png"/>
+				</a>	
+					<div>
+						<a href="#" class="sul2p1">灵伟</a>
+						<p class="sul2p2">电台DJ、资深乐评人</p>
+					</div>	
+			</li>
+			<li class="sideu2li">
+				<a href="#">
+					<img src="img1/sideul22.png"/>
+				</a>	
+					<div>
+						<a href="#" class="sul2p1">庞舸</a>
+						<p class="sul2p2">深圳电台飞扬971主持人</p>
+					</div>	
+			</li>	
+			<li class="sideu2li">
+				<a href="#">
+					<img src="img1/sideul23.png"/>
+				</a>	
+					<div>
+						<a href="#" class="sul2p1">林海</a>
+						<p class="sul2p2">著名音乐节目主持人</p>
+					</div>	
+			</li>	
+			<li class="sideu2li">
+				<a href="#">
+					<img src="img1/sideul24.png"/>
+				</a>	
+					<div>
+						<a href="#" class="sul2p1">阿鹏叔</a>
+						<p class="sul2p2">桒惪SOUND创办人</p>
+					</div>	
+			</li>	
+			<li class="sideu2li">
+				<a href="#">
+					<img src="img1/sideul25.png"/>
+				</a>	
+					<div>
+						<a href="#" class="sul2p1">DJ晓苏</a>
+						<p class="sul2p2">独立DJ，CRI环球旅游广播特</p>
+					</div>	
+			</li>		
+			<div class="clearFix"></div>
+		</ul>
+	</div>
+	<div class="clearFix"></div>
+</div>
+</div>
+<div class="footer">
+	<div class="ful5">
+	<ul class="ul5">
+		<li class="ul5li1">
+			<a href="#"><p>独立音乐人招募计划</p></a>
+			<a href="#"><p>加入我们 即将与亿万乐迷互动</p></a>
+		</li>
+		<li class="ul5li2">
+			<a href="#"><p>音乐专栏招募计划</p></a>
+			<a href="#"><p>加入我们 与同道中人交流心得</p></a>
+		</li>
+		<li class="ul5li3">
+			<a href="#"><p>关于网易-客户服务-服务条款-网站导航-
+							网易公司版权所有@1997-2016</p></a>
+			<a href="#"><span>网络文化经营许可证：</span>
+						<span>浙网文[2016]0155-055号
+						<span class="ul5sp">意见反馈</span></span></a>
+		</li>
+		<div class="clearFix"></div>
+	</ul>
+</div>
+</div>		
+</body>
+
+</html>

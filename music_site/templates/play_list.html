@@ -1,0 +1,39 @@
+{% extends './layout.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/reset.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/common.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/category.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
+{% endblock %}
+
+{% block content %}
+<div class="container-sm box">
+  <div class="main">
+    <div class="main-wrap">
+      <div class="content-box">
+        <div class="piano-list">
+          <div class="content-header">
+            <h2><i class="fa fa-music red"></i>最新音乐</h2>
+          </div>
+          <ul class="music-list clearfix">
+            {% for i in play_list %}
+                <li>
+                  <div class="u-cover">
+                    <img src="{{ i.id }}">
+                    <a title="{{ i.identity }}" href="/ac/music_list/?id={{ i.singer }}" class="msk"></a>
+                  </div>
+                  <p class="dec">
+                    <a title="{{ i.identity }}" href="/ac/music_list/?id={{ i.singer }}">{{ i.identity }}</a>
+                  </p>
+                  <div class="author">{{ i.img }}</div>
+                </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

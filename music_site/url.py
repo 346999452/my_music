@@ -13,10 +13,10 @@ from .views import *
 
 urlpatterns = [
     url(r'^logout/$', logout, name='logout'),
-    url(r'^music/$', logout, name='music'),
-    url(r'^play_list/$', logout, name='play_list'),
-    url(r'^album/$', logout, name='album'),
-    url(r'^rank/$', rank, name='rank'),
+    url(r'^music/$', play_music.as_view(), name='music'),
+    url(r'^play_list/$', play_list.as_view(), name='play_list'),
+    url(r'^album/$', album.as_view(), name='album'),
+    url(r'^artist/$', artist.as_view(), name='artist'),
     url(r'^login/$', login.as_view(), name='login'),
     url(r'^register/$', register.as_view(), name='regist'),
 ]

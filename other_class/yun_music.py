@@ -12,6 +12,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 from other_class.methods import Methods
 import base64, json, re
+from urllib.request import quote
 
 class Yun_Music(Methods, Http_Client):
 
@@ -19,6 +20,14 @@ class Yun_Music(Methods, Http_Client):
         Http_Client.__init__(self)
         self.set_header()
         self.top_list_urls = self.get_json('config/top_list.json')
+
+        ''' 映射字典的key值(共用) '''
+        self.list_name = [
+            ['id', 'name', 'rank'],
+            ['singer', 'identity', 'img', 'id'],
+            ['img', 'url'],
+            ['id', 'name', 'artist', 'artist_id', 'img']
+        ]
 
     secKey = '1234567890ABCDEF'
 
@@ -93,16 +102,6 @@ class Yun_Music(Methods, Http_Client):
             song_list.append((_['name'], _['id'], _['artists'][0]['name'], _['album']['name']))
         return song_list
 
-    ''' 获取音乐歌词 '''
-    def get_lyric(self, song_id):
-        url = 'http://music.163.com/api/song/lyric?os=pc&id={}&lv=-1&kv=-1&tv=-1'.format(song_id)
-        data = json.loads(self.send(url))
-        yield data['lrc']['lyric']
-        try:
-            yield data['tlyric']['lyric']
-        except:
-            pass
-
     ''' 得到排行榜信息 '''
     def get_top_list(self, list_name=None):
         if list_name:
@@ -152,21 +151,20 @@ class Yun_Music(Methods, Http_Client):
             }
             song_list.append(song_item)
         return song_list
+    
+    @staticmethod
+    def add_list(list, song_list, list_name):
+        agency_list = []
+        for i in list:
+            agency_list.append(dict(zip(list_name, i)))
+        song_list.append(agency_list)
 
     ''' 得到网易云音乐首页的信息 '''
     def get_index(self):
         content = self.send('http://music.163.com/discover')
         song_list = []
 
-        ''' 映射字典的key值 '''
-        list_name = [
-            ['id', 'name', 'rank'],
-            ['singer', 'identity', 'img', 'id'],
-            ['img', 'url'],
-            ['id', 'name', 'artist', 'artist_id', 'img']
-        ]
-
-        ''' 爬取信息所需正则表达式 '''
+        ''' 爬取首页信息所需正则表达式 '''
         dict_re = {
             'singer_id': r'/user/home\?id=([\d]+)',
             'rank_list': r'/song\?id=(\d+)" class="nm s-fc0 f-thide" title="([^"]+)',
@@ -182,39 +180,80 @@ class Yun_Music(Methods, Http_Client):
             'album_list_artist': r'tit f-thide" title="([^"]+)">\n<a class="s-fc3" href="/artist\?id=(\d+)'
         }
 
-        def add(list, song_list, list_name):
-            agency_list = []
-            for i in list:
-                agency_list.append(dict(zip(list_name, i)))
-            song_list.append(agency_list)
-
         def zip_list(song_list, *args):
-            add(list(zip(*args)), song_list, list_name[1])
+            self.add_list(list(zip(*args)), song_list, self.list_name[1])
 
         def find(name):
             return re.findall(dict_re.get(name), content)
 
         ''' 首页榜单信息 '''
         for i in range(3):
-            add(list(map(lambda x, y: (x[0], x[1], y), find('rank_list')[i * 10: (i + 1) * 10], [i + 1 for i in range(10)])), song_list, list_name[0])
+            self.add_list(list(map(lambda x, y: (x[0], x[1], y), find('rank_list')[i * 10: (i + 1) * 10], [i + 1 for i in range(10)])), song_list, self.list_name[0])
 
         ''' 爬取网易入驻歌手及热门主播的信息 '''
         zip_list(song_list, find('singer_list'), find('identity_list')[: 5], find('singer_img'), find('singer_id')[: 5])
         zip_list(song_list, find('popular_anchor'), find('identity_list')[5: 10], find('popular_anchor_img'), find('singer_id')[5:: 2])
 
         ''' 热门推荐的歌单 '''
-        add(list(map(lambda x, y: (x[0], '电台节目' if x[1] == 'dj' else '歌单', x[2], y), find('play_list'), find('play_list_img'))), song_list, list_name[1])
+        self.add_list(list(map(lambda x, y: (x[0], '电台节目' if x[1] == 'dj' else '歌单', x[2], y), find('play_list'), find('play_list_img'))), song_list, self.list_name[1])
 
         ''' 轮播图 '''
-        add(find('lunbo'), song_list, list_name[2])
+        self.add_list(find('lunbo'), song_list, self.list_name[2])
 
         ''' 新碟上架 '''
-        add(list(map(lambda x, y: (x[2], x[1], y[0], y[1], x[0]), find('album_list')[: 10], find('album_list_artist')[: 10])), song_list, list_name[3])
+        self.add_list(list(map(lambda x, y: (x[2], x[1], y[0], y[1], x[0]), find('album_list')[: 10], find('album_list_artist')[: 10])), song_list, self.list_name[3])
 
         return song_list
 
+    def get_play_list(self, play_list_name=None):
+        if play_list_name:
+            content = self.send('http://music.163.com/discover/playlist/?cat={}'.format(quote(play_list_name)))
+        else:
+            content = self.send('http://music.163.com/discover/playlist')
+        info = re.findall(r'title="([^"]+)" href="/playlist\?id=(\d+)" class="tit f-thide s-fc0">([^<]+)</a>\n</p>\n<p><span class="s-fc4">by</span> <a title="([^"]+)', content)
+        img = re.findall(r'src="([^\?]+\?param=140y140)"', content)
+        play_list = []
+        for i in list(map(lambda x, y: (x[1], x[0], x[3], y), info, img)):
+            play_list.append(dict(zip(self.list_name[1], i)))
+        return play_list
+
+    ''' 获取音乐歌词 '''
+    def get_lyric(self, song_id):
+        url = 'http://music.163.com/api/song/lyric?os=pc&id={}&lv=-1&kv=-1&tv=-1'.format(song_id)
+        data = json.loads(self.send(url))
+        lyric_list = []
+        for i in (data['lrc']['lyric'] + ('\n' + data['tlyric']['lyric'] if data['tlyric']['lyric'] else '')).split('\n'):
+            if re.findall(r'\[by:([^\]]+)', i):
+                name = re.findall(r'\[by:([^\]]+)', i)
+                lyric_list.append('翻译：{}'.format(name))
+            try:
+                lyric_list.append(i.split(']')[1])
+            except:
+                lyric_list.append(i)
+        return lyric_list
+
+    ''' 爬取音乐播放界面信息 '''
+    def get_play_music(self, song_id):
+        content = self.send('http://music.163.com/song?id={}'.format(song_id))
+
+        dict_re = {
+            'play_list_img': r'src="([^\?]+\?param=50y50)"',
+            'play_list': r'f-fs1 s-fc0" href="/playlist\?id=(\d+)" title="([^"]+)',
+            'play_list_artist': r'/user/home\?id=(\d+)" title="([^"]+)',
+            'similar_music': r'(\d+)"\n>([^<]+)</a>\n</div>\n<div class="f-thide s-fc4"><span title="([^"]+)'
+        }
+
+        def find(name):
+            return re.findall(dict_re.get(name), content)
+
+        music_list = []
+        self.add_list(list(map(lambda x, y, z: (x[0], x[1], y, z[0], z[1]),
+                               find('play_list'), find('play_list_img'),
+                               find('play_list_artist'))), music_list, self.list_name[3])
+        self.add_list(find('similar_music'), music_list, self.list_name[0])
+        return music_list
+
 if __name__ == '__main__':
     ym = Yun_Music()
-    print(ym.get_index())
-
-    # print(list(map(lambda x, y: dict)))
+    print(ym.get_play_list())
+    # print(ym.get_music_src('550138132'))

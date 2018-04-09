@@ -1,0 +1,98 @@
+{% extends './layout.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/reset.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/common.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/category.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
+{% endblock %}
+{% block content %}
+    <div class="container-sm player-wrap">
+      <div id="music-player" class="aplayer"></div>
+    </div>
+    <div class="container-sm box">
+      <div class="main">
+        <div class="main-wrap">
+          <div class="content-box article">
+            <div class="title">
+              <h2>{{ info.name }} - {{ info.artist_name }}</h2>
+              <div class="info">
+                <span class="album">所属专辑</span> / <span class="date">{{ info.album_name }}</span>
+              </div>
+            </div>
+            <div class="content">
+              <p>
+                <img src="http://photos.tuchong.com/339151/f/22354551.jpg">
+              </p>
+              <p>
+                {% for i in lyric %}
+                    <br>{{ i }}
+                {% endfor %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="sidebar" style="min-height: 1094px">
+    <div class="right-module">
+      <h4>包含这首歌的歌单</h4>
+      <ul class="new-artist-songs">
+        {% for i in play_list %}
+            <li class="artist-song">
+              <div class="avatar">
+                <img src="{{ i.artist }}">
+              </div>
+              <div class="info">
+                <h3>{{ i.name }}</h3>
+                <p>by : {{ i.img }}</p>
+              </div>
+              <a href="/ac/play_list?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
+            </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="right-module">
+      <h4>相似歌曲</h4>
+      <ul class="new-artist-songs">
+        {% for i in similar_music %}
+            <li class="artist-song">
+              <div class="avatar">
+                <img src="../storage/avatar/17.jpg">
+              </div>
+              <div class="info">
+                <h3>{{ i.name }}</h3>
+                <p>{{ i.rank }}</p>
+              </div>
+              <a href="/ac/music?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
+            </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="http://cdn.bootcss.com/aplayer/1.5.8/APlayer.min.js"></script>
+    <script>
+      var ap = new APlayer({
+        element: document.getElementById('music-player'), // Optional, player element
+        narrow: false,                                    // Optional, narrow style
+        autoplay: true,                                   // Optional, autoplay song(s), not supported by mobile browsers
+        showlrc: 0,                                       // Optional, show lrc, can be 0, 1, 2, see: ###With lrc
+        mutex: true,                                      // Optional, pause other players when this player playing
+        theme: '#B72712',                                 // Optional, theme color, default: #b7daff
+        mode: 'circulation',                              // Optional, play mode, `random` `single` `circulation`(loop) `order`(no loop), default: `circulation`
+        preload: 'metadata',                              // Optional, the way to load music, can be 'none' 'metadata' 'auto', default: 'auto'
+        listmaxheight: '513px',                           // Optional, max height of play list
+        music: {                                          // Required, music info
+          title: '{{ info.name }}',                                 // Required, music title
+          author: '{{ info.artist_name }}',                          // Required, music author
+          url: '{{ src }}',  // Required, music url
+          pic: '{{ info.album_img }}'  // Optional, music picture
+        }
+      });
+    </script>
+{% endblock %}
