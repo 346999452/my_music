@@ -132,6 +132,22 @@ class artist(View, Yun_Music):
     def post(self, request):
         pass
 
+class my_collec(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
+
+    def get(self, request):
+        username = request.COOKIES.get('username', None)
+        if username:
+            pass
+        else:
+            pass
+        pass
+
+    def post(self, request):
+        pass
+
 class register(View):
     def __init__(self):
         View.__init__(self)
@@ -160,7 +176,12 @@ class register(View):
             return render(request, 'register.html', Methods.add_username(request, self.dict))
 
 class login(View):
-    dict = {'title': '登录', 'year': datetime.now().year, }
+    def __init__(self):
+        View.__init__(self)
+        self.dict = {
+            'title': '登录',
+            'year': datetime.now().year,
+        }
 
     def get(self, request):
         return render(request, 'login.html', Methods.add_username(request, self.dict))

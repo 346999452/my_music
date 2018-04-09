@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^artist/$', artist.as_view(), name='artist'),
     url(r'^login/$', login.as_view(), name='login'),
     url(r'^register/$', register.as_view(), name='regist'),
+    url(r'^my_collec', my_collec.as_view(), name='my_collec')
 ]
