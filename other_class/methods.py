@@ -90,6 +90,17 @@ class Methods():
             dict['error'] = True
         return dict
 
+    @staticmethod
+    def add_list(list, song_list, list_name):
+        agency_list = []
+        for i in list:
+            agency_list.append(dict(zip(list_name, i)))
+        song_list.append(agency_list)
+
+    @staticmethod
+    def playlist_map(*args):
+        return list(map(lambda x, y, z: (x[0], x[1], y, z[0], z[1]), args[0], args[1], args[2]))
+
     ''' 
         ——————————————————————————————————————————————————————————————————————————————————————
         虽然windows下运行得到的字典顺序与json中的数据顺序一样

@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^music/$', play_music.as_view(), name='music'),
     url(r'^play_list/$', play_list.as_view(), name='play_list'),
     url(r'^album/$', album.as_view(), name='album'),
+    url(r'^music_list', music_list.as_view(), name='music_list'),
     url(r'^artist/$', artist.as_view(), name='artist'),
     url(r'^login/$', login.as_view(), name='login'),
     url(r'^register/$', register.as_view(), name='regist'),

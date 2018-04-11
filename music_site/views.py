@@ -56,7 +56,7 @@ class home(View, Yun_Music):
     def get(self, request):
         self.dict['commend'] = True
         if request.GET.get('play_list'):
-            self.dict['play_list'] = self.get_play_list(request.GET.get('play_list'))[: 10]
+            self.dict['play_list'] = self.get_play_list(request.GET.get('play_list'))[0][: 10]
             self.dict['commend'] = False
         return render(request, 'index.html', self.add_username(request, self.dict))
 
@@ -68,9 +68,7 @@ class play_music(View, Yun_Music):
         View.__init__(self)
         Yun_Music.__init__(self)
         self.info = self.get_index()
-        self.dict = {
-            'popular_anchor': self.info[4],
-        }
+        self.dict = {}
 
     def get(self, request):
         id = request.GET.get('id')
@@ -100,7 +98,9 @@ class play_list(View, Yun_Music):
 
     def get(self, request):
         categogy = request.GET.get('cat')
-        self.dict['play_list'] = self.get_play_list(categogy)
+        info = self.get_play_list(categogy)
+        self.dict['play_list'] = info[0]
+        self.dict['category'] = info[1]
         return render(request, 'play_list.html', self.add_username(request, self.dict))
 
     def post(self, request):
@@ -119,6 +119,23 @@ class album(View, Yun_Music):
     def post(self, request):
         pass
 
+class music_list(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
+        self.dict = {}
+
+    def get(self, request):
+        id = request.GET.get('id')
+        info = self.playlist_detail(id)
+        self.dict['info'] = info[0]
+        self.dict['music_list'] = info[1]
+        self.dict['hot_playlist'] = info[2]
+        self.dict['user'] = info[3]
+        return render(request, 'music_list.html', self.add_username(request, self.dict))
+
+    def post(self, request):
+        pass
 
 class artist(View, Yun_Music):
     def __init__(self):

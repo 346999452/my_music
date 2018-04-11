@@ -13,6 +13,7 @@ from cryptography.hazmat.backends import default_backend
 from other_class.methods import Methods
 import base64, json, re
 from urllib.request import quote
+from bs4 import BeautifulSoup
 
 class Yun_Music(Methods, Http_Client):
 
@@ -26,7 +27,7 @@ class Yun_Music(Methods, Http_Client):
             ['id', 'name', 'rank'],
             ['singer', 'identity', 'img', 'id'],
             ['img', 'url'],
-            ['id', 'name', 'artist', 'artist_id', 'img']
+            ['id', 'name', 'artist', 'artist_id', 'img'],
         ]
 
     secKey = '1234567890ABCDEF'
@@ -151,13 +152,6 @@ class Yun_Music(Methods, Http_Client):
             }
             song_list.append(song_item)
         return song_list
-    
-    @staticmethod
-    def add_list(list, song_list, list_name):
-        agency_list = []
-        for i in list:
-            agency_list.append(dict(zip(list_name, i)))
-        song_list.append(agency_list)
 
     ''' 得到网易云音乐首页的信息 '''
     def get_index(self):
@@ -205,6 +199,7 @@ class Yun_Music(Methods, Http_Client):
 
         return song_list
 
+    ''' 爬取歌单列表信息 '''
     def get_play_list(self, play_list_name=None):
         if play_list_name:
             content = self.send('http://music.163.com/discover/playlist/?cat={}'.format(quote(play_list_name)))
@@ -213,8 +208,12 @@ class Yun_Music(Methods, Http_Client):
         info = re.findall(r'title="([^"]+)" href="/playlist\?id=(\d+)" class="tit f-thide s-fc0">([^<]+)</a>\n</p>\n<p><span class="s-fc4">by</span> <a title="([^"]+)', content)
         img = re.findall(r'src="([^\?]+\?param=140y140)"', content)
         play_list = []
-        for i in list(map(lambda x, y: (x[1], x[0], x[3], y), info, img)):
-            play_list.append(dict(zip(self.list_name[1], i)))
+        category_list = []
+        for style in BeautifulSoup(content, 'lxml').find_all('dl'):
+            category = [i.strip('|') for i in style.dd.get_text().split('\n') if i is not '']
+            category_list.append({'style': style.dt.get_text(), 'name': category})
+        self.add_list(list(map(lambda x, y: (x[1], x[0], x[3], y), info, img)), play_list, self.list_name[1])
+        play_list.append(category_list)
         return play_list
 
     ''' 获取音乐歌词 '''
@@ -247,13 +246,54 @@ class Yun_Music(Methods, Http_Client):
             return re.findall(dict_re.get(name), content)
 
         music_list = []
-        self.add_list(list(map(lambda x, y, z: (x[0], x[1], y, z[0], z[1]),
-                               find('play_list'), find('play_list_img'),
-                               find('play_list_artist'))), music_list, self.list_name[3])
+        self.add_list(self.playlist_map(find('play_list'), find('play_list_img'), find('play_list_artist')), music_list, self.list_name[3])
         self.add_list(find('similar_music'), music_list, self.list_name[0])
         return music_list
 
+    ''' 爬取歌单详情 '''
+    def playlist_detail(self, playlist_id):
+        data = json.loads(self.send('http://music.163.com/api/playlist/detail?id={}'.format(playlist_id)))['result']
+        content = self.send('http://music.163.com/playlist?id={}'.format(playlist_id))
+
+        dict_re = {
+            'creator_info': r'user/home\?id=(\d+)"><img src="([^\?]+\?param=40y40)',
+            'date': r'time s-fc4">([^&]+)&nbsp',
+            'creator_name': r's-fc7">([^<]+)',
+            'play_list_img': r'src="([^\?]+\?param=50y50)"',
+            'play_list': r'f-fs1 s-fc0" href="/playlist\?id=(\d+)" title="([^"]+)',
+            'play_list_artist': r'/user/home\?id=(\d+)" title="([^"]+)',
+            'user': r'user/home\?id=(\d+)" class="f-tdn" title="([^"]+)"\n><img src="([^\?]+)\?param=40y40'
+        }
+
+        def find(name):
+            return re.findall(dict_re.get(name), content)
+
+        info = find('creator_info')[0]
+        return_list = []
+
+        return_list.append({
+            'img': data['coverImgUrl'],
+            'name': data['name'],
+            'description': data['description'],
+            'creator_id': info[0],
+            'creator_img': info[1],
+            'creator': find('creator_name')[0],
+            'date': find('date')[0]
+        })
+        agency_list = []
+        for i in data['tracks']:
+            agency_list.append({
+                'name': i.get('name'),
+                'id': i.get('id'),
+                'artist': i.get('artists')[0].get('name'),
+                'album': i.get('album').get('name')
+            })
+        return_list.append(agency_list)
+        self.add_list(self.playlist_map(find('play_list'), find('play_list_img'), find('play_list_artist')), return_list, self.list_name[3])
+        user = find('user')
+        self.add_list(find('user'), return_list, self.list_name[0])
+        return return_list
+
 if __name__ == '__main__':
     ym = Yun_Music()
-    print(ym.get_play_list())
-    # print(ym.get_music_src('550138132'))
+    print(ym.playlist_detail('2177007559')[3])

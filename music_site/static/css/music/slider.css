@@ -109,11 +109,11 @@
 }
 
 .slider .slider-arrow.slider-arrow-right {
-    background-image: url("../../image/right.png");
+    background-image: url("http://39.106.179.219:8000/static/image/right.png");
     right: 0;
 }
 
 .slider .slider-arrow.slider-arrow-left {
-    background-image: url("../../image/left.png");
+    background-image: url("http://39.106.179.219:8000/static/image/left.png");
     left: 0;
 }

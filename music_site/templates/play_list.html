@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/music/common.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/category.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/select.css" %}">
 {% endblock %}
 
 {% block content %}
@@ -13,11 +14,23 @@
   <div class="main">
     <div class="main-wrap">
       <div class="content-box">
-        <div class="piano-list">
           <div class="content-header">
-            <h2><i class="fa fa-music red"></i>最新音乐</h2>
+            <h2><i class="fa fa-music red"></i>选择分类</h2>
+
           </div>
+            {% for i in category %}
+                <div>
+                    <span>{{ i.style }}</span>
+                      {% for j in i.name %}
+                          <a href="/ac/play_list/?cat={{ j }}" style="color: #1ab7ea">{{ j }}</a>
+                          <span> |</span>
+                      {% endfor %}
+                        <br>
+                </div>
+            {% endfor %}
+            <hr>
           <ul class="music-list clearfix">
+
             {% for i in play_list %}
                 <li>
                   <div class="u-cover">

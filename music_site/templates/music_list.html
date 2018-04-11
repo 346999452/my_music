@@ -1,0 +1,90 @@
+{% extends './layout.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/reset.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/common.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/slider.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/des.css"%}">
+{% endblock %}
+
+{% block content %}
+<div class="container-sm box">
+  <!-- 主内容 -->
+  <div class="main">
+    <div class="main-wrap">
+      <div class="content-box">
+        <!-- 热门推荐 -->
+      <div class="playlist_info">
+          <img src="{{ info.img }}" style="width: 200px">
+          <div class="name">
+              <span><strong>歌单：</strong>{{ info.name }}</span>
+              <div>
+                  <img src="{{ info.creator_img }}">
+                  <u style="margin: 12px"><a href="http://music.163.com/#/user/home?id={{ info.creator_id }}" style="color: #1ab7ea;">{{ info.creator }}</a></u>
+                  <span>{{ info.date }}  创建</span>
+              </div>
+              <div class="description">
+                  <span title="{{ info.description }}"><strong>介绍：</strong>{{ info.description }}</span>
+              </div>
+          </div>
+      </div>
+        <div class="hot-recommand">
+          <div class="content-header">
+            <h2>
+                <i class="fa fa-music red"></i>歌曲列表<span style="margin-left: 256px; position: absolute">歌手</span><span style="margin-left: 425px; position: absolute">专辑</span>
+            </h2>
+          </div>
+            {% for i in music_list %}
+              <li class="artist-song" style="height: 55px">
+                  <div class="avatar">
+                    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523434964861&di=3650151778ced6ab1a1aeff902d2d57e&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F14%2F78%2F61%2F19858PICw9y_1024.jpg" style="height: 50%; width:50%;">
+                  </div>
+                  <div class="info">
+                    <span style="margin-left: 0; position: absolute">{{ i.name }}</span>
+                    <span style="margin-left: 276px; position: absolute">{{ i.artist }}</span>
+                    <span style="margin-left: 445px; position: absolute">{{ i.album }}</span>
+                  </div>
+                  <a href="/ac/music/?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
+              </li>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar" style="min-height: 1094px">
+    <div class="right-module">
+      <h4>喜欢这首歌的人</h4>
+      <ul class="new-artist-songs">
+        {% for i in user %}
+            <a href="http://music.163.com/#/user/home?id={{ i.id }}"><img src="{{ i.rank }}" title="{{ i.name }}" style="width: 58px"></a>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="right-module">
+      <h4>热门歌单</h4>
+      <ul class="new-artist-songs">
+        {% for i in hot_playlist %}
+            <li class="artist-song">
+              <div class="avatar">
+                <img src="{{ i.artist }}">
+              </div>
+              <div class="info">
+                <h3>{{ i.name }}</h3>
+                <p>{{ i.img }}</p>
+              </div>
+              <a href="/ac/music_list?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
+            </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    {% load staticfiles %}
+{% endblock %}

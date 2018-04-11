@@ -407,6 +407,10 @@ header {
     white-space: nowrap;
 }
 
+.artist-song .info span{
+    overflow: hidden;
+}
+
 .artist-song .info p {
     margin: 0;
     font-size: 12px;
