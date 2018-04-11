@@ -290,10 +290,54 @@ class Yun_Music(Methods, Http_Client):
             })
         return_list.append(agency_list)
         self.add_list(self.playlist_map(find('play_list'), find('play_list_img'), find('play_list_artist')), return_list, self.list_name[3])
-        user = find('user')
         self.add_list(find('user'), return_list, self.list_name[0])
+        return return_list
+
+    def album_detail(self, album_id):
+        content = self.send('http://music.163.com/album?id={}'.format(album_id))
+        return_list = []
+
+        dict_re = {
+            'song': r'song\?id=(\d+)">([^<]+)',
+            'album': r'f-ff2">([^<]+)',
+            'artist': r'artist\?id=(\d+)" >([^<]+)',
+            'date': r'间：</b>([^<]+)',
+            'company': r'司：</b>\n([^\n]+)',
+            'user': r'user/home\?id=(\d+)" class="f-tdn" title="([^"]+)"\n><img src="([^\?]+)\?param=40y40',
+            'album_info': r'album\?id=(\d+)" title="([^"]+)">\n<img src="([^\?]+)\?param=50y50',
+            'album_date': r'<p class="s-fc3">([^<]+)',
+            'img': r'images": \["([^"]+)',
+            'more': '(album-desc-more)',
+            'description': '(n-albdesc)'
+        }
+
+        def find(name):
+            return re.findall(dict_re.get(name), content)
+
+        album_name, title = find('album')[: 2]
+        artist = find('artist')[0]
+        if find('more'):
+            description = BeautifulSoup(content, 'lxml').find_all(id='album-desc-more')[0].get_text()
+        elif find('description'):
+            description = BeautifulSoup(content, 'lxml').find_all(class_='n-albdesc')[0].find_all(class_='f-brk')[0].get_text()
+        else:
+            description = '无'
+
+        return_list.append({
+            'artist_id': artist[0],
+            'artist_name': artist[1],
+            'date': find('date')[0],
+            'company': find('company')[0],
+            'album_name': album_name,
+            'title': title,
+            'img': find('img')[0],
+            'description': description
+        })
+        self.add_list(find('user'), return_list, self.list_name[0])
+        self.add_list(list(map(lambda x, y: (x[0], x[1], x[2], y), find('album_info'), find('album_date'))), return_list, self.list_name[1])
+        self.add_list(find('song'), return_list, self.list_name[0])
         return return_list
 
 if __name__ == '__main__':
     ym = Yun_Music()
-    print(ym.playlist_detail('2177007559')[3])
+    print(ym.album_detail('38045107'))

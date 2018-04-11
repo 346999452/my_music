@@ -90,6 +90,9 @@ class play_music(View, Yun_Music):
         self.dict['similar_music'] = play_music_page[1]
         return render(request, 'music.html', self.add_username(request, self.dict))
 
+    def post(self, request):
+        pass
+
 class play_list(View, Yun_Music):
     def __init__(self):
         View.__init__(self)
@@ -111,10 +114,16 @@ class album(View, Yun_Music):
     def __init__(self):
         View.__init__(self)
         Yun_Music.__init__(self)
+        self.dict = {}
 
     def get(self, request):
         id = request.GET.get('id')
-        pass
+        info = self.album_detail(id)
+        self.dict['info'] = info[0]
+        self.dict['user'] = info[1]
+        self.dict['album'] = info[2]
+        self.dict['music'] = info[3]
+        return render(request, 'album.html', self.add_username(request, self.dict))
 
     def post(self, request):
         pass
