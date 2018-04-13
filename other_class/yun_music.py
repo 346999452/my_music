@@ -89,6 +89,26 @@ class Yun_Music(Methods, Http_Client):
         except:
             return
 
+    def login(self, username, password):
+        url = 'http://music.163.com/weapi/login/cellphone?csrf_token='
+        data = {
+            'params': self.get_params({
+                'phone': username,
+                'password': self.hash(password),
+                'rememberLogin': 'true'
+            }),
+            'encSecKey': '08ffac1245c7c48e91872468d5e897d69f8c0671ef97b746c84bad75f22e9a3eca8c292e7c4d67e4df7576a7db511a36112117a013c0ffe2d70fa2f067f6e9db9004bcdd0cfe9abee4eea52736aee39ac8644d46ef7718ebcefe9f1f717848d9f8e528defc438accdd223fafff315b1e96eeae7a4080cad8495f9296243e798c'
+        }
+        data = self.send(url, data)
+        if 'profile' in data:
+            info = data['profile']
+            return True, (info['userId'], info['nickname'])
+        else:
+            if 'msg' in data:
+                return False, data['msg']
+            else:
+                return False, '手机号错误或未注册'
+
     ''' 通过输入歌曲名搜索音乐 '''
     def search_song(self, name):
         url = 'http://music.163.com/api/search/pc'
@@ -338,6 +358,117 @@ class Yun_Music(Methods, Http_Client):
         self.add_list(find('song'), return_list, self.list_name[0])
         return return_list
 
+    def artist_detail(self, artist_id, category=None):
+        urls = {
+            'album': 'http://music.163.com/artist/album?id={}',
+            'description': 'http://music.163.com/artist/desc?id={}',
+            'null': 'http://music.163.com/artist?id={}'
+        }
+        content = self.send((urls[category] if category else urls['null']).format(artist_id))
+        result_list = []
+
+        info = re.findall(r'f-thide" title="([^"]+)">\n', content)[0].split('-')
+        img = re.findall(r'src="([^\?]+)\?param=640y300"', content)[0]
+        artist = re.findall(r'artist\?id=(\d+)" title="([^"]+)">\n<img src="([^\?]+)\?param=50y50', content)
+
+        result_list.append({
+            'name': info[0],
+            'title': info[1],
+            'img': img,
+            'id': artist_id,
+            'hot_singer': [dict(zip(self.list_name[0], i)) for i in artist]
+        })
+
+        if category == 'description':
+            soup = BeautifulSoup(content, 'lxml').find_all(class_='n-artdesc')[0]
+            detail = [re.sub(r'<[/]?p([^>]*)>', '', str(_)).split('<br/>') for _ in soup.find_all('p')]
+            title = soup.find_all('h2')
+            result_list.append([{'title': re.sub(r'\xa0', '', title[i].get_text()), 'detail': detail[i]} for i in range(len(title))])
+        elif category == 'album':
+            info = re.findall(r'"([^"]+)">\n<img src="([^\?]+)\?param=120y120"/>\n<a href="/album\?id=(\d+)', content)
+            date = re.findall(r's-fc3">([^<]+)', content)
+            self.add_list(list(map(lambda x, y: (x[0], x[1], x[2], y), info, date)), result_list, self.list_name[1])
+        else:
+            songs = re.findall(r'song\?id=(\d+)">([^<]+)', content)
+            self.add_list(songs, result_list, self.list_name[2])
+        return result_list
+
+    def user_detail(self, user_id):
+        data = json.loads(self.send('http://music.163.com/api/user/playlist/?offset={}&limit={}&uid={}'.format(0, 100, user_id)))['playlist']
+        content = self.send('http://music.163.com/user/home?id={}'.format(user_id))
+        return_list = []
+
+        dict_re = {
+            'fans': r'fan_count">(\d+)',
+            'event': r'event_count">(\d+)',
+            'follow_count': r'follow_count">(\d+)',
+            'des': r'inf s-fc3 f-brk">个人介绍：([^<]+)',
+            'city': r'(所在地区：[^<]+)',
+            'info': r'title": "([^"]+)",\n"images": \["([^"]+)',
+            'artist': r'/artist\?id=(\d+)'
+        }
+
+        def find(name):
+            return re.findall(dict_re[name], content)[0]
+
+        info = find('info')
+        des = find('des')
+        try:
+            artist = find('artist')
+            is_artist = True
+        except:
+            artist = ''
+            is_artist = False
+        return_list.append({
+            'fans': find('fans'),
+            'event': find('event'),
+            'follow_count': find('follow_count'),
+            'img': info[1],
+            'name': info[0],
+            'des': des if des else '无',
+            'city': find('city'),
+            'artist': artist,
+            'is_artist': is_artist
+        })
+
+        playlist = [{
+            'ordered': i['ordered'],
+            'img': i['coverImgUrl'],
+            'id': i['id'],
+            'name': i['name']
+        } for i in data]
+
+        return_list.append(list(filter(lambda x: not x['ordered'], playlist)))
+        return_list.append(list(filter(lambda x: x['ordered'], playlist)))
+
+        return return_list
+
+    def lala(self):
+        return self.send('http://music.163.com/user/update')
+
+    def logout(self):
+        self.send('http://music.163.com/api/logout')
+
+
 if __name__ == '__main__':
     ym = Yun_Music()
-    print(ym.album_detail('38045107'))
+    info = ym.user_detail('630423930')
+    print(info)
+    # print(len(info))
+    # print(info[0])
+    # print(info['creator']['avatarUrl'])
+    # print(info['creator']['nickname'])
+    # print(info['creator']['userId'])
+    # print(info['creator']['signature'])
+    # print(info['creator']['description'])
+    # for i in ym.user_detail('630423930'):
+    #     print(i)
+    # for i in info:
+    #     for key, value in i.items():
+    #         print(key)
+    #         print(value)
+    #         print()
+    #
+    #     print('_____________________________________________________________________')
+
+

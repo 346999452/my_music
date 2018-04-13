@@ -1,0 +1,10 @@
+{% for i in detail %}
+    <br>
+  <span style="font-size: 20px;">{{ i.title }}</span>
+    <hr>
+  {% for j in i.detail %}
+      <span>{{ j }}</span>
+      <br>
+  {% endfor %}
+    <hr>
+{% endfor %}

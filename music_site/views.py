@@ -17,14 +17,28 @@ from other_class.yun_music import Yun_Music
     ——————————————————————————————————————————————————————————————————————————
     FBV
 """
-
-def rank(request):
-    return
-
 def logout(request):
+    Yun_Music().logout()
     response = HttpResponseRedirect('/')
     response.delete_cookie('username')
+    response.set_cookie('id')
     return response
+
+def my_page(request):
+    # id = request.COOKIES.get('id', None)
+    # if id:
+    #     info = Yun_Music().user_detail(id)
+    #     dict = {
+    #         'info': info[0],
+    #         'create': info[1],
+    #         'collec': info[2],
+    #         'login': True
+    #     }
+    #     return render(request, 'user.html', Methods.add_username(request, dict))
+    # else:
+    #     dict = {'login': False}
+    return render(request, 'template.html')
+
 
 
 """
@@ -32,7 +46,6 @@ def logout(request):
     CBV
 """
 from django.views import View
-from .forms import *
 from datetime import datetime
 from urllib.request import quote
 
@@ -136,11 +149,14 @@ class music_list(View, Yun_Music):
 
     def get(self, request):
         id = request.GET.get('id')
-        info = self.playlist_detail(id)
-        self.dict['info'] = info[0]
-        self.dict['music_list'] = info[1]
-        self.dict['hot_playlist'] = info[2]
-        self.dict['user'] = info[3]
+        try:
+            info = self.playlist_detail(id)
+            self.dict['info'] = info[0]
+            self.dict['music_list'] = info[1]
+            self.dict['hot_playlist'] = info[2]
+            self.dict['user'] = info[3]
+        except:
+            return render(request, 'template.html')
         return render(request, 'music_list.html', self.add_username(request, self.dict))
 
     def post(self, request):
@@ -150,81 +166,86 @@ class artist(View, Yun_Music):
     def __init__(self):
         View.__init__(self)
         Yun_Music.__init__(self)
-
-    def get(self, request):
-        id = request.GET.get('id')
-        pass
-
-    def post(self, request):
-        pass
-
-class my_collec(View, Yun_Music):
-    def __init__(self):
-        View.__init__(self)
-        Yun_Music.__init__(self)
-
-    def get(self, request):
-        username = request.COOKIES.get('username', None)
-        if username:
-            pass
-        else:
-            pass
-        pass
-
-    def post(self, request):
-        pass
-
-class register(View):
-    def __init__(self):
-        View.__init__(self)
         self.dict = {}
 
     def get(self, request):
-        return render(request, 'register.html', Methods.add_username(request, self.dict))
+        id = request.GET.get('id')
+        category = request.GET.get('cat')
+        info = self.artist_detail(id, category)
+        self.dict['info'] = info[0]
+        self.dict['detail'] = info[1]
+        self.dict['cat'] = category
+        return render(request, 'artist.html', self.add_username(request, self.dict))
 
     def post(self, request):
-        usr = user_form(request.POST)
-        if usr.is_valid():
-            loginname = Methods.hash(usr.cleaned_data['loginname'])
-            try:
-                user.objects.get(loginname=loginname)
-                self.dict['user_exit'] = True
-                return render(request, 'register.html', Methods.add_username(request, self.dict))
-            except:
-                user(
-                    username=usr.cleaned_data['username'],
-                    loginname=loginname,
-                    password=Methods.hash(usr.cleaned_data['password'])
-                ).save()
-                return HttpResponseRedirect('/ac/login')
-        else:
-            self.dict['str_error'] = True
-            return render(request, 'register.html', Methods.add_username(request, self.dict))
+        pass
 
-class login(View):
+class rank(View, Yun_Music):
     def __init__(self):
         View.__init__(self)
+        Yun_Music.__init__(self)
+        self.dict = {}
+
+    def get(self, request):
+        return render(request, 'template.html')
+
+    def post(self, request):
+        pass
+
+class dj(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
+        self.dict = {}
+
+    def get(self, request):
+        return render(request, 'template.html')
+
+    def post(self, request):
+        pass
+
+class user(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
+        self.dict = {}
+
+    def get(self, request):
+        id = request.GET.get('id')
+        info = self.user_detail(id)
+        self.dict['info'] = info[0]
+        self.dict['create'] = info[1]
+        self.dict['collec'] = info[2]
+        return render(request, 'user.html', self.add_username(request, self.dict))
+
+    def post(self, request):
+        pass
+
+class login(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
         self.dict = {
             'title': '登录',
             'year': datetime.now().year,
         }
 
     def get(self, request):
-        return render(request, 'login.html', Methods.add_username(request, self.dict))
+        return render(request, 'login.html', self.add_username(request, self.dict))
 
     def post(self, request):
         loginname = request.POST.get('loginname')
         password = request.POST.get('password')
-        try:
-            a = user.objects.get(loginname=Methods.hash(loginname), password=Methods.hash(password))
+        state, info = self.login(loginname, password)
+        if state:
             response = HttpResponseRedirect('/')
-
             """ 
                 设置cookie值，这里将cookie有效时间设置为3600秒, 即一小时 
                 quote: 将url编码不支持的字符（例如中文）转换成url支持的编码格式， urlencode
             """
-            response.set_cookie('username', quote(a.username), 3600)
+            response.set_cookie('username', quote(info[1]), 3600)
+            response.set_cookie('id', info[0], 3600)
             return response
-        except:
-            self.dict['key_error'] = True
+        else:
+            self.dict['key_error'] = info
             return render(request, 'login.html', Methods.add_username(request, self.dict))

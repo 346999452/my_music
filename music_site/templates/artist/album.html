@@ -1,0 +1,14 @@
+<ul class="music-list clearfix">
+    {% for i in detail %}
+        <li>
+          <div class="u-cover">
+            <img src="{{ i.identity }}">
+            <a title="{{ i.singer}}" href="/ac/album?id={{ i.img }}" class="msk"></a>
+          </div>
+          <p class="dec">
+            <a title="{{ i.singer }}" href="/ac/album?id={{ i.img }}">{{ i.name }}</a>
+          </p>
+          <div class="author">{{ i.id }}</div>
+        </li>
+    {% endfor %}
+</ul>

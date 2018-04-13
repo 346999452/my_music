@@ -1,0 +1,11 @@
+{% for i in detail %}
+  <li class="artist-song" style="height: 55px">
+      <div class="avatar">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523434964861&di=3650151778ced6ab1a1aeff902d2d57e&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F14%2F78%2F61%2F19858PICw9y_1024.jpg" style="height: 50%; width:50%;">
+      </div>
+      <div class="info">
+        <span>{{ i.url }}</span>
+      </div>
+      <a href="/ac/music/?id={{ i.img }}" title="{{ i.url }}" class="cover-link"></a>
+  </li>
+{% endfor %}

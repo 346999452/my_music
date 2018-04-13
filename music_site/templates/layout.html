@@ -45,12 +45,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{% url 'my_collec' %}">我的收藏</a></li>
+                    <li><a href="{% url 'my_page' %}">我的主页</a></li>
                     <li><a href="{% url 'play_list' %}">歌单</a></li>
+                    <li><a href="{% url 'rank' %}">排行</a></li>
                 </ul>
                 {% include './loginpartial.html' %}
             </div>
-        </div>```
+        </div>
     </div>
 
     <div class="container body-content">

@@ -16,9 +16,11 @@ urlpatterns = [
     url(r'^music/$', play_music.as_view(), name='music'),
     url(r'^play_list/$', play_list.as_view(), name='play_list'),
     url(r'^album/$', album.as_view(), name='album'),
-    url(r'^music_list', music_list.as_view(), name='music_list'),
+    url(r'^music_list/', music_list.as_view(), name='music_list'),
     url(r'^artist/$', artist.as_view(), name='artist'),
     url(r'^login/$', login.as_view(), name='login'),
-    url(r'^register/$', register.as_view(), name='regist'),
-    url(r'^my_collec', my_collec.as_view(), name='my_collec')
+    url(r'^rank/$', rank.as_view(), name='rank'),
+    url(r'^user/$', user.as_view(), name='user'),
+    url(r'dj/$', dj.as_view(), name='dj'),
+    url(r'^my_page', my_page, name='my_page')
 ]

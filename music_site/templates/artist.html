@@ -1,0 +1,62 @@
+{% extends './layout.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/reset.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/common.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/slider.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/des.css"%}">
+{% endblock %}
+
+{% block content %}
+<div class="container-sm box">
+  <!-- 主内容 -->
+  <div class="main">
+    <div class="main-wrap">
+      <div class="content-box">
+        <!-- 热门推荐 -->
+      <div class="playlist_info" style="height: 330px">
+          <span style="font-size: 25px">{{ info.name }}</span>
+          <span style="margin-left: 15px; color: #adadad">{{ info.title }}</span>
+          <img src="{{ info.img }}?param=640y300">
+      </div>
+      <br>
+        <div class="hot-recommand">
+          <div class="content-header">
+            <div class="tab">
+              <a href="/ac/artist?id={{ info.id }}"><h2>热门50单曲</h2></a>
+                <h2 class="line">|</h2>
+              <a href="/ac/artist?id={{ info.id }}&cat=album"><h2>所有专辑</h2></a>
+                <h2 class="line">|</h2>
+              <a href="/ac/artist?id={{ info.id }}&cat=description"><h2>歌手介绍</h2></a>
+            </div>
+          </div>
+          {% if cat == 'description' %}
+              {% include './artist/description.html' %}
+          {% elif cat == 'album' %}
+              {% include './artist/album.html' %}
+          {% else %}
+              {% include './artist/song.html' %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="sidebar" style="min-height: 1094px">
+        <div class="right-module">
+          <h4>热门歌手</h4>
+          <ul class="new-artist-songs">
+            {% for i in info.hot_singer %}
+                <a href="/ac/artist?id={{ i.id }}"><img src="{{ i.rank }}" title="{{ i.name }}" style="width: 58px;margin: 10px"></a>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {% load staticfiles %}
+{% endblock %}

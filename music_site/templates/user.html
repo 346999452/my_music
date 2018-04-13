@@ -1,0 +1,93 @@
+{% extends './layout.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/reset.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/common.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/category.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/des.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-sm box">
+  <!-- 主内容 -->
+  <div class="main">
+    <div class="main-wrap">
+      <div class="content-box">
+        <!-- 热门推荐 -->
+      <div class="playlist_info" style="height: 250px;">
+          <img src="{{ info.img }}" style="width: 200px">
+          <div class="name" style="width: 700px">
+              <span style="font-size: 25px"><strong>{{ info.name}}</strong></span>
+              {% if info.is_artist %}
+              <a href="/ac/artist?id={{ info.artist }}"><u><span style="margin-left: 300px;position: absolute;color: #1ab7ea">查看歌手页</span></u></a>
+              {% endif %}
+              <div style="margin-left: 12px">
+                  <span>动态：{{ info.event }}</span>
+                  <br>
+                  <span>关注：{{ info.follow_count }}</span>
+                  <br>
+                  <span>粉丝：{{ info.fans }}</span>
+                  <br>
+                  <span>{{ info.city }}</span>
+              </div>
+              <div class="description" style="width: 600px">
+                  <span title="{{ info.des }}" style="height: 84px"><strong>介绍：</strong>{{ info.des }}</span>
+              </div>
+          </div>
+      </div>
+          <br>
+
+      <div class="hot-recommand">
+          <div class="content-header">
+            <h2><i class="fa fa-music red"></i>{{ info.name }}创建的歌单</h2>
+          </div>
+          <ul class="music-list clearfix" style="margin: 25px">
+            {% for i in create %}
+                <li>
+                  <div class="u-cover">
+                    <img src="{{ i.img }}">
+                    <a title="{{ i.name }}" href="/ac/music_list?id={{ i.id }}" class="msk"></a>
+                  </div>
+                  <p class="dec">
+                    <a title="{{ i.name }}" href="/ac/music_list?id={{ i.id }}">{{ i.name }}</a>
+                  </p>
+                  <div class="author">{{ i.name }}</div>
+                </li>
+            {% endfor %}
+          </ul>
+        </div>
+      <br>
+      <div class="hot-recommand">
+          <div class="content-header">
+            <h2><i class="fa fa-music red"></i>{{ info.name }}收藏的歌单</h2>
+          </div>
+          <ul class="music-list clearfix" style="margin: 25px">
+            {% for i in collec %}
+                <li>
+                  <div class="u-cover">
+                    <img src="{{ i.img }}">
+                    <a title="{{ i.name }}" href="/ac/music_list?id={{ i.id }}" class="msk"></a>
+                  </div>
+                  <p class="dec">
+                    <a title="{{ i.name }}" href="/ac/music_list?id={{ i.id }}">{{ i.name }}</a>
+                  </p>
+                  <div class="author">{{ i.name }}</div>
+                </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    {% load staticfiles %}
+{% endblock %}
