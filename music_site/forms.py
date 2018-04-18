@@ -7,11 +7,3 @@
     @time: 2017/11/18
 
 """
-from .models import *
-from django import forms
-
-class user_form(forms.ModelForm):
-    class Meta:
-        model = user
-
-        fields = ['username', 'loginname', 'password']

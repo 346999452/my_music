@@ -109,19 +109,8 @@ class Yun_Music(Methods, Http_Client):
             else:
                 return False, '手机号错误或未注册'
 
-    ''' 通过输入歌曲名搜索音乐 '''
-    def search_song(self, name):
-        url = 'http://music.163.com/api/search/pc'
-        data = {
-            's': name,
-            'offset': 0,
-            'limit': 20,
-            'type': "1"
-        }
-        song_list = []
-        for _ in self.send(url, data).get('result').get('songs'):
-            song_list.append((_['name'], _['id'], _['artists'][0]['name'], _['album']['name']))
-        return song_list
+    def logout(self):
+        self.send('http://music.163.com/api/logout')
 
     ''' 得到排行榜信息 '''
     def get_top_list(self, list_name=None):
@@ -211,8 +200,25 @@ class Yun_Music(Methods, Http_Client):
         ''' 热门推荐的歌单 '''
         self.add_list(list(map(lambda x, y: (x[0], '电台节目' if x[1] == 'dj' else '歌单', x[2], y), find('play_list'), find('play_list_img'))), song_list, self.list_name[1])
 
+        def lunbo(lunbo_list):
+            li = ['song', 'album', 'mv']
+            c = []
+            for i in lunbo_list:
+                try:
+                    id = re.findall(re.compile('id=(\d+)'), i[1])[0]
+                    for j in li:
+                        if re.search(re.compile(j), i[1]):
+                            url = '/ac/{}/?id={}'.format('music' if j == 'song' else j, id)
+                            break
+                    else:
+                        url = i[1]
+                except:
+                    url = i[1]
+                c.append((i[0], url))
+            return c
+
         ''' 轮播图 '''
-        self.add_list(find('lunbo'), song_list, self.list_name[2])
+        self.add_list(lunbo(find('lunbo')), song_list, self.list_name[2])
 
         ''' 新碟上架 '''
         self.add_list(list(map(lambda x, y: (x[2], x[1], y[0], y[1], x[0]), find('album_list')[: 10], find('album_list_artist')[: 10])), song_list, self.list_name[3])
@@ -393,6 +399,7 @@ class Yun_Music(Methods, Http_Client):
             self.add_list(songs, result_list, self.list_name[2])
         return result_list
 
+    ''' 爬取云音乐用户界面 '''
     def user_detail(self, user_id):
         data = json.loads(self.send('http://music.163.com/api/user/playlist/?offset={}&limit={}&uid={}'.format(0, 100, user_id)))['playlist']
         content = self.send('http://music.163.com/user/home?id={}'.format(user_id))
@@ -414,6 +421,10 @@ class Yun_Music(Methods, Http_Client):
         info = find('info')
         des = find('des')
         try:
+            city = find('city')
+        except:
+            city = '不明'
+        try:
             artist = find('artist')
             is_artist = True
         except:
@@ -426,7 +437,7 @@ class Yun_Music(Methods, Http_Client):
             'img': info[1],
             'name': info[0],
             'des': des if des else '无',
-            'city': find('city'),
+            'city': city,
             'artist': artist,
             'is_artist': is_artist
         })
@@ -443,32 +454,57 @@ class Yun_Music(Methods, Http_Client):
 
         return return_list
 
-    def lala(self):
-        return self.send('http://music.163.com/user/update')
+    ''' 爬取云音乐排行榜 '''
+    def top_list_detail(self, id=None):
+        url = 'http://music.163.com/discover/toplist'
+        if id:
+            url += '?id={}'.format(id)
+        content = self.send(url)
+        return_list = []
 
-    def logout(self):
-        self.send('http://music.163.com/api/logout')
+        dict_re = {
+            'info': r'(\d+)" class="s-fc0">([^<]+)</a></p>\n<p class="s-fc4">([^<]+)',
+            'img': r'src="([^\?]+)\?param=40y40',
+            'the_img': r'src="([^\?]+)\?param=150y150',
+            'the_info': r'f-ff2">([^<]+)</h2>\n</div>\n<div class="user f-cb">\n<i class="u-icn u-icn-57"></i><span class="sep s-fc3">最近更新：([^<]+)</span> <span class="s-fc4">([^<]+)',
+            'songs': r'/song\?id=(\d+)">([^<]+)',
+            'artists': r'artists":\[{"id":\d+,"name":"([^"]+)","tns'
+        }
+
+        def find(name):
+            return re.findall(dict_re[name], content)
+
+        top_lists = self.map_list(find('info'), find('img'), 3)
+        self.add_list(self.map_list(find('the_info'), find('the_img'), 3), return_list, self.list_name[1])
+        self.add_list(top_lists[: 4], return_list, self.list_name[1])
+        self.add_list(top_lists[4:], return_list, self.list_name[1])
+        self.add_list(self.map_list(find('songs'), find('artists'), 2), return_list, self.list_name[0])
+        return return_list
+
+    ''' 通过输入歌曲名搜索音乐 '''
+    def search_song(self, name, type='1', limit=30):
+        song_list = []
+        if not name:
+            return song_list
+        url = 'http://music.163.com/api/search/pc'
+        data = {
+            's': name,
+            'offset': 0,
+            'limit': limit,
+            'type': type,
+            'total': 'true'
+        }
+        for _ in self.send(url, data).get('result').get('songs'):
+            song_list.append({
+                'name': _['name'],
+                'id': _['id'],
+                'artist': _['artists'][0]['name'],
+                'album': _['album']['name']
+            })
+        return song_list
 
 
 if __name__ == '__main__':
     ym = Yun_Music()
-    info = ym.user_detail('630423930')
-    print(info)
-    # print(len(info))
-    # print(info[0])
-    # print(info['creator']['avatarUrl'])
-    # print(info['creator']['nickname'])
-    # print(info['creator']['userId'])
-    # print(info['creator']['signature'])
-    # print(info['creator']['description'])
-    # for i in ym.user_detail('630423930'):
-    #     print(i)
-    # for i in info:
-    #     for key, value in i.items():
-    #         print(key)
-    #         print(value)
-    #         print()
-    #
-    #     print('_____________________________________________________________________')
-
+    print(ym.search_song('秋樱'))
 

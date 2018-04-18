@@ -98,6 +98,12 @@ class Methods():
         song_list.append(agency_list)
 
     @staticmethod
+    def map_list(list_1, list_2, n, m=None):
+        if m and m > 1:
+            return list(map(lambda x, y: (*x[: n], *y[: m]), list_1, list_2))
+        return list(map(lambda x, y: (*x[: n], y), list_1, list_2))
+
+    @staticmethod
     def playlist_map(*args):
         return list(map(lambda x, y, z: (x[0], x[1], y, z[0], z[1]), args[0], args[1], args[2]))
 

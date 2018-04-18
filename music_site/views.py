@@ -25,21 +25,21 @@ def logout(request):
     return response
 
 def my_page(request):
-    # id = request.COOKIES.get('id', None)
-    # if id:
-    #     info = Yun_Music().user_detail(id)
-    #     dict = {
-    #         'info': info[0],
-    #         'create': info[1],
-    #         'collec': info[2],
-    #         'login': True
-    #     }
-    #     return render(request, 'user.html', Methods.add_username(request, dict))
-    # else:
-    #     dict = {'login': False}
-    return render(request, 'template.html')
+    id = request.COOKIES.get('id', None)
+    if id:
+        info = Yun_Music().user_detail(id)
+        dict = {
+            'info': info[0],
+            'create': info[1],
+            'collec': info[2]
+        }
+        return render(request, 'user.html', Methods.add_username(request, dict))
+    else:
+        return HttpResponseRedirect('/ac/login')
 
-
+def search(request):
+    key_word = request.POST.get('key_word')
+    return render(request, 'result.html', Methods.add_username(request, {'music_list': Yun_Music().search_song(key_word)}))
 
 """
     ——————————————————————————————————————————————————————————————————————————
@@ -74,7 +74,7 @@ class home(View, Yun_Music):
         return render(request, 'index.html', self.add_username(request, self.dict))
 
     def post(self, request):
-        return
+        return search(request)
 
 class play_music(View, Yun_Music):
     def __init__(self):
@@ -85,26 +85,29 @@ class play_music(View, Yun_Music):
 
     def get(self, request):
         id = request.GET.get('id')
-        info = self.song_detail(id)
-        play_music_page = self.get_play_music(id)
-        list_name = {
-            'name': info.get('name'),
-            'id': info.get('id'),
-            'artist_name': info['artists'][0]['name'],
-            'artist_id': info['artists'][0]['id'],
-            'album_name': info['album']['name'],
-            'album_id': info['album']['id'],
-            'album_img': info['album']['picUrl']
-        }
-        self.dict['src'] = self.get_music_src(id)
-        self.dict['lyric'] = self.get_lyric(id)
-        self.dict['info'] = list_name
-        self.dict['play_list']= play_music_page[0]
-        self.dict['similar_music'] = play_music_page[1]
-        return render(request, 'music.html', self.add_username(request, self.dict))
+        try:
+            info = self.song_detail(id)
+            play_music_page = self.get_play_music(id)
+            list_name = {
+                'name': info.get('name'),
+                'id': info.get('id'),
+                'artist_name': info['artists'][0]['name'],
+                'artist_id': info['artists'][0]['id'],
+                'album_name': info['album']['name'],
+                'album_id': info['album']['id'],
+                'album_img': info['album']['picUrl']
+            }
+            self.dict['src'] = self.get_music_src(id)
+            self.dict['lyric'] = self.get_lyric(id)
+            self.dict['info'] = list_name
+            self.dict['play_list']= play_music_page[0]
+            self.dict['similar_music'] = play_music_page[1]
+            return render(request, 'music.html', self.add_username(request, self.dict))
+        except:
+            return render(request, 'template.html', self.add_username(request, self.dict))
 
     def post(self, request):
-        pass
+        return search(request)
 
 class play_list(View, Yun_Music):
     def __init__(self):
@@ -120,7 +123,7 @@ class play_list(View, Yun_Music):
         return render(request, 'play_list.html', self.add_username(request, self.dict))
 
     def post(self, request):
-        pass
+        return search(request)
 
 
 class album(View, Yun_Music):
@@ -139,7 +142,7 @@ class album(View, Yun_Music):
         return render(request, 'album.html', self.add_username(request, self.dict))
 
     def post(self, request):
-        pass
+        return search(request)
 
 class music_list(View, Yun_Music):
     def __init__(self):
@@ -160,7 +163,7 @@ class music_list(View, Yun_Music):
         return render(request, 'music_list.html', self.add_username(request, self.dict))
 
     def post(self, request):
-        pass
+        return search(request)
 
 class artist(View, Yun_Music):
     def __init__(self):
@@ -178,19 +181,25 @@ class artist(View, Yun_Music):
         return render(request, 'artist.html', self.add_username(request, self.dict))
 
     def post(self, request):
-        pass
+        return search(request)
 
-class rank(View, Yun_Music):
+class top_list(View, Yun_Music):
     def __init__(self):
         View.__init__(self)
         Yun_Music.__init__(self)
         self.dict = {}
 
     def get(self, request):
-        return render(request, 'template.html')
+        id = request.GET.get('id')
+        info = self.top_list_detail(id)
+        self.dict['info'] = info[0][0]
+        self.dict['top_lists_charac'] = info[1]
+        self.dict['top_lists_global'] = info[2]
+        self.dict['songs'] = info[3]
+        return render(request, 'top_list.html', self.add_username(request, self.dict))
 
     def post(self, request):
-        pass
+        return search(request)
 
 class dj(View, Yun_Music):
     def __init__(self):
@@ -202,7 +211,7 @@ class dj(View, Yun_Music):
         return render(request, 'template.html')
 
     def post(self, request):
-        pass
+        return search(request)
 
 class user(View, Yun_Music):
     def __init__(self):
@@ -219,7 +228,19 @@ class user(View, Yun_Music):
         return render(request, 'user.html', self.add_username(request, self.dict))
 
     def post(self, request):
-        pass
+        return search(request)
+
+class mv(View, Yun_Music):
+    def __init__(self):
+        View.__init__(self)
+        Yun_Music.__init__(self)
+        self.dict = {}
+
+    def get(self, request):
+        return render(request, 'template.html', self.add_username(request, self.dict))
+
+    def post(self, request):
+        return search(request)
 
 class login(View, Yun_Music):
     def __init__(self):
@@ -234,18 +255,21 @@ class login(View, Yun_Music):
         return render(request, 'login.html', self.add_username(request, self.dict))
 
     def post(self, request):
-        loginname = request.POST.get('loginname')
-        password = request.POST.get('password')
-        state, info = self.login(loginname, password)
-        if state:
-            response = HttpResponseRedirect('/')
-            """ 
-                设置cookie值，这里将cookie有效时间设置为3600秒, 即一小时 
-                quote: 将url编码不支持的字符（例如中文）转换成url支持的编码格式， urlencode
-            """
-            response.set_cookie('username', quote(info[1]), 3600)
-            response.set_cookie('id', info[0], 3600)
-            return response
+        if request.POST.get('login'):
+            loginname = request.POST.get('loginname')
+            password = request.POST.get('password')
+            state, info = self.login(loginname, password)
+            if state:
+                response = HttpResponseRedirect('/')
+                """
+                    设置cookie值，这里将cookie有效时间设置为3600秒, 即一小时
+                    quote: 将url编码不支持的字符（例如中文）转换成url支持的编码格式， urlencode
+                """
+                response.set_cookie('username', quote(info[1]), 3600)
+                response.set_cookie('id', info[0], 3600)
+                return response
+            else:
+                self.dict['key_error'] = info
+                return render(request, 'login.html', self.add_username(request, self.dict))
         else:
-            self.dict['key_error'] = info
-            return render(request, 'login.html', Methods.add_username(request, self.dict))
+            return search(request)

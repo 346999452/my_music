@@ -4,48 +4,47 @@
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static "css/music/reset.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/common.css"%}">
-    <link rel="stylesheet" type="text/css" href="{% static "css/music/slider.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/category.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/des.css"%}">
 {% endblock %}
 
 {% block content %}
 <div class="container-sm box">
-  <!-- 主内容 -->
-  <div class="main">
+<!-- 主内容 -->
+  <div class="main" style="width: 718px">
     <div class="main-wrap">
       <div class="content-box">
         <!-- 热门推荐 -->
       <div class="playlist_info">
-          <img src="{{ info.img }}" style="width: 200px">
+          <img src="{{ info.id }}" style="width: 200px">
           <div class="name">
-              <span><strong>歌单：</strong>{{ info.name }}</span>
-              <div>
-                  <img src="{{ info.creator_img }}">
-                  <u style="margin: 12px"><a href="/ac/user?id={{ info.creator_id }}" style="color: #1ab7ea;">{{ info.creator }}</a></u>
-                  <span>{{ info.date }}  创建</span>
+              <br>
+                <span style="margin: 30px"><strong>榜单：</strong>{{ info.singer }}</span>
+              <br>
+              <div class="description" style="height: 28px">
+                  <span title="{{ info.description }}" style="margin: 30px"><strong>最近更新：</strong>{{ info.identity }}</span>
               </div>
-              <div class="description">
-                  <span title="{{ info.description }}"><strong>介绍：</strong>{{ info.description }}</span>
-              </div>
+              <br>
+                <span style="margin: 30px;color: #adadad">{{ info.img }}</span>
+              <br>
           </div>
       </div>
       <br>
         <div class="hot-recommand">
           <div class="content-header">
             <h2>
-                <i class="fa fa-music red"></i>歌曲列表<span style="margin-left: 256px; position: absolute">歌手</span><span style="margin-left: 425px; position: absolute">专辑</span>
+                <i class="fa fa-music red"></i>歌曲列表<span style="margin-left: 410px; position: absolute">歌手</span>
             </h2>
           </div>
-            {% for i in music_list %}
+            {% for i in songs %}
               <li class="artist-song" style="height: 55px">
                   <div class="avatar">
                     <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523434964861&di=3650151778ced6ab1a1aeff902d2d57e&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F14%2F78%2F61%2F19858PICw9y_1024.jpg" style="height: 50%; width:50%;">
                   </div>
                   <div class="info">
                     <span style="margin-left: 0; position: absolute">{{ i.name }}</span>
-                    <span style="margin-left: 276px; position: absolute">{{ i.artist }}</span>
-                    <span style="margin-left: 445px; position: absolute">{{ i.album }}</span>
+                    <span style="margin-left: 420px; position: absolute">{{ i.rank }}</span>
                   </div>
                   <a href="/ac/music/?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
               </li>
@@ -57,33 +56,41 @@
 
   <div class="sidebar" style="min-height: 1094px">
     <div class="right-module">
-      <h4>喜欢这首歌的人</h4>
+      <h4>云音乐特色榜</h4>
       <ul class="new-artist-songs">
-        {% for i in user %}
-            <a href="/ac/user?id={{ i.id }}"><img src="{{ i.rank }}" title="{{ i.name }}" style="width: 58px"></a>
+        {% for i in top_lists_charac %}
+            <li class="artist-song">
+              <div class="avatar">
+                <img src="{{ i.id }}">
+              </div>
+              <div class="info">
+                <h3>{{ i.identity }}</h3>
+                <p>{{ i.img }}</p>
+              </div>
+              <a href="/ac/top_list?id={{ i.singer }}" title="{{ i.identity }}" class="cover-link"></a>
+            </li>
         {% endfor %}
       </ul>
     </div>
     <div class="right-module">
-      <h4>热门歌单</h4>
+      <h4>全球媒体榜</h4>
       <ul class="new-artist-songs">
-        {% for i in hot_playlist %}
+        {% for i in top_lists_global %}
             <li class="artist-song">
               <div class="avatar">
-                <img src="{{ i.artist }}">
+                <img src="{{ i.id }}">
               </div>
               <div class="info">
-                <h3>{{ i.name }}</h3>
+                <h3>{{ i.identity }}</h3>
                 <p>{{ i.img }}</p>
               </div>
-              <a href="/ac/music_list?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
+              <a href="/ac/top_list?id={{ i.singer }}" title="{{ i.identity }}" class="cover-link"></a>
             </li>
         {% endfor %}
       </ul>
     </div>
   </div>
 </div>
-
 {% endblock %}
 
 {% block scripts %}

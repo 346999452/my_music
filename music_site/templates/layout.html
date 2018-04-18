@@ -47,7 +47,19 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'my_page' %}">我的主页</a></li>
                     <li><a href="{% url 'play_list' %}">歌单</a></li>
-                    <li><a href="{% url 'rank' %}">排行</a></li>
+                    <li><a href="{% url 'top_list' %}">排行</a></li>
+                    <li><form action="." method="post" class="form-horizontal" name="search">
+                            {% csrf_token %}
+                            <div class="row" style="margin: 10px;overflow: hidden">
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="key_word" placeholder="🎵/视频/电台/用户">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="submit" value="🔎" class="btn btn-default">
+                                </div>
+                            </div>
+                        </form>
+                    </li>
                 </ul>
                 {% include './loginpartial.html' %}
             </div>

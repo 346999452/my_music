@@ -48,7 +48,7 @@
                 <h3>{{ i.name }}</h3>
                 <p>by : {{ i.img }}</p>
               </div>
-              <a href="/ac/play_list?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
+              <a href="/ac/music_list?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
             </li>
         {% endfor %}
       </ul>
@@ -58,10 +58,7 @@
       <ul class="new-artist-songs">
         {% for i in similar_music %}
             <li class="artist-song">
-              <div class="avatar">
-                <img src="../storage/avatar/17.jpg">
-              </div>
-              <div class="info">
+              <div class="info" style="margin-left: 20px">
                 <h3>{{ i.name }}</h3>
                 <p>{{ i.rank }}</p>
               </div>
