@@ -148,7 +148,7 @@ class Yun_Music(Methods, Http_Client):
 
     ''' 获取各榜单top10详细信息 '''
     def get_top_10(self, list_name=None):
-        music_list = list(map(lambda x, y: (x[0], x[1], y), self.get_top_list(list_name)[: 10], [i + 1 for i in range(10)]))
+        music_list = self.map_list(self.get_top_list(list_name)[: 10], [i + 1 for i in range(10)], 2)
         song_list = []
         for _ in music_list:
             info = self.song_detail(_[0])
@@ -360,7 +360,7 @@ class Yun_Music(Methods, Http_Client):
             'description': description
         })
         self.add_list(find('user'), return_list, self.list_name[0])
-        self.add_list(list(map(lambda x, y: (x[0], x[1], x[2], y), find('album_info'), find('album_date'))), return_list, self.list_name[1])
+        self.add_list(self.map_list(find('album_info'), find('album_date'), 3), return_list, self.list_name[1])
         self.add_list(find('song'), return_list, self.list_name[0])
         return return_list
 
@@ -393,7 +393,7 @@ class Yun_Music(Methods, Http_Client):
         elif category == 'album':
             info = re.findall(r'"([^"]+)">\n<img src="([^\?]+)\?param=120y120"/>\n<a href="/album\?id=(\d+)', content)
             date = re.findall(r's-fc3">([^<]+)', content)
-            self.add_list(list(map(lambda x, y: (x[0], x[1], x[2], y), info, date)), result_list, self.list_name[1])
+            self.add_list(self.map_list(info, date, 3), result_list, self.list_name[1])
         else:
             songs = re.findall(r'song\?id=(\d+)">([^<]+)', content)
             self.add_list(songs, result_list, self.list_name[2])
@@ -506,5 +506,5 @@ class Yun_Music(Methods, Http_Client):
 
 if __name__ == '__main__':
     ym = Yun_Music()
-    print(ym.search_song('秋樱'))
+    print(ym.album_detail('37254228')[2])
 
