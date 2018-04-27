@@ -14,6 +14,7 @@ from other_class.methods import Methods
 import base64, json, re
 from urllib.request import quote
 from bs4 import BeautifulSoup
+from random import choice
 
 class Yun_Music(Methods, Http_Client):
 
@@ -87,7 +88,7 @@ class Yun_Music(Methods, Http_Client):
         try:
             return self.send(url, data).get('data')[0].get('url')
         except:
-            return
+            return None
 
     def login(self, username, password):
         url = 'http://music.163.com/weapi/login/cellphone?csrf_token='
@@ -246,6 +247,8 @@ class Yun_Music(Methods, Http_Client):
     def get_lyric(self, song_id):
         url = 'http://music.163.com/api/song/lyric?os=pc&id={}&lv=-1&kv=-1&tv=-1'.format(song_id)
         data = json.loads(self.send(url))
+        if data.get('nolyric'):
+            return ['无歌词']
         lyric_list = []
         for i in (data['lrc']['lyric'] + ('\n' + data['tlyric']['lyric'] if data['tlyric']['lyric'] else '')).split('\n'):
             if re.findall(r'\[by:([^\]]+)', i):
@@ -418,12 +421,14 @@ class Yun_Music(Methods, Http_Client):
         def find(name):
             return re.findall(dict_re[name], content)[0]
 
-        info = find('info')
-        des = find('des')
-        try:
-            city = find('city')
-        except:
-            city = '不明'
+        def get_info(name):
+            try:
+                info = find(name)
+            except:
+                info = '无'
+            return info
+
+        info = get_info('info')
         try:
             artist = find('artist')
             is_artist = True
@@ -436,8 +441,8 @@ class Yun_Music(Methods, Http_Client):
             'follow_count': find('follow_count'),
             'img': info[1],
             'name': info[0],
-            'des': des if des else '无',
-            'city': city,
+            'des': get_info('des'),
+            'city': get_info('city'),
             'artist': artist,
             'is_artist': is_artist
         })
@@ -503,8 +508,15 @@ class Yun_Music(Methods, Http_Client):
             })
         return song_list
 
+    ''' 音乐播放界面的展示图片，爬虫自图虫网 '''
+    def get_background(self, song):
+        url = 'https://stock.tuchong.com/free/search/?term={}'.format(quote(song))
+        ids = re.findall(re.compile('imageId":"(\d+)'), self.send(url))
+        if ids:
+            return 'https://p3a.pstatp.com/weili/l/{}.jpg'.format(choice(ids))
+        return 'http://photos.tuchong.com/339151/f/22354551.jpg'
 
 if __name__ == '__main__':
     ym = Yun_Music()
-    print(ym.album_detail('37254228')[2])
+    print(ym.get_background('空空如也'))
 

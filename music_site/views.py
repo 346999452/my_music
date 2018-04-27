@@ -99,6 +99,7 @@ class play_music(View, Yun_Music):
             }
             self.dict['src'] = self.get_music_src(id)
             self.dict['lyric'] = self.get_lyric(id)
+            self.dict['img_src'] = self.get_background(info.get('name'))
             self.dict['info'] = list_name
             self.dict['play_list']= play_music_page[0]
             self.dict['similar_music'] = play_music_page[1]

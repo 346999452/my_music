@@ -19,11 +19,14 @@
               <h2>{{ info.name }} - {{ info.artist_name }}</h2>
               <div class="info">
                 <span class="album">所属专辑</span> / <span class="date">{{ info.album_name }}</span>
+                  {% if not src %}
+                      <span>无播放版权</span>
+                  {% endif %}
               </div>
             </div>
             <div class="content">
               <p>
-                <img src="http://photos.tuchong.com/339151/f/22354551.jpg" style="width: 670px">
+                <img src="{{ img_src }}" style="width: 670px">
               </p>
               <p>
                 {% for i in lyric %}
