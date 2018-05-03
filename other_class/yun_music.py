@@ -247,10 +247,10 @@ class Yun_Music(Methods, Http_Client):
     def get_lyric(self, song_id):
         url = 'http://music.163.com/api/song/lyric?os=pc&id={}&lv=-1&kv=-1&tv=-1'.format(song_id)
         data = json.loads(self.send(url))
-        if data.get('nolyric'):
+        if 'lrc' not in data:
             return ['无歌词']
         lyric_list = []
-        for i in (data['lrc']['lyric'] + ('\n' + data['tlyric']['lyric'] if data['tlyric']['lyric'] else '')).split('\n'):
+        for i in (data['lrc']['lyric'] + ('\n' + data['tlyric']['lyric'] if data['tlyric'].get('lyric') else '')).split('\n'):
             if re.findall(r'\[by:([^\]]+)', i):
                 name = re.findall(r'\[by:([^\]]+)', i)
                 lyric_list.append('翻译：{}'.format(name))
@@ -508,15 +508,35 @@ class Yun_Music(Methods, Http_Client):
             })
         return song_list
 
+    def dj_detail(self, id):
+        content = self.send('http://music.163.com/dj?id={}'.format(id))
+        return_list = []
+        dict_re = {
+            'id': r'R_SO_4_(\d+)',
+            'cover_img': r'coverUrl":"([^"]+)',
+            'info': r'program\?id=(\d+)" title="([^<]+)">[^<]+</a></p>\n<p><span class="by s-fc4">([^<]+)',
+            'imgs': r'src="([^\?]+\?param=50y50)',
+        }
+
+        def find(name):
+            return re.findall(re.compile(dict_re[name]), content)
+
+        return_list.append({
+            'music_id': find('id')[0],
+            'cover_img': find('cover_img')[0]
+        })
+        self.add_list(self.map_list(find('info'), find('img'), 3), return_list, self.list_name[1])
+        return return_list
+
     ''' 音乐播放界面的展示图片，爬虫自图虫网 '''
     def get_background(self, song):
         url = 'https://stock.tuchong.com/free/search/?term={}'.format(quote(song))
-        ids = re.findall(re.compile('imageId":"(\d+)'), self.send(url))
+        ids = re.findall(re.compile(r'imageId":"(\d+)'), self.send(url))
         if ids:
             return 'https://p3a.pstatp.com/weili/l/{}.jpg'.format(choice(ids))
         return 'http://photos.tuchong.com/339151/f/22354551.jpg'
 
 if __name__ == '__main__':
     ym = Yun_Music()
-    print(ym.get_background('空空如也'))
+    print(ym.get_lyric('27934676'))
 

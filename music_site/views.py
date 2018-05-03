@@ -235,10 +235,12 @@ class mv(View, Yun_Music):
     def __init__(self):
         View.__init__(self)
         Yun_Music.__init__(self)
-        self.dict = {}
+        self.dict = {
+            'lala': 'http://v4.music.126.net/20180427183740/9eb6d8fbc42eef1f4ac5b9c0b8b67ac6/web/cloudmusic/mv/20171225021126/5eab069b-9681-44e0-8db4-3cbcd2d87d6d/c251f005d2fcc28b8c5013ece7a70a93.mp4',
+        }
 
     def get(self, request):
-        return render(request, 'template.html', self.add_username(request, self.dict))
+        return render(request, 'mv.html', self.add_username(request, self.dict))
 
     def post(self, request):
         return search(request)

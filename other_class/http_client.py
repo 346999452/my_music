@@ -10,6 +10,11 @@
 import json, requests
 from random import choice
 
+'''
+    一些应用的API
+    https://github.com/jokermonn/-Api
+'''
+
 class Http_Client():
 
     user_agent_list = [

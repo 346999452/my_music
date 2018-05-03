@@ -1,0 +1,32 @@
+{% extends './layout.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="http://vjs.zencdn.net/5.8.8/video-js.css">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <!-- 视频播放 -->
+    <video id="my_video" controls preload="auto" width="100%" height="500px"
+      class="video-js vjs-default-skin vjs-big-play-centered" loop="loop" autoplay="autoplay">
+      <source src="http://v4.music.126.net/20180427182607/6cedddc47957da318b69b60f708d2f56/web/cloudmusic/mv/20171115113305/09344d5b-ddc1-40c8-ba6e-271757d2a50d/6b53e5154fd6265fd580ec8d18cce62b.mp4" type="video/mp4">
+    </video>
+    <p class="text-primary">当前播放时长/秒：<span id="current_time"></span></p>
+    <p class="text-primary">总时长/秒： <span id="video_duration"></span></p>
+    <hr />
+  </div>
+{% endblock %}
+{% block scripts %}
+   <script type="text/javascript" src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+   <script type="text/javascript" src="{% static '../static/js/video_play.js' %}"></script>
+   <script type="text/javascript" >
+      var my_video = document.getElementById("my_video");
+      my_video.ontimeupdate = function() {
+        var current_time = my_video.currentTime;
+        var duration = my_video.duration;
+        document.getElementById("current_time").innerHTML = Math.floor(current_time);
+        document.getElementById('video_duration').innerHTML = Math.floor(duration);
+      }
+   </script>
+{% endblock %}
