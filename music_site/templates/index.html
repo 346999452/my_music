@@ -34,7 +34,7 @@
           <div class="content-header">
             <h2><i class="fa fa-music red"></i>热门推荐</h2>
             <div class="tab">
-              <a href="/ac/play_list/?cat=华语" target="_blank">华语</a>
+              <a href="/ac/play_list/?cat=华语">华语</a>
               <span class="line">|</span>
               <a href="/ac/play_list/?cat=流行">流行</a>
               <span class="line">|</span>
@@ -47,33 +47,18 @@
             <!--<span class="more"><a href="#">更多</a></span>-->
           </div>
           <ul class="music-list clearfix">
-            {% if commend %}
-                {% for i in play_list %}
-                    <li>
-                      <div class="u-cover">
-                        <img src="{{ i.id }}">
-                        <a title="{{ i.singer }}" href="/ac/music_list?id={{ i.img }}" class="msk"></a>
-                      </div>
-                      <p class="dec">
-                        <a title="{{ i.singer }}" href="/ac/music_list?id={{ i.img }}">{{ i.singer }}</a>
-                      </p>
-                      <div class="author">{{ i.identity }}</div>
-                    </li>
-                {% endfor %}
-            {% else %}
-                {% for i in play_list %}
-                    <li>
-                      <div class="u-cover">
-                        <img src="{{ i.id }}">
-                        <a title="{{ i.identity }}" href="/ac/music_list?id={{ i.img }}" class="msk"></a>
-                      </div>
-                      <p class="dec">
-                        <a title="{{ i.identity }}" href="/ac/music_list?id={{ i.img }}">{{ i.identity }}</a>
-                      </p>
-                      <div class="author">{{ i.img }}</div>
-                    </li>
-                {% endfor %}
-            {% endif %}
+            {% for i in play_list %}
+                <li>
+                  <div class="u-cover">
+                    <img src="{{ i.img }}">
+                    <a title="{{ i.id }}" href="/ac/{{ i.name }}?id={{ i.artist_id }}" class="msk"></a>
+                  </div>
+                  <p class="dec">
+                    <a title="{{ i.id }}" href="/ac/{{ i.name }}?id={{ i.artist_id }}">{{ i.id }}</a>
+                  </p>
+                  <div class="author">{{ i.artist }}</div>
+                </li>
+            {% endfor %}
           </ul>
         </div>
         <div class="hot-recommand">

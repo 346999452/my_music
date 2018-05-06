@@ -199,7 +199,8 @@ class Yun_Music(Methods, Http_Client):
         zip_list(song_list, find('popular_anchor'), find('identity_list')[5: 10], find('popular_anchor_img'), find('singer_id')[5:: 2])
 
         ''' 热门推荐的歌单 '''
-        self.add_list(list(map(lambda x, y: (x[0], '电台节目' if x[1] == 'dj' else '歌单', x[2], y), find('play_list'), find('play_list_img'))), song_list, self.list_name[1])
+        self.add_list(list(map(lambda x, y: (x[0], 'music_list' if x[1] == 'playlist' else 'dj',
+            '电台节目' if x[1] == 'dj' else '歌单', x[2], y), find('play_list'), find('play_list_img'))), song_list, self.list_name[3])
 
         def lunbo(lunbo_list):
             li = ['song', 'album', 'mv']
@@ -525,7 +526,7 @@ class Yun_Music(Methods, Http_Client):
             'music_id': find('id')[0],
             'cover_img': find('cover_img')[0]
         })
-        self.add_list(self.map_list(find('info'), find('img'), 3), return_list, self.list_name[1])
+        self.add_list(self.map_list(find('info'), find('imgs'), 3), return_list, self.list_name[1])
         return return_list
 
     ''' 音乐播放界面的展示图片，爬虫自图虫网 '''
@@ -538,5 +539,5 @@ class Yun_Music(Methods, Http_Client):
 
 if __name__ == '__main__':
     ym = Yun_Music()
-    print(ym.get_lyric('27934676'))
+    print(ym.dj_detail('1369115775')[0].get('music_id'))
 
