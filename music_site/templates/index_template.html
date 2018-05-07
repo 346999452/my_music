@@ -1,0 +1,1009 @@
+{% extends "./layout.html" %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/reset.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/common.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/slider.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
+{% endblock %}
+
+{% block content %}
+<div class="container-sm slider-wrap">
+  <div class="slider">
+    <div class="slider-item-list"></div>
+    <div class="slider-dots">
+      <div class="slider-dots-wrap"></div>
+    </div>
+    <div class="slider-arrows">
+      <div class="slider-arrows-wrap">
+        <span class="slider-arrow slider-arrow-left" onclick="HBSlider.turn(-1)"></span>
+        <span class="slider-arrow slider-arrow-right" onclick="HBSlider.turn(1)"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 主内容区域 -->
+<div class="container-sm box">
+  <!-- 主内容 -->
+  <div class="main">
+    <div class="main-wrap">
+      <div class="content-box">
+        <!-- 热门推荐 -->
+        <div class="hot-recommand">
+          <div class="content-header">
+            <h2><i class="fa fa-music red"></i>热门推荐</h2>
+            <div class="tab">
+              <a href="/ac/play_list/?cat=华语">华语</a>
+              <span class="line">|</span>
+              <a href="/ac/play_list/?cat=流行">流行</a>
+              <span class="line">|</span>
+              <a href="/ac/play_list/?cat=摇滚">摇滚</a>
+              <span class="line">|</span>
+              <a href="/ac/play_list/?cat=电子">电子</a>
+              <span class="line">|</span>
+              <a href="/ac/play_list/?cat=民谣">民谣</a>
+            </div>
+            <!--<span class="more"><a href="#">更多</a></span>-->
+          </div>
+          <ul class="music-list clearfix">
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p1.music.126.net/zdz_AAEmmHEnncQDt1AtUA==/7875801791029848.jpg?param=140y140">
+                        <a title="那些摇滚乐里的小号" href="/ac/music_list?id=106697785" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="那些摇滚乐里的小号" href="/ac/music_list?id=106697785">那些摇滚乐里的小号</a>
+                      </p>
+                      <div class="author">歌单</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p1.music.126.net/FjqreOoRBzuVQCVJcDDsGQ==/18948983393640763.jpg?param=140y140">
+                        <a title="如果我们能够久别重逢，我希望你别来无恙" href="/ac/music_list?id=2208261223" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="如果我们能够久别重逢，我希望你别来无恙" href="/ac/music_list?id=2208261223">如果我们能够久别重逢，我希望你别来无恙</a>
+                      </p>
+                      <div class="author">歌单</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p1.music.126.net/Zcx3vmA0mM0yFQ9hU1UBfg==/109951163094948461.jpg?param=140y140">
+                        <a title="随想纯音 · 仰望星辰的循环往复" href="/ac/music_list?id=2033343411" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="随想纯音 · 仰望星辰的循环往复" href="/ac/music_list?id=2033343411">随想纯音 · 仰望星辰的循环往复</a>
+                      </p>
+                      <div class="author">歌单</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p1.music.126.net/F5sg6xgKs9PquIfmFdUGsw==/109951163285500117.jpg?param=140y140">
+                        <a title="最后的守护者与叛逆期的英雄【GADIOSTORY VOL.12】" href="/ac/dj?id=1369167753" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="最后的守护者与叛逆期的英雄【GADIOSTORY VOL.12】" href="/ac/dj?id=1369167753">最后的守护者与叛逆期的英雄【GADIOSTORY VOL.12】</a>
+                      </p>
+                      <div class="author">电台节目</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p1.music.126.net/c9p36Vb8tz5kLrXrx2HAmA==/18874216602438730.jpg?param=140y140">
+                        <a title="「满分鼓手」激情碰撞 震撼回响" href="/ac/music_list?id=632861924" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="「满分鼓手」激情碰撞 震撼回响" href="/ac/music_list?id=632861924">「满分鼓手」激情碰撞 震撼回响</a>
+                      </p>
+                      <div class="author">歌单</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p1.music.126.net/-KwTPVdsq0VU1qsSHaxT8A==/18590542604353330.jpg?param=140y140">
+                        <a title="Regard & Marina Laduda - What if (Official Music Audio)" href="/ac/dj?id=1369152277" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="Regard & Marina Laduda - What if (Official Music Audio)" href="/ac/dj?id=1369152277">Regard & Marina Laduda - What if (Official Music Audio)</a>
+                      </p>
+                      <div class="author">电台节目</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p1.music.126.net/_ybcEpYdUVxuCct1yQwpyg==/109951163093420045.jpg?param=140y140">
+                        <a title="粤语男声 I 我已见过银河 但我只爱一颗星" href="/ac/music_list?id=2023551932" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="粤语男声 I 我已见过银河 但我只爱一颗星" href="/ac/music_list?id=2023551932">粤语男声 I 我已见过银河 但我只爱一颗星</a>
+                      </p>
+                      <div class="author">歌单</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p1.music.126.net/3lmM36s1lXaE37wvX6XTWg==/109951163267780973.jpg?param=140y140">
+                        <a title="戒烟 抖音完整版" href="/ac/dj?id=1369016032" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="戒烟 抖音完整版" href="/ac/dj?id=1369016032">戒烟 抖音完整版</a>
+                      </p>
+                      <div class="author">电台节目</div>
+                    </li>
+
+
+          </ul>
+        </div>
+        <div class="hot-recommand">
+          <div class="content-header">
+            <h2><i class="fa fa-music red"></i>新碟上架</h2>
+          </div>
+          <ul class="music-list clearfix">
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p4.music.126.net/xVvktztqvjgyMUBRQeeDfQ==/109951163271890902.jpg?param=100y100">
+                        <a title="溯游从歌" href="/ac/album?id=38529019" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="溯游从歌" href="/ac/album?id=38529019">溯游从歌</a>
+                      </p>
+                      <div class="author">群星 / Winky诗 / 三无MarBlue / Mario / smile_小千 / 小魂 / 不才 / 贰婶 / 只有影子 / 吴磊</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p4.music.126.net/BPQ83fECIS2CBLnpbOGCNA==/109951163253315098.jpg?param=100y100">
+                        <a title="摩天大楼" href="/ac/album?id=38388012" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="摩天大楼" href="/ac/album?id=38388012">摩天大楼</a>
+                      </p>
+                      <div class="author">薛之谦</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p4.music.126.net/XWMiED2ryCj2xVovjDRDSQ==/109951163281594877.jpg?param=100y100">
+                        <a title="Voicenotes" href="/ac/album?id=38530129" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="Voicenotes" href="/ac/album?id=38530129">Voicenotes</a>
+                      </p>
+                      <div class="author">Charlie Puth</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p4.music.126.net/36Jn70oJcxhTpiWunyyg8w==/109951163255300834.jpg?param=100y100">
+                        <a title="Dawn of us" href="/ac/album?id=38404010" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="Dawn of us" href="/ac/album?id=38404010">Dawn of us</a>
+                      </p>
+                      <div class="author">王嘉尔</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p4.music.126.net/x3x3rctNe_cca843RGFdfA==/109951163279173797.jpg?param=100y100">
+                        <a title="I am" href="/ac/album?id=38530045" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="I am" href="/ac/album?id=38530045">I am</a>
+                      </p>
+                      <div class="author">(G)I-DLE</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p3.music.126.net/kaSBPpFc1J2eKEg_XepMaA==/109951163279924029.jpg?param=100y100">
+                        <a title="Bloom" href="/ac/album?id=38529067" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="Bloom" href="/ac/album?id=38529067">Bloom</a>
+                      </p>
+                      <div class="author">Troye Sivan</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p3.music.126.net/dJr7xr2jFI5281fFi2O0Yg==/109951163281429437.jpg?param=100y100">
+                        <a title="舞舞舞" href="/ac/album?id=38585014" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="舞舞舞" href="/ac/album?id=38585014">舞舞舞</a>
+                      </p>
+                      <div class="author">萧亚轩</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p4.music.126.net/5o98Qxu7eiwbEVJOHQ1ifw==/109951163268328472.jpg?param=100y100">
+                        <a title="Melody" href="/ac/album?id=38497993" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="Melody" href="/ac/album?id=38497993">Melody</a>
+                      </p>
+                      <div class="author">Lost Frequencies / James Blunt</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p4.music.126.net/yNSw3steQSPGqxAStaJhaA==/109951163270068097.jpg?param=100y100">
+                        <a title="beerbongs & bentleys" href="/ac/album?id=38513012" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="beerbongs & bentleys" href="/ac/album?id=38513012">beerbongs & bentleys</a>
+                      </p>
+                      <div class="author">Post Malone</div>
+                    </li>
+
+
+                    <li>
+                      <div class="u-cover">
+                        <img src="http://p3.music.126.net/cJ4BOjSwvoU3ai8zTe-q8Q==/109951163243389836.jpg?param=100y100">
+                        <a title="爵士乐与不插电新编12首" href="/ac/album?id=38274116" class="msk"></a>
+                      </div>
+                      <p class="dec">
+                        <a title="爵士乐与不插电新编12首" href="/ac/album?id=38274116">爵士乐与不插电新编12首</a>
+                      </p>
+                      <div class="author">李志</div>
+                    </li>
+
+
+          </ul>
+        </div>
+        <!-- 分类榜单 -->
+        <div class="category">
+          <div class="content-header">
+            <h2><i class="fa fa-music red"></i>榜单</h2>
+          </div>
+          <div class="row">
+            <div class="category-music-list">
+              <div class="category-header">
+                云音乐新歌榜
+              </div>
+              <ul>
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">1.</span>
+                          <a href="/ac/music/?id=557148288" title="Refrain">The Way I Am</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">2.</span>
+                          <a href="/ac/music/?id=557581040" title="Refrain">Hello Hello</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">3.</span>
+                          <a href="/ac/music/?id=545799648" title="Refrain">我愿意为你轻轻歌唱</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">4.</span>
+                          <a href="/ac/music/?id=512099305" title="Refrain">好不好啊</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">5.</span>
+                          <a href="/ac/music/?id=526464145" title="Refrain">喜欢</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">6.</span>
+                          <a href="/ac/music/?id=536624409" title="Refrain">勿匆匆</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">7.</span>
+                          <a href="/ac/music/?id=544199008" title="Refrain">Done For Me</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">8.</span>
+                          <a href="/ac/music/?id=555936721" title="Refrain">故事的1/4</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">9.</span>
+                          <a href="/ac/music/?id=557579034" title="Refrain">秒秒</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">10.</span>
+                          <a href="/ac/music/?id=554242217" title="Refrain">四月少了</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+              </ul>
+            </div>
+            <div class="category-music-list">
+              <div class="category-header">
+                云音乐飙升榜
+              </div>
+              <ul>
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">1.</span>
+                          <a href="/ac/music/?id=551816010" title="Refrain">我们</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">2.</span>
+                          <a href="/ac/music/?id=553310243" title="Refrain">后来的我们</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">3.</span>
+                          <a href="/ac/music/?id=556204150" title="Refrain">Bloom</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">4.</span>
+                          <a href="/ac/music/?id=554118097" title="Refrain">往后余生原创(demo)</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">5.</span>
+                          <a href="/ac/music/?id=557148288" title="Refrain">The Way I Am</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">6.</span>
+                          <a href="/ac/music/?id=548648087" title="Refrain">戒烟 (Live)</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">7.</span>
+                          <a href="/ac/music/?id=556207187" title="Refrain">Can't Breathe</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">8.</span>
+                          <a href="/ac/music/?id=556207070" title="Refrain">几乎成名</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">9.</span>
+                          <a href="/ac/music/?id=553813030" title="Refrain">Dawn of us</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">10.</span>
+                          <a href="/ac/music/?id=554245163" title="Refrain">你打不过我吧</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="category-music-list">
+              <div class="category-header">
+                网易原创歌曲榜
+              </div>
+              <ul>
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">1.</span>
+                          <a href="/ac/music/?id=555894912" title="Refrain">去问猫耳朵</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">2.</span>
+                          <a href="/ac/music/?id=556203011" title="Refrain">面包与海</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">3.</span>
+                          <a href="/ac/music/?id=555936721" title="Refrain">故事的1/4</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">4.</span>
+                          <a href="/ac/music/?id=554244265" title="Refrain">TIME</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">5.</span>
+                          <a href="/ac/music/?id=554244310" title="Refrain">暗恋之歌</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">6.</span>
+                          <a href="/ac/music/?id=551338687" title="Refrain">匆匆</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">7.</span>
+                          <a href="/ac/music/?id=554242217" title="Refrain">四月少了</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">8.</span>
+                          <a href="/ac/music/?id=554244810" title="Refrain">天天是周末</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">9.</span>
+                          <a href="/ac/music/?id=554241667" title="Refrain">无论</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">10.</span>
+                          <a href="/ac/music/?id=554242704" title="Refrain">她走路的姿势</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+              </ul>
+            </div>
+            <div class="category-music-list">
+              <div class="category-header">
+                云音乐热歌榜
+              </div>
+              <ul>
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">1.</span>
+                          <a href="/ac/music/?id=516076896" title="Refrain">纸短情长（完整版）</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">2.</span>
+                          <a href="/ac/music/?id=551816010" title="Refrain">我们</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">3.</span>
+                          <a href="/ac/music/?id=518686034" title="Refrain">戒烟</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">4.</span>
+                          <a href="/ac/music/?id=553310243" title="Refrain">后来的我们</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">5.</span>
+                          <a href="/ac/music/?id=545799244" title="Refrain">不仅仅是喜欢</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">6.</span>
+                          <a href="/ac/music/?id=254574" title="Refrain">后来</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">7.</span>
+                          <a href="/ac/music/?id=536502758" title="Refrain">离人愁</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">8.</span>
+                          <a href="/ac/music/?id=486892608" title="Refrain">春娇与志明</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">9.</span>
+                          <a href="/ac/music/?id=29004400" title="Refrain">烟火里的尘埃</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+                    <li class="music-list-item">
+                      <div class="title">
+                        <div class="title_wrap">
+                          <span class="rank">10.</span>
+                          <a href="/ac/music/?id=547976490" title="Refrain">爱了很久的朋友</a>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <span class="avatar"><p></p></span>
+                      </div>
+                    </li>
+
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 侧边栏 -->
+  <div class="sidebar" style="min-height: 1094px">
+    <div class="right-module">
+      <h4>入驻歌手</h4>
+      <ul class="new-artist-songs">
+
+                    <li class="artist-song">
+                      <div class="avatar">
+                        <img src="http://p1.music.126.net/p9U80ex1B1ciPFa125xV5A==/5931865232210340.jpg?param=62y62">
+                      </div>
+                      <div class="info">
+                        <h3>张惠妹aMEI</h3>
+                        <p>台湾歌手张惠妹</p>
+                      </div>
+                      <a href="/ac/user?id=29879272" title="张惠妹aMEI" class="cover-link"></a>
+                    </li>
+
+
+                    <li class="artist-song">
+                      <div class="avatar">
+                        <img src="http://p1.music.126.net/1EN_iqQWU_E3DafzEOh3cA==/3302932937408956.jpg?param=62y62">
+                      </div>
+                      <div class="info">
+                        <h3>Fine乐团</h3>
+                        <p>独立音乐人</p>
+                      </div>
+                      <a href="/ac/user?id=100167517" title="Fine乐团" class="cover-link"></a>
+                    </li>
+
+
+                    <li class="artist-song">
+                      <div class="avatar">
+                        <img src="http://p1.music.126.net/ZuktZvjcxpYBjcWC3gmbPg==/19027048718765608.jpg?param=62y62">
+                      </div>
+                      <div class="info">
+                        <h3>萬曉利</h3>
+                        <p>民谣歌手、中国现代民谣的代表人物之一</p>
+                      </div>
+                      <a href="/ac/user?id=58426904" title="萬曉利" class="cover-link"></a>
+                    </li>
+
+
+                    <li class="artist-song">
+                      <div class="avatar">
+                        <img src="http://p1.music.126.net/v_zYgE9kmAwVGWV2c8hFxA==/7943971513291094.jpg?param=62y62">
+                      </div>
+                      <div class="info">
+                        <h3>音乐人赵雷</h3>
+                        <p>民谣歌手</p>
+                      </div>
+                      <a href="/ac/user?id=93504818" title="音乐人赵雷" class="cover-link"></a>
+                    </li>
+
+
+                    <li class="artist-song">
+                      <div class="avatar">
+                        <img src="http://p1.music.126.net/U-duMw2-FE0wNRsuwGktPw==/109951162895674268.jpg?param=62y62">
+                      </div>
+                      <div class="info">
+                        <h3>王三溥</h3>
+                        <p>音乐人</p>
+                      </div>
+                      <a href="/ac/user?id=46998208" title="王三溥" class="cover-link"></a>
+                    </li>
+
+
+      </ul>
+    </div>
+    <div class="right-module">
+      <h4>热门主播</h4>
+      <ul class="new-artist-songs">
+
+                    <li class="artist-song">
+                      <div class="avatar">
+                        <img src="http://p1.music.126.net/H3QxWdf0eUiwmhJvA4vrMQ==/1407374893913311.jpg?param=40y40">
+                      </div>
+                      <div class="info">
+                        <h3>陈立</h3>
+                        <p>心理学家、美食家陈立教授</p>
+                      </div>
+                      <a href="/ac/user?id=278438485" title="陈立" class="cover-link"></a>
+                    </li>
+
+
+                    <li class="artist-song">
+                      <div class="avatar">
+                        <img src="http://p1.music.126.net/y5-sM7tjnxnu_V9LWKgZlw==/7942872001461517.jpg?param=40y40">
+                      </div>
+                      <div class="info">
+                        <h3>DJ艳秋</h3>
+                        <p>著名音乐节目主持人</p>
+                      </div>
+                      <a href="/ac/user?id=91239965" title="DJ艳秋" class="cover-link"></a>
+                    </li>
+
+
+                    <li class="artist-song">
+                      <div class="avatar">
+                        <img src="http://p1.music.126.net/6cc6lgOfQTo6ovNnTHPyJg==/3427177769086282.jpg?param=40y40">
+                      </div>
+                      <div class="info">
+                        <h3>国家大剧院古典音乐频道</h3>
+                        <p>国家大剧院古典音乐官方</p>
+                      </div>
+                      <a href="/ac/user?id=324314596" title="国家大剧院古典音乐频道" class="cover-link"></a>
+                    </li>
+
+
+                    <li class="artist-song">
+                      <div class="avatar">
+                        <img src="http://p1.music.126.net/xa1Uxrrn4J0pm_PJwkGYvw==/3130309604335651.jpg?param=40y40">
+                      </div>
+                      <div class="info">
+                        <h3>谢谢收听</h3>
+                        <p>南京电台主持人王馨</p>
+                      </div>
+                      <a href="/ac/user?id=1611157" title="谢谢收听" class="cover-link"></a>
+                    </li>
+
+
+                    <li class="artist-song">
+                      <div class="avatar">
+                        <img src="http://p1.music.126.net/slpd09Tf5Ju82Mv-h8MP4w==/3440371884651965.jpg?param=40y40">
+                      </div>
+                      <div class="info">
+                        <h3>DJ晓苏</h3>
+                        <p>独立DJ，CRI环球旅游广播特邀DJ</p>
+                      </div>
+                      <a href="/ac/user?id=2313954" title="DJ晓苏" class="cover-link"></a>
+                    </li>
+
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    {% load staticfiles %}
+    <script type="text/javascript" src="{% static "js/music/jquery.min.js"%}"></script>
+    <script type="text/javascript" src="{% static "js/music/HBSlider.js"%}"></script>
+    <script type="text/javascript">
+        var sliderData = [];
+        var data = {title: '',pic: 'http://p1.music.126.net/wxMruy2vhsjok-4Dc0BOFQ==/109951163284351173.jpg',url: '/ac/album/?id=38530129'};sliderData.push(data);
+        var data = {title: '',pic: 'http://p1.music.126.net/yly2btzU7SCUVHZON4r98g==/109951163286554166.jpg',url: '/ac/music/?id=557583028'};sliderData.push(data);
+        var data = {title: '',pic: 'http://p1.music.126.net/o717awSpAsdMXIN0VI7V1A==/109951163282857272.jpg',url: '/ac/music/?id=556204150'};sliderData.push(data);
+        var data = {title: '',pic: 'http://p1.music.126.net/l9ewgmsgvB8Yf5GdDj9P5A==/109951163286549466.jpg',url: 'http://music.163.com/#/activity?id=22581101'};sliderData.push(data);
+        var data = {title: '',pic: 'http://p1.music.126.net/T7X_Rlhx8sTV4SWMOecXfw==/109951163286667555.jpg',url: '/ac/mv/?id=5902240'};sliderData.push(data);
+        var data = {title: '',pic: 'http://p1.music.126.net/EY9-P-2JSrGj7AErxAC2dg==/109951163286556552.jpg',url: 'http://music.163.com/#/djradio?id=527001576'};sliderData.push(data);
+        var data = {title: '',pic: 'http://p1.music.126.net/sQ9SSOG7rOc82otrBca5cg==/109951163280976814.jpg',url: '/ac/music/?id=556207187'};sliderData.push(data);
+        var data = {title: '',pic: 'http://p1.music.126.net/RY-1UQ2rjJyLpnH4zO9now==/109951163284729823.jpg',url: '/playlist?id=2201443336'};sliderData.push(data);
+
+
+      $(function () {
+        HBSlider.setConfig({
+          autoPlay: true,
+          delay: 5
+        });
+        HBSlider.setItems(sliderData);
+        HBSlider.init();
+        HBSlider.play();
+      });
+    </script>
+{% endblock %}
+

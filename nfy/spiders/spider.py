@@ -46,7 +46,7 @@ class MySpider(Spider):
             yield item
 
         rank = response.xpath('//div[@class="n-bilst"]/dl/dd/ol/li')
-        filename = ['file/40.txt', 'file/50.txt', 'file/60.txt']
+        filename = ['file/fill_blank/40.txt', 'file/fill_blank/50.txt', 'file/fill_blank/60.txt']
         for i in range(len(rank)):
             item = rank_item()
             item['name'] = rank[i].xpath('./a/text()').extract_first()
@@ -63,7 +63,7 @@ class MySpider(Spider):
             href = i.xpath('./a/@href').extract_first()
             item['id'] = re.findall(re.compile(r'(\d+)'), href)[0]
             item['img'] = i.xpath('./a/div[@class="head"]/img/@src').extract_first()
-            item['filename'] = 'file/70.txt'
+            item['filename'] = 'file/fill_blank/70.txt'
             yield item
 
         hot_charac = response.xpath('//ul[@class="n-hotdj f-cb"]/li')
@@ -74,7 +74,7 @@ class MySpider(Spider):
             item['id'] = re.findall(re.compile(r'(\d+)'), href)[0]
             item['singer'] = i.xpath('./div/p/a/text()').extract_first()
             item['identity'] = i.xpath('./div/p[@class="f-thide s-fc3"]/text()').extract_first()
-            item['filename'] = 'file/80.txt'
+            item['filename'] = 'file/fill_blank/80.txt'
             yield item
 
 
@@ -104,7 +104,7 @@ class Another_Spider(Spider):
     allowed_domains = ['163.com']
 
     start_urls = [
-        'http://music.163.com/discover/toplist?id=3779629',
+        'http://music.163.com/discover/toplist?id=3778678',
     ]
 
     def parse(self, response):
@@ -116,7 +116,7 @@ class Another_Spider(Spider):
             item['id'] = id
             item['name'] = i.xpath('./a/text()').extract_first()
             item['rank'] = num
-            item['filename'] = 'file/30.txt'
+            item['filename'] = 'file/fill_blank/30.txt'
             yield item
 
 if __name__ == '__main__':

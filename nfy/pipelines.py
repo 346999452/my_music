@@ -30,7 +30,7 @@ class NfyPipeline(object):
                     '''
         new_temp = template.format(item['img'], item['title'], item['index'], item['id'],
                    item['title'], item['index'], item['id'], item['title'], item['category'])
-        with open('file/10.txt', 'ab') as fp:
+        with open('file/fill_blank/10.txt', 'ab') as fp:
             fp.write(bytes(new_temp + '\n', encoding='utf-8'))
 
     ''' 新碟上架 '''
@@ -49,7 +49,7 @@ class NfyPipeline(object):
                     '''
         new_temp = template.format(item['img'], item['name'], item['id'], item['name'],
                                 item['id'], item['name'], item['artist'])
-        with open('file/20.txt', 'ab') as fp:
+        with open('file/fill_blank/20.txt', 'ab') as fp:
             fp.write(bytes(new_temp + '\n', encoding='utf-8'))
 
     ''' 榜单信息 '''
@@ -97,7 +97,7 @@ class NfyPipeline(object):
                    "url: '" + item['url'] + "'" \
                    "};" \
                    "sliderData.push(data);"
-        with open('file/90.txt', 'ab') as fp:
+        with open('file/fill_blank/90.txt', 'ab') as fp:
             fp.write(bytes(template + '\n', encoding='utf-8'))
 
     def process_item(self, item, spider):

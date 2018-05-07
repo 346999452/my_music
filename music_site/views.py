@@ -52,20 +52,20 @@ from urllib.request import quote
 class home(View, Yun_Music):
 
     def get(self, request):
-        Yun_Music.__init__(self)
-        info = self.get_index()
-        dict = {
-            'new_song_list': info[1],
-            'up_song_list': info[0],
-            'original_song_list': info[2],
-            'hot_song_list': self.get_top_10('云音乐热歌榜'),
-            'singer_list': info[3],
-            'popular_anchor': info[4],
-            'play_list': info[5],
-            'album_list': info[7],
-            'lunbo_list': info[6]
-        }
-        return render(request, 'index.html', self.add_username(request, dict))
+        # Yun_Music.__init__(self)
+        # info = self.get_index()
+        # dict = {
+        #     'new_song_list': info[1],
+        #     'up_song_list': info[0],
+        #     'original_song_list': info[2],
+        #     'hot_song_list': self.get_top_10('云音乐热歌榜'),
+        #     'singer_list': info[3],
+        #     'popular_anchor': info[4],
+        #     'play_list': info[5],
+        #     'album_list': info[7],
+        #     'lunbo_list': info[6]
+        # }
+        return render(request, 'index_template.html', self.add_username(request, {}))
 
     def post(self, request):
         return search(request)

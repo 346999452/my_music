@@ -8,21 +8,13 @@
 
 """
 
-# from scrapy import cmdline
-# from threading import Thread
-#
-#
-# def func1():
-#     cmdline.execute('scrapy crawl mu163'.split())
-#
-# def func2():
-#     cmdline.execute('scrapy crawl nfy'.split())
-#
-#
-# try:
-#     Thread(target=func1).start()
-#     Thread(target=func2).start()
-# except:
-#     print('错误')
+# with open('./file/htm/htm1', 'rb') as f:
+#     print(f.read().decode('utf-8'))
+
+
+from scrapy import cmdline
+
+cmdline.execute('scrapy crawl mu163'.split())
+
 
 
