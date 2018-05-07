@@ -537,7 +537,21 @@ class Yun_Music(Methods, Http_Client):
             return 'https://p3a.pstatp.com/weili/l/{}.jpg'.format(choice(ids))
         return 'http://photos.tuchong.com/339151/f/22354551.jpg'
 
+    def shi(self):
+        from lxml import etree
+
+        content = self.send('http://music.163.com/discover/toplist?id=3779629')
+        data = etree.HTML(content)
+        x = data.xpath('//ul[@class="f-hide"]/li')
+        for i in x:
+            href = i.xpath('./a/@href')[0]
+            id = re.findall(re.compile(r'(\d+)'), href)[0]
+            name = i.xpath('./a/text()')[0]
+            print(name)
+
+
+
 if __name__ == '__main__':
     ym = Yun_Music()
-    print(ym.dj_detail('1369115775')[0].get('music_id'))
+    ym.shi()
 
