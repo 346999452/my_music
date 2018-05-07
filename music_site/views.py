@@ -65,6 +65,12 @@ class home(View, Yun_Music):
         #     'album_list': info[7],
         #     'lunbo_list': info[6]
         # }
+        # return  render(request, 'index.html', self.add_username(request, dict))
+        '''
+            后台加入scripy定时爬取网易主页存储为静态html文件，加快主页访问速度
+        :param request:
+        :return:
+        '''
         return render(request, 'index_template.html', self.add_username(request, {}))
 
     def post(self, request):

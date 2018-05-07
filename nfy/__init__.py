@@ -14,7 +14,7 @@
 
 from scrapy import cmdline
 
-cmdline.execute('scrapy crawl mu163'.split())
+cmdline.execute('scrapy crawl nfy'.split())
 
 
 
