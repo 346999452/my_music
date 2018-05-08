@@ -17,9 +17,11 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from music_site import url as url_1
 from music_site.views import home
+from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ac/', include(url_1)),
-    url(r'^$', home.as_view(), name='home')
+    url(r'^$', home.as_view(), name='home'),
+    url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain'))
 ]
