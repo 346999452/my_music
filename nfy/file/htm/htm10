@@ -1,0 +1,12 @@
+
+      $(function () {
+        HBSlider.setConfig({
+          autoPlay: true,
+          delay: 5
+        });
+        HBSlider.setItems(sliderData);
+        HBSlider.init();
+        HBSlider.play();
+      });
+    </script>
+{% endblock %}

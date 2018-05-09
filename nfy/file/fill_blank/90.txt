@@ -1,0 +1,8 @@
+var data = {title: '',pic: 'http://p1.music.126.net/LZL0KlJd17MmOwm9xjZy1w==/109951163289674713.jpg',url: '/ac/album/?id=38529085'};sliderData.push(data);
+var data = {title: '',pic: 'http://p1.music.126.net/GpXkl5CSbM8m7FZ3zZNaLg==/109951163289682154.jpg',url: '/ac/album/?id=38430061'};sliderData.push(data);
+var data = {title: '',pic: 'http://p1.music.126.net/J3dy8-ssWCtfqfdGbMXcmw==/109951163289677670.jpg',url: '/ac/album/?id=38529019'};sliderData.push(data);
+var data = {title: '',pic: 'http://p1.music.126.net/lMxS7bNboj5LdDI_TDrzXg==/109951163288151462.jpg',url: '/ac/music/?id=557581095'};sliderData.push(data);
+var data = {title: '',pic: 'http://p1.music.126.net/StIzUop0tZ6zeA0Kzte3uQ==/109951163289675850.jpg',url: '/ac/music/?id=557583028'};sliderData.push(data);
+var data = {title: '',pic: 'http://p1.music.126.net/LjcxfCCoxP9dH9IzkjID-Q==/109951163287888670.jpg',url: '/ac/music/?id=557274916'};sliderData.push(data);
+var data = {title: '',pic: 'http://p1.music.126.net/FnLSMwco3ciAhHGBqLHscA==/109951163287194105.jpg',url: 'http://music.163.com/#/activity?id=22657067'};sliderData.push(data);
+var data = {title: '',pic: 'http://p1.music.126.net/fL4GezIpxspUhhSVRtMccw==/109951163289669617.jpg',url: 'http://music.163.com/m/at/5aec17a1c2e0402a803f775a'};sliderData.push(data);
