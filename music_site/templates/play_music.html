@@ -6,6 +6,43 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/music/common.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/category.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
+    <script>
+        window.onload = function (ev) {
+            var content = document.getElementsByClassName('content')[0];
+            var back_img = content.getElementsByTagName('img')[0];
+            var lyric = content.getElementsByTagName('p')[1];
+            var play_list = document.getElementsByClassName('new-artist-songs')[0];
+            var similar_music = document.getElementsByClassName('new-artist-songs')[1];
+
+            $.ajax({
+                url: '/ac/music_data',
+                type: 'POST',
+                data: {
+                    id: {{ id }}
+                },
+
+                success: function (data) {
+                    var info = JSON.parse(data);
+                    back_img.src = info.img_src;
+                    for (var i in info.lyric){
+                        lyric.innerHTML += '<br>' + info.lyric[i];
+                    }
+                    for (var i in info.play_list){
+                        obj = info.play_list[i];
+                        play_list.innerHTML += '<li class="artist-song"><div class="avatar"><img src="' + obj.artist + '"></div><div class="info"><h3>' + obj.name + '</h3><p>by : ' + obj.img + '</p></div><a href="/ac/music_list?id=' + obj.id + '" title="' + obj.name + '" class="cover-link"></a></li>';
+                    }
+                    for (var i in info.similar_music){
+                        obj = info.similar_music[i];
+                        similar_music.innerHTML += '<li class="artist-song"><div class="info" style="margin-left: 20px"><h3>' + obj.name + '</h3><p>' + obj.rank + '</p></div><a href="/ac/music?id=' + obj.id + '" title="' + obj.name + '" class="cover-link"></a></li>';
+                    }
+                },
+
+                error: function () {
+                    alert('请求超时')
+                }
+            })
+        }
+    </script>
 {% endblock %}
 {% block content %}
     <div class="container-sm player-wrap">
@@ -26,13 +63,9 @@
             </div>
             <div class="content">
               <p>
-                <img src="{{ img_src }}" style="width: 670px;height: 300px">
+                <img src="/" style="width: 670px;height: 300px">
               </p>
-              <p>
-                {% for i in lyric %}
-                    <br>{{ i }}
-                {% endfor %}
-              </p>
+              <p></p>
             </div>
           </div>
         </div>
@@ -42,32 +75,11 @@
     <div class="right-module">
       <h4>包含这首歌的歌单</h4>
       <ul class="new-artist-songs">
-        {% for i in play_list %}
-            <li class="artist-song">
-              <div class="avatar">
-                <img src="{{ i.artist }}">
-              </div>
-              <div class="info">
-                <h3>{{ i.name }}</h3>
-                <p>by : {{ i.img }}</p>
-              </div>
-              <a href="/ac/music_list?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
-            </li>
-        {% endfor %}
       </ul>
     </div>
     <div class="right-module">
       <h4>相似歌曲</h4>
       <ul class="new-artist-songs">
-        {% for i in similar_music %}
-            <li class="artist-song">
-              <div class="info" style="margin-left: 20px">
-                <h3>{{ i.name }}</h3>
-                <p>{{ i.rank }}</p>
-              </div>
-              <a href="/ac/music?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
-            </li>
-        {% endfor %}
       </ul>
     </div>
   </div>

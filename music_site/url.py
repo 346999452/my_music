@@ -21,7 +21,9 @@ urlpatterns = [
     url(r'^login/$', login.as_view(), name='login'),
     url(r'^top_list/$', top_list.as_view(), name='top_list'),
     url(r'^user/$', user.as_view(), name='user'),
-    url(r'dj/$', dj.as_view(), name='dj'),
-    url(r'mv/$', mv.as_view(), name='mv'),
-    url(r'^my_page', my_page, name='my_page')
+    url(r'^dj/$', dj.as_view(), name='dj'),
+    url(r'^mv/$', mv.as_view(), name='mv'),
+    url(r'^my_page$', my_page, name='my_page'),
+    url(r'^data$', get_data, name='data'),
+    url(r'^music_data$', get_music, name='music_data')
 ]

@@ -72,9 +72,9 @@ DEFAULT_REQUEST_HEADERS = {
    包含在项目中启用的爬虫中间件的字典及其顺序
    See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 '''
-SPIDER_MIDDLEWARES = {
-   'nfy.middlewares.NfySpiderMiddleware': 543,
-}
+# SPIDER_MIDDLEWARES = {
+#    'nfy.middlewares.NfySpiderMiddleware': 543,
+# }
 
 ''' 
    包含在项目中启用的下载器中间件及其顺序的字典

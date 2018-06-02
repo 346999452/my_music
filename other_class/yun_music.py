@@ -553,5 +553,5 @@ class Yun_Music(Methods, Http_Client):
 
 if __name__ == '__main__':
     ym = Yun_Music()
-    ym.shi()
+    print(ym.get_play_music('4940455'))
 

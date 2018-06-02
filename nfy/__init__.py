@@ -7,15 +7,25 @@
     @time: 2018/05/06
 
 """
-
-# with open('./file/htm/htm1', 'rb') as f:
-#     print(f.read().decode('utf-8'))
-
-
 from scrapy import cmdline
 
-cmdline.execute('scrapy crawl mu163'.split())
-# cmdline.execute('scrapy crawl nfy'.split())
+def setup_django_env():
+    import os, django
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "my_music.settings")
+    django.setup()
+
+def check_db_connection():
+    from django.db import connection
+
+    if connection.connection:
+        if not connection.is_usable():
+            connection.close()
+
+setup_django_env()
+check_db_connection()
+cmdline.execute('scrapy crawl nfy'.split())
+
 
 
 

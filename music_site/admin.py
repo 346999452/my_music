@@ -7,3 +7,15 @@
 
 """
 
+from django.contrib import admin
+
+# Register your models here.
+from .models import *
+
+admin.site.register(lunbo_model)
+admin.site.register(commend_model)
+admin.site.register(new_model)
+admin.site.register(rank_model)
+admin.site.register(singer_model)
+
+

@@ -9,7 +9,6 @@
 """
 import yaml, json, base64, random, string, hashlib
 import re, os
-from urllib.request import unquote
 
 class Methods():
 
@@ -79,16 +78,6 @@ class Methods():
             for filename in filenames:
                 if re.match(r'^\w{20}.png$', filename) is not None:
                     os.remove(path + '/' + filename)
-
-    @staticmethod
-    def add_username(request, dict):
-        username = request.COOKIES.get('username', None)
-        if username:
-            ''' unquote: url解码 '''
-            dict['username'] = unquote(username)
-        else:
-            dict['error'] = True
-        return dict
 
     @staticmethod
     def add_list(list, song_list, list_name):

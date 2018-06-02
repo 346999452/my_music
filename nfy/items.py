@@ -10,44 +10,20 @@
     see http://doc.scrapy.org/en/latest/topics/items.html
 """
 
-from scrapy import Item, Field
+from scrapy_djangoitem import DjangoItem
+from music_site.models import *
 
-''' 轮播图结构 '''
-class NfyItem(Item):
-    img = Field()
-    url = Field()
+class lunbo_item(DjangoItem):
+    django_model = lunbo_model
 
-''' 热门推荐结构 '''
-class commend_item(Item):
-    id = Field()
-    title = Field()
-    index = Field()
-    category = Field()
-    img = Field()
+class commend_item(DjangoItem):
+    django_model = commend_model
 
-''' 新碟上架 '''
-class new_item(Item):
-    id = Field()
-    name = Field()
-    artist = Field()
-    img = Field()
+class new_item(DjangoItem):
+    django_model = new_model
 
-''' 入驻歌手及热门主播的数据结构 '''
-class singer_item(Item):
-    singer = Field()
-    identity = Field()
-    img = Field()
-    id = Field()
-    filename = Field()
+class singer_item(DjangoItem):
+    django_model = singer_model
 
-''' 榜单信息 '''
-class rank_item(Item):
-    id = Field()
-    name = Field()
-    rank = Field()
-    filename = Field()
-
-if __name__ == '__main__':
-    nfy = NfyItem()
-    nfy['url'] = 'nfy'
-    print(nfy.get('url'))
+class rank_item(DjangoItem):
+    django_model = rank_model
