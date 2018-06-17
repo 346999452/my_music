@@ -21,7 +21,7 @@ class Yun_Music(Methods, Http_Client):
     def __init__(self):
         Http_Client.__init__(self)
         self.set_header()
-        self.top_list_urls = self.get_json('config/top_list.json')
+        self.top_list_urls = self.get_json('json/top_list.json')
 
         ''' 映射字典的key值(共用) '''
         self.list_name = [
@@ -269,7 +269,8 @@ class Yun_Music(Methods, Http_Client):
             'play_list_img': r'src="([^\?]+\?param=50y50)"',
             'play_list': r'f-fs1 s-fc0" href="/playlist\?id=(\d+)" title="([^"]+)',
             'play_list_artist': r'/user/home\?id=(\d+)" title="([^"]+)',
-            'similar_music': r'(\d+)"\n>([^<]+)</a>\n</div>\n<div class="f-thide s-fc4"><span title="([^"]+)'
+            'sim_1': r'f-thide">\n<a href="/song\?id=(\d+)" title="([^"]+)"',
+            'sim_2': r'f-thide s-fc4"><span title="([^"]+)'
         }
 
         def find(name):
@@ -277,7 +278,7 @@ class Yun_Music(Methods, Http_Client):
 
         music_list = []
         self.add_list(self.playlist_map(find('play_list'), find('play_list_img'), find('play_list_artist')), music_list, self.list_name[3])
-        self.add_list(find('similar_music'), music_list, self.list_name[0])
+        self.add_list(self.map_list(find('sim_1'), find('sim_2'), 2), music_list, self.list_name[0])
         return music_list
 
     ''' 爬取歌单详情 '''
@@ -549,9 +550,10 @@ class Yun_Music(Methods, Http_Client):
             name = i.xpath('./a/text()')[0]
             print(name)
 
-
-
 if __name__ == '__main__':
     ym = Yun_Music()
-    print(ym.get_play_music('4940455'))
+    f = open('{}json/top_list.json'.format(Methods.absolute_path), 'a', encoding='utf-8')
+    f.write('hello')
+    f.close()
+
 

@@ -8,10 +8,25 @@
 
     中间件
     see http://doc.scrapy.org/en/latest/topics/spider-middleware.html
+
+    Downloader Middleware:
+        下载器中间件，位于引擎和下载器之间的钩子框架，主要处理引擎和下载器之间的请求和响应
+        核心方法（实现其中一个方法就可以定义一个Downloader Middleware）：
+            process_request(request, spider)
+            process_response(request, response, spider)
+            precess_exception(request, exception, spider)
+
+    Spider Middleware:
+        蜘蛛中间件，位于引擎和蜘蛛之间的钩子框架，主要处理蜘蛛输入的响应和输出结果及新的请求
+        核心方法（实现其中一个方法就可以定义一个Spider Middleware）：
+            process_spider_input(response, spider)
+            process_spider_output(response, result, spider)
+            process_spider_exception(response, exception, spider)
+            process_start_requests(start_requests, spider)
 """
 
 from scrapy import signals
-
+import random
 
 class NfySpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -59,3 +74,22 @@ class NfySpiderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+class RandomUserAgentMiddleware():
+
+    def __init__(self):
+        self.user_agents = [
+            'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 5.1; U; en; rv:1.8.1) Gecko/20061208 Firefox/2.0.0 Opera 9.50',
+            'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; en) Opera 9.50',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0',
+            'Mozilla/5.0 (X11; U; Linux x86_64; zh-CN; rv:1.9.2.10) Gecko/20100922 Ubuntu/10.10 (maverick) Firefox/3.6.10',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36'
+        ]
+
+    def process_request(self, request, spider):
+        request.headers['User_Agent'] = random.choice(self.user_agents)

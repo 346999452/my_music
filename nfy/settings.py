@@ -72,16 +72,37 @@ DEFAULT_REQUEST_HEADERS = {
    包含在项目中启用的爬虫中间件的字典及其顺序
    See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 '''
-# SPIDER_MIDDLEWARES = {
-#    'nfy.middlewares.NfySpiderMiddleware': 543,
-# }
+SPIDER_MIDDLEWARES = {
+   'nfy.middlewares.NfySpiderMiddleware': 543,
+}
 
 ''' 
    包含在项目中启用的下载器中间件及其顺序的字典
    See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 '''
-# DOWNLOADER_MIDDLEWARES = {
-#    'nfy.middlewares.MyCustomDownloaderMiddleware': 543,
+DOWNLOADER_MIDDLEWARES = {
+   'nfy.middlewares.RandomUserAgentMiddleware': 560,
+}
+
+'''
+    以下是scrapy本身提供的下载器中间件，用户不能直接修改
+    若要添加自定义的中间件或是禁用中间件需要在以上DOWNLOADER_MIDDLEWARES中设置
+'''
+# DOWNLOADER_MIDDLEWARES_BASE = {
+#     'scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware': 100,
+#     'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware': 300,
+#     'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 350,
+#     'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware': 400,
+#     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': 500,
+#     'scrapy.downloadermiddlewares.retry.RetryMiddleware': 550,
+#     'scrapy.downloadermiddlewares.ajaxcrawl.AjaxCrawlMiddleware': 560,
+#     'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware': 580,
+#     'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 590,
+#     'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': 600,
+#     'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': 700,
+#     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 750,
+#     'scrapy.downloadermiddlewares.stats.DownloaderStats': 850,
+#     'scrapy.downloadermiddlewares.httpcache.HttpCacheMiddleware': 900,
 # }
 
 '''
@@ -142,3 +163,12 @@ BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 DEPTH_PRIORITY = 1
 SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleFifoDiskQueue'
 SCHEDULER_MEMORY_QUEUE = 'scrapy.squeues.FifoMemoryQueue'
+
+MYSQL_DATABASE = {
+    'HOST': 'localhost',
+    'USER': 'root',
+    'PASSWORD': '921002191',
+    'DB': 'my_music',
+    'PORT': 3306,
+    'CHARSET': 'utf8'
+}

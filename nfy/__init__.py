@@ -8,6 +8,7 @@
 
 """
 from scrapy import cmdline
+from other_class.methods import Methods
 
 def setup_django_env():
     import os, django
@@ -24,7 +25,10 @@ def check_db_connection():
 
 setup_django_env()
 check_db_connection()
-cmdline.execute('scrapy crawl nfy'.split())
+# cmdline.execute('scrapy crawl nfy'.split())
+cmdline.execute('scrapy crawl user'.split())
+# cmdline.execute('scrapy crawl top_list'.split())
+# cmdline.execute('scrapy crawl play_list'.split())
 
 
 

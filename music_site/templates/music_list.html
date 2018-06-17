@@ -7,6 +7,25 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/music/slider.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/des.css"%}">
+    <script>
+        window.onload = function (ev) {
+            $.ajax({
+                url: '/ac/music_list/',
+                type: 'POST',
+                data: {
+                    id: {{ id }}
+                },
+
+                success: function (data) {
+                    alert(data)
+                },
+
+                error: function () {
+                    alert('请求服务器超时')
+                }
+            })
+        }
+    </script>
 {% endblock %}
 
 {% block content %}

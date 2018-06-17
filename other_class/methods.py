@@ -79,6 +79,12 @@ class Methods():
                 if re.match(r'^\w{20}.png$', filename) is not None:
                     os.remove(path + '/' + filename)
 
+    def change_key_value(self):
+        with open('{}json/top_list.json'.format(self.absolute_path), 'r', encoding='utf-8') as f:
+            new_dict = {value: key for key, value in json.loads(f.read()).items()}
+            with open('{}json/new_top_list.json'.format(self.absolute_path), 'w', encoding='utf-8') as t:
+                t.write(json.dumps(new_dict))
+
     @staticmethod
     def add_list(list, song_list, list_name):
         agency_list = []

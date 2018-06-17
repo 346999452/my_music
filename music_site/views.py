@@ -17,13 +17,19 @@ from urllib.request import unquote
 
 # Create your views here.
 
-def change(model, n, category=None):
+ym = Yun_Music()
+
+'''
+    用于将数据库model转换成dict形式
+'''
+def change(model, category=None):
     if category:
         obj = model.objects.filter(category=category)
     else:
         obj = model.objects.all()
-    return [model_to_dict(i) for i in obj[obj.count() - n:]]
+    return [model_to_dict(i) for i in obj]
 
+''' 获得cookie中的username值 '''
 def add_username(request, dict):
     username = request.COOKIES.get('username', None)
     if username:
@@ -38,30 +44,6 @@ def add_username(request, dict):
     FBV
 """
 
-def get_data(request):
-    return HttpResponse(json.dumps({
-        'commend': change(commend_model, 8),
-        'new_cd': change(new_model, 10),
-        'up_rank': change(rank_model, 10, '云音乐飙升榜'),
-        'new_rank': change(rank_model, 10, '云音乐新歌榜'),
-        'douyin_rank': change(rank_model, 10, '抖音排行榜'),
-        'hot_rank': change(rank_model, 10, '云音乐热歌榜'),
-        'singer': change(singer_model, 5, '歌手'),
-        'charac': change(singer_model, 5, '主播')
-    }))
-
-def get_music(request):
-    ym = Yun_Music()
-    id = request.POST.get('id')
-    info = ym.song_detail(id)
-    play_music_page = ym.get_play_music(id)
-    return HttpResponse(json.dumps({
-        'lyric': ym.get_lyric(id),
-        'img_src': ym.get_background(info.get('name')),
-        'play_list': play_music_page[0],
-        'similar_music': play_music_page[1]
-    }))
-
 def logout(request):
     Yun_Music().logout()
     response = HttpResponseRedirect('/')
@@ -72,19 +54,18 @@ def logout(request):
 def my_page(request):
     id = request.COOKIES.get('id', None)
     if id:
-        info = Yun_Music().user_detail(id)
-        dict = {
+        info = ym.user_detail(id)
+        return render(request, 'user.html', add_username(request, {
             'info': info[0],
             'create': info[1],
             'collec': info[2]
-        }
-        return render(request, 'user.html', add_username(request, dict))
+        }))
     else:
         return HttpResponseRedirect('/ac/login')
 
 def search(request):
     key_word = request.POST.get('key_word')
-    return render(request, 'result.html', add_username(request, {'music_list': Yun_Music().search_song(key_word)}))
+    return render(request, 'result.html', add_username(request, {'music_list': ym.search_song(key_word)}))
 
 """
     ——————————————————————————————————————————————————————————————————————————
@@ -97,18 +78,29 @@ from urllib.request import quote
 class home(View):
 
     def get(self, request):
-        return render(request, 'index.html', add_username(request, {'lunbo': change(lunbo_model, 8)}))
+        return render(request, 'index.html', add_username(request, {'lunbo': change(lunbo_model)}))
 
     def post(self, request):
-        return search(request)
+        if request.POST.get('info'):
+            return HttpResponse(json.dumps({
+                'commend': change(commend_model),
+                'new_cd': change(new_model),
+                'up_rank': change(rank_model, '云音乐飙升榜'),
+                'new_rank': change(rank_model, '云音乐新歌榜'),
+                'douyin_rank': change(rank_model, '抖音排行榜'),
+                'hot_rank': change(rank_model, '云音乐热歌榜'),
+                'singer': change(singer_model, '歌手'),
+                'charac': change(singer_model, '主播')
+            }))
+        else:
+            return search(request)
 
-class play_music(View, Yun_Music):
+class play_music(View):
 
     def get(self, request):
-        Yun_Music.__init__(self)
         id = request.GET.get('id')
         try:
-            info = self.song_detail(id)
+            info = ym.song_detail(id)
             list_name = {
                 'name': info.get('name'),
                 'id': info.get('id'),
@@ -119,7 +111,7 @@ class play_music(View, Yun_Music):
                 'album_img': info['album']['picUrl']
             }
             dict = {
-                'src': self.get_music_src(id),
+                'src': ym.get_music_src(id),
                 'info': list_name,
                 'id': id
             }
@@ -128,135 +120,144 @@ class play_music(View, Yun_Music):
             return render(request, 'template.html', add_username(request, {}))
 
     def post(self, request):
-        return search(request)
+        id = request.POST.get('id')
+        if id:
+            info = ym.song_detail(id)
+            play_music_page = ym.get_play_music(id)
+            return HttpResponse(json.dumps({
+                'lyric': ym.get_lyric(id),
+                'img_src': ym.get_background(info.get('name')),
+                'play_list': play_music_page[0],
+                'similar_music': play_music_page[1]
+            }))
+        else:
+            return search(request)
 
-class play_list(View, Yun_Music):
+class play_list(View):
 
     def get(self, request):
-        Yun_Music.__init__(self)
         categogy = request.GET.get('cat')
-        info = self.get_play_list(categogy)
-        dict = {}
-        dict['play_list'] = info[0]
-        dict['category'] = info[1]
-        return render(request, 'play_list.html', add_username(request, dict))
+        info = ym.get_play_list(categogy)
+        return render(request, 'play_list.html', add_username(request, {
+            'play_list': info[0],
+            'category': info[1]
+        }))
 
     def post(self, request):
         return search(request)
 
-
-class album(View, Yun_Music):
+class album(View):
 
     def get(self, request):
-        Yun_Music.__init__(self)
         id = request.GET.get('id')
-        info = self.album_detail(id)
-        dict = {}
-        dict['info'] = info[0]
-        dict['user'] = info[1]
-        dict['album'] = info[2]
-        dict['music'] = info[3]
-        return render(request, 'album.html', add_username(request, dict))
+        info = ym.album_detail(id)
+        return render(request, 'album.html', add_username(request, {
+            'info': info[0],
+            'user': info[1],
+            'album': info[2],
+            'music': info[3]
+        }))
 
     def post(self, request):
         return search(request)
 
-class music_list(View, Yun_Music):
+class music_list(View):
 
     def get(self, request):
-        Yun_Music.__init__(self)
         id = request.GET.get('id')
         try:
-            info = self.playlist_detail(id)
+            info = ym.playlist_detail(id)
             dict = {
                 'info': info[0],
                 'music_list': info[1],
                 'hot_playlist': info[2],
-                'user': info[3]
+                'user': info[3],
+                'id': id
             }
         except:
             return render(request, 'template.html')
         return render(request, 'music_list.html', add_username(request, dict))
 
     def post(self, request):
-        return search(request)
+        id = request.POST.get('id')
+        if id:
+            info = ym.playlist_detail(id)
+            return HttpResponse(json.dumps({
+                'info': info[0],
+                'music_list': info[1],
+                'hot_playlist': info[2],
+                'user': info[3]
+            }))
+        else:
+            return search(request)
 
-class artist(View, Yun_Music):
+class artist(View):
 
     def get(self, request):
-        Yun_Music.__init__(self)
         id = request.GET.get('id')
         category = request.GET.get('cat')
-        info = self.artist_detail(id, category)
-        dict = {
+        info = ym.artist_detail(id, category)
+        return render(request, 'artist.html', add_username(request, {
             'info': info[0],
             'detail': info[1],
             'cat': category
-        }
-        return render(request, 'artist.html', add_username(request, dict))
+        }))
 
     def post(self, request):
         return search(request)
 
-class top_list(View, Yun_Music):
+class top_list(View):
 
     def get(self, request):
-        Yun_Music.__init__(self)
         id = request.GET.get('id')
-        info = self.top_list_detail(id)
-        dict = {
+        info = ym.top_list_detail(id)
+        return render(request, 'top_list.html', add_username(request, {
             'info': info[0][0],
             'top_lists_charac': info[1],
             'top_lists_global': info[2],
             'songs': info[3]
-        }
-        return render(request, 'top_list.html', add_username(request, dict))
+        }))
 
     def post(self, request):
         return search(request)
 
-class dj(View, Yun_Music):
+class dj(View):
 
     def get(self, request):
-        Yun_Music.__init__(self)
         id = request.GET.get('id')
-        return HttpResponseRedirect('/ac/music/?id={}'.format(self.dj_detail(id)[0].get('music_id')))
+        return HttpResponseRedirect('/ac/music/?id={}'.format(ym.dj_detail(id)[0].get('music_id')))
 
     def post(self, request):
         return search(request)
 
-class user(View, Yun_Music):
+class user(View):
 
     def get(self, request):
-        Yun_Music.__init__(self)
         id = request.GET.get('id')
-        info = self.user_detail(id)
-        dict = {
+        info = ym.user_detail(id)
+        return render(request, 'user.html', add_username(request, {
             'info': info[0],
             'create': info[1],
             'collec': info[2]
-        }
-        return render(request, 'user.html', add_username(request, dict))
+        }))
 
     def post(self, request):
         return search(request)
 
-class mv(View, Yun_Music):
+class mv(View):
 
     def get(self, request):
-        Yun_Music.__init__(self)
-        dict = {
+        return render(request, 'mv.html', add_username(request, {
             'lala': 'http://v4.music.126.net/20180427183740/9eb6d8fbc42eef1f4ac5b9c0b8b67ac6/web/cloudmusic/mv/20171225021126/5eab069b-9681-44e0-8db4-3cbcd2d87d6d/c251f005d2fcc28b8c5013ece7a70a93.mp4',
-        }
-        return render(request, 'mv.html', add_username(request, dict))
+        }))
 
     def post(self, request):
         return search(request)
 
-class login(View, Yun_Music):
+class login(View):
+
     def __init__(self):
-        View.__init__(self)
-        Yun_Music.__init__(self)
+        super(login, self).__init__()
         self.dict = {
             'title': '登录',
             'year': datetime.now().year,
@@ -269,7 +270,7 @@ class login(View, Yun_Music):
         if request.POST.get('login'):
             loginname = request.POST.get('loginname')
             password = request.POST.get('password')
-            state, info = self.login(loginname, password)
+            state, info = ym.login(loginname, password)
             if state:
                 response = HttpResponseRedirect('/')
                 """

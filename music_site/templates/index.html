@@ -37,8 +37,11 @@
             };
 
             $.ajax({
-                url: '/ac/data',
-                type: 'GET',
+                url: '/',
+                type: 'POST',
+                data: {
+                    info: 'get'
+                },
 
                 success: function (data) {
                     var info = JSON.parse(data);

@@ -75,3 +75,58 @@ class rank_model(Model):
     rank = IntegerField()
     category = CharField(max_length=20)
 
+# class user_model(Model):
+#     '''
+#         fans: 粉丝数
+#         event: 动态数
+#         follow_count: find('follow_count'),
+#         img: info[1],
+#         name: info[0],
+#         des: get_info('des'),
+#         city: get_info('city'),
+#         artist: artist,
+#         is_artist: is_artist
+#     '''
+#     fans = CharField(max_length=20)
+#     event = CharField(max_length=20)
+#     follow_count = CharField(max_length=20)
+#     img = CharField(max_length=400)
+#     des = CharField(max_length=4000)
+#     city = CharField(max_length=20)
+#     artist_id = CharField(max_length=20)
+#     is_artist = CharField(max_length=10)
+#
+# class collec_model(Model):
+#     '''
+#         orderd: 判断是创建的歌单还是收藏的歌单
+#         img: 图片资源链接
+#         list_id: 歌单id
+#         name: 歌单名
+#     '''
+#     orderd = CharField(max_length=10)
+#     img = CharField(max_length=400)
+#     list_id = CharField(max_length=30)
+#     name = CharField(max_length=50)
+
+class category_model(Model):
+    '''
+        category: 歌单大分类
+        cat: 歌单小分类
+    '''
+    category = CharField(max_length=10)
+    cat = CharField(max_length=10)
+
+class play_list_model(Model):
+    '''
+        name: 歌单名
+        id: 歌单id
+        img: 图片链接
+        author: 用户
+        author_id: 用户id
+    '''
+    name = CharField(max_length=50)
+    play_list_id = CharField(max_length=20)
+    img = CharField(max_length=200)
+    author = CharField(max_length=50)
+    author_id = CharField(max_length=20)
+    category = CharField(max_length=10)

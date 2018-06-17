@@ -15,7 +15,7 @@
             var similar_music = document.getElementsByClassName('new-artist-songs')[1];
 
             $.ajax({
-                url: '/ac/music_data',
+                url: '/ac/music/',
                 type: 'POST',
                 data: {
                     id: {{ id }}
@@ -63,7 +63,7 @@
             </div>
             <div class="content">
               <p>
-                <img src="/" style="width: 670px;height: 300px">
+                <img src="../../static/image/fail.png" style="width: 670px;height: 300px">
               </p>
               <p></p>
             </div>
