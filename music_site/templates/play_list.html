@@ -6,6 +6,15 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/music/common.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/category.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
+    <script>
+        var current_page;
+        var max_page;
+        window.onload = function (ev) {
+            current_page = 0;
+            max_page = 0;
+            change('全部', 0)
+        }
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -14,38 +23,323 @@
     <div class="main-wrap">
       <div class="content-box">
           <div class="content-header">
-            <h2><i class="fa fa-music red"></i>选择分类</h2>
+            <h2></h2>
           </div>
       <br>
-            {% for i in category %}
-                <div>
-                    <span>{{ i.style }}</span>
-                      {% for j in i.name %}
-                          <a href="/ac/play_list/?cat={{ j }}" style="color: #1ab7ea">{{ j }}</a>
-                          <span> |</span>
-                      {% endfor %}
-                        <br>
-                </div>
-            {% endfor %}
+        <div>
+              <span>语种</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('华语', 0)">华语</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('欧美', 0)">欧美</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('日语', 0)">日语</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('韩语', 0)">韩语</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('粤语', 0)">粤语</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('小语种', 0)">小语种</a>
+                  <span> |</span>
+
+              </div>
+
+              <div>
+              <span>风格</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('流行', 0)">流行</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('摇滚', 0)">摇滚</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('民谣', 0)">民谣</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('电子', 0)">电子</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('舞曲', 0)">舞曲</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('说唱', 0)">说唱</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('轻音乐', 0)">轻音乐</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('爵士', 0)">爵士</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('乡村', 0)">乡村</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('R&amp;B/Soul', 0)">R&amp;B/Soul</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('古典', 0)">古典</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('民族', 0)">民族</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('英伦', 0)">英伦</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('金属', 0)">金属</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('朋克', 0)">朋克</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('蓝调', 0)">蓝调</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('雷鬼', 0)">雷鬼</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('世界音乐', 0)">世界音乐</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('拉丁', 0)">拉丁</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('另类/独立', 0)">另类/独立</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('New Age', 0)">New Age</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('古风', 0)">古风</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('后摇', 0)">后摇</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('Bossa Nova', 0)">Bossa Nova</a>
+                  <span> |</span>
+
+              </div>
+
+              <div>
+              <span>场景</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('清晨', 0)">清晨</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('夜晚', 0)">夜晚</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('学习', 0)">学习</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('工作', 0)">工作</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('午休', 0)">午休</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('下午茶', 0)">下午茶</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('地铁', 0)">地铁</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('驾车', 0)">驾车</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('运动', 0)">运动</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('旅行', 0)">旅行</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('散步', 0)">散步</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('酒吧', 0)">酒吧</a>
+                  <span> |</span>
+
+              </div>
+
+              <div>
+              <span>情感</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('怀旧', 0)">怀旧</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('清新', 0)">清新</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('浪漫', 0)">浪漫</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('性感', 0)">性感</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('伤感', 0)">伤感</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('治愈', 0)">治愈</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('放松', 0)">放松</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('孤独', 0)">孤独</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('感动', 0)">感动</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('兴奋', 0)">兴奋</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('快乐', 0)">快乐</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('安静', 0)">安静</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('思念', 0)">思念</a>
+                  <span> |</span>
+
+              </div>
+
+              <div>
+              <span>主题</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('影视原声', 0)">影视原声</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('ACG', 0)">ACG</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('儿童', 0)">儿童</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('校园', 0)">校园</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('游戏', 0)">游戏</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('70后', 0)">70后</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('80后', 0)">80后</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('90后', 0)">90后</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('网络歌曲', 0)">网络歌曲</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('KTV', 0)">KTV</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('经典', 0)">经典</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('翻唱', 0)">翻唱</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('吉他', 0)">吉他</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('钢琴', 0)">钢琴</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('器乐', 0)">器乐</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('榜单', 0)">榜单</a>
+                  <span> |</span>
+
+                  <a href="javascript:void(0);" class="play_list_category" onclick="change('00后', 0)">00后</a>
+                  <span> |</span>
+
+              </div>
             <hr>
           <ul class="music-list clearfix">
-
-            {% for i in play_list %}
-                <li>
-                  <div class="u-cover">
-                    <img src="{{ i.id }}">
-                    <a title="{{ i.identity }}" href="/ac/music_list/?id={{ i.singer }}" class="msk"></a>
-                  </div>
-                  <p class="dec">
-                    <a title="{{ i.identity }}" href="/ac/music_list/?id={{ i.singer }}">{{ i.identity }}</a>
-                  </p>
-                  <div class="author">{{ i.img }}</div>
-                </li>
-            {% endfor %}
           </ul>
+        </div>
+        <div class="change_dir">
+            <button type="button" class="btn btn-default btn-sm" onclick="page('up')">《 上一页</button>
+            <span class="page"></span>
+            <button type="button" class="btn btn-default btn-sm" onclick="page('down')">下一页 》</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function change(cat, ori) {
+            var play_list = document.getElementsByClassName('music-list clearfix')[0];
+            var current_cat = document.getElementsByTagName('h2')[0];
+            var buttons = document.getElementsByClassName('btn btn-default btn-sm');
+
+            $.ajax({
+                url: '/ac/play_list/',
+                type: 'POST',
+                data: {
+                    'cat': cat,
+                    'ori': ori
+                },
+
+                success: function (data) {
+                    data = JSON.parse(data);
+                    max_page = parseInt(data.max_page);
+                    $('.page').text('当前第' + (current_page + 1) +'页  共' + (max_page + 1) + '页');
+                    info = data.data;
+                    in_html = '';
+                    for (var i in info) {
+                        play_list_item = info[i];
+                        in_html += '<li>\n' +
+                            '                  <div class="u-cover">\n' +
+                            '                    <img src="' + play_list_item.img + '">\n' +
+                            '                    <a title="' + play_list_item.name + '" href="/ac/music_list/?id=' + play_list_item.play_list_id + '" class="msk"></a>\n' +
+                            '                  </div>\n' +
+                            '                  <p class="dec">\n' +
+                            '                    <a title="' + play_list_item.name + '" href="/ac/music_list/?id=' + play_list_item.play_list_id + '">' + play_list_item.name + '</a>\n' +
+                            '                  </p>\n' +
+                            '                  <div class="author"><a href="/ac/user/?id=' + play_list_item.author_id + '" title="你好">' + play_list_item.author + '</a></div>\n' +
+                            '                </li>'
+                    }
+                    play_list.innerHTML = in_html;
+                    category = info[0].category;
+                    current_cat.innerHTML = '<i class="fa fa-music red"></i>' + category;
+                },
+                error: function () {
+                    alert('请求服务器超时')
+                }
+            })
+
+        }
+
+        function page(order) {
+            if(order == 'up'){
+                current_page -= 1;
+                if(current_page <= 0){
+                    current_page = 0;
+                }
+                change('全部', current_page * 36);
+            }else {
+                current_page += 1;
+                if(current_page >= max_page){
+                    current_page = max_page;
+                }
+                change('全部', current_page * 36);
+            }
+        }
+    </script>
 {% endblock %}

@@ -7,6 +7,11 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/music/category.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/font-awesome.min.css"%}">
     <link rel="stylesheet" type="text/css" href="{% static "css/music/des.css"%}">
+    <script>
+        window.onload = function (ev) {
+            change('19723756')
+        }
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -17,16 +22,16 @@
       <div class="content-box">
         <!-- 热门推荐 -->
       <div class="playlist_info">
-          <img src="{{ info.id }}" style="width: 200px">
+          <img src="../../static/image/fail.png" style="width: 200px">
           <div class="name">
               <br>
-                <span style="margin: 30px"><strong>榜单：</strong>{{ info.singer }}</span>
+                <span style="margin: 30px"></span>
               <br>
               <div class="description" style="height: 28px">
-                  <span title="{{ info.description }}" style="margin: 30px"><strong>最近更新：</strong>{{ info.identity }}</span>
+                  <span title="{{ info.description }}" style="margin: 30px"></span>
               </div>
               <br>
-                <span style="margin: 30px;color: #adadad">{{ info.img }}</span>
+                <span style="margin: 30px;color: #adadad"></span>
               <br>
           </div>
       </div>
@@ -37,18 +42,6 @@
                 <i class="fa fa-music red"></i>歌曲列表<span style="margin-left: 410px; position: absolute">歌手</span>
             </h2>
           </div>
-            {% for i in songs %}
-              <li class="artist-song" style="height: 55px">
-                  <div class="avatar">
-                    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523434964861&di=3650151778ced6ab1a1aeff902d2d57e&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F14%2F78%2F61%2F19858PICw9y_1024.jpg" style="height: 50%; width:50%;">
-                  </div>
-                  <div class="info">
-                    <span style="margin-left: 0; position: absolute">{{ i.name }}</span>
-                    <span style="margin-left: 420px; position: absolute">{{ i.rank }}</span>
-                  </div>
-                  <a href="/ac/music/?id={{ i.id }}" title="{{ i.name }}" class="cover-link"></a>
-              </li>
-            {% endfor %}
         </div>
       </div>
     </div>
@@ -58,35 +51,35 @@
     <div class="right-module">
       <h4>云音乐特色榜</h4>
       <ul class="new-artist-songs">
-        {% for i in top_lists_charac %}
+          {% for i in charac %}
             <li class="artist-song">
               <div class="avatar">
-                <img src="{{ i.id }}">
+                <img src="{{ i.img }}">
               </div>
               <div class="info">
-                <h3>{{ i.identity }}</h3>
-                <p>{{ i.img }}</p>
+                <h3>{{ i.name }}</h3>
+                <p>{{ i.cycle }}</p>
               </div>
-              <a href="/ac/top_list?id={{ i.singer }}" title="{{ i.identity }}" class="cover-link"></a>
+              <a href="javascript:void(0);" title="{{ i.name }}" class="cover-link" onclick="change({{ i.top_list_id }})"></a>
             </li>
-        {% endfor %}
+          {% endfor %}
       </ul>
     </div>
     <div class="right-module">
       <h4>全球媒体榜</h4>
       <ul class="new-artist-songs">
-        {% for i in top_lists_global %}
+          {% for i in global %}
             <li class="artist-song">
               <div class="avatar">
-                <img src="{{ i.id }}">
+                <img src="{{ i.img }}">
               </div>
               <div class="info">
-                <h3>{{ i.identity }}</h3>
-                <p>{{ i.img }}</p>
+                <h3>{{ i.name }}</h3>
+                <p>{{ i.cycle }}</p>
               </div>
-              <a href="/ac/top_list?id={{ i.singer }}" title="{{ i.identity }}" class="cover-link"></a>
+              <a href="javascript:void(0);" title="{{ i.name }}" class="cover-link" onclick="change({{ i.top_list_id }})"></a>
             </li>
-        {% endfor %}
+          {% endfor %}
       </ul>
     </div>
   </div>
@@ -94,5 +87,50 @@
 {% endblock %}
 
 {% block scripts %}
-    {% load staticfiles %}
+    <script>
+        function change(id) {
+            var top_list = document.getElementsByClassName('hot-recommand')[0];
+            var singer_list = document.getElementsByClassName('playlist_info')[0];
+
+            $.ajax({
+                url: '/ac/top_list/',
+                type: 'POST',
+                data: {
+                    id: id
+                },
+
+                success: function (data) {
+                    info = JSON.parse(data);
+                    songs = JSON.parse(info.songs);
+                    in_html = '<div class="content-header">\n' +
+                        '            <h2>\n' +
+                        '                <i class="fa fa-music red"></i>歌曲列表<span style="margin-left: 410px; position: absolute">歌手</span>\n' +
+                        '            </h2>\n' +
+                        '          </div>';
+                    for(var i in songs) {
+                        music_item = songs[i];
+                        in_html += '<li class="artist-song" style="height: 55px">\n' +
+                            '                  <div class="avatar">\n' +
+                            '                    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523434964861&di=3650151778ced6ab1a1aeff902d2d57e&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F14%2F78%2F61%2F19858PICw9y_1024.jpg" style="height: 50%; width:50%;">\n' +
+                            '                  </div>\n' +
+                            '                  <div class="info">\n' +
+                            '                    <span style="margin-left: 0; position: absolute">' + music_item.name + '</span>\n' +
+                            '                    <span style="margin-left: 420px; position: absolute">' +music_item.artists[0].name + '</span>\n' +
+                            '                  </div>\n' +
+                            '                  <a href="/ac/music/?id=' + music_item.id + '" title="' + music_item.name + '" class="cover-link"></a>\n' +
+                            '              </li>'
+                    }
+                    top_list.innerHTML = in_html;
+                    singer_list.getElementsByTagName('img')[0].src = info.img;
+                    singer_list.getElementsByTagName('span')[0].innerHTML = '<strong>榜单：</strong>' + info.title;
+                    singer_list.getElementsByTagName('span')[1].innerHTML = '<strong>最近更新：</strong>' + info.last;
+                    singer_list.getElementsByTagName('span')[2].textContent = info.cycle;
+                },
+
+                error: function () {
+                    alert('请求服务器超时')
+                }
+            })
+        }
+    </script>
 {% endblock %}

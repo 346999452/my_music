@@ -409,6 +409,9 @@ header {
 
 .artist-song .info span{
     overflow: hidden;
+    text-overflow: ellipsis;
+    height: 28px;
+    width: 150px;
 }
 
 .artist-song .info p {
@@ -417,27 +420,6 @@ header {
     line-height: 20px;
     color: #B2B2B2;
 }
-
-/* Footer */
-
-/*footer {*/
-    /*margin-top: 29px;*/
-    /*background: #fcfcfc;*/
-    /*border-top: 1px solid #e6e6e6;*/
-    /*color: #757575;*/
-    /*padding: 20px 0;*/
-    /*font-size: 0.6875em;*/
-/*}*/
-
-/*footer .copyright p {*/
-    /*margin: 0;*/
-/*}*/
-
-/*footer a {*/
-    /*color: #757575;*/
-/*}*/
-
-/* Category Music List */
 
 .category .row {
     margin-left: -20px;
@@ -584,4 +566,17 @@ header {
     margin: 0 0 14px;
     word-break: break-all;
     color: rgb(102, 102, 102);
+}
+
+.change_dir {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.change_dir .page {
+    margin: 20px;
+}
+
+.play_list_category {
+    color: #1ab7ea;
 }

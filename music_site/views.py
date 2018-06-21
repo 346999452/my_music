@@ -22,11 +22,13 @@ ym = Yun_Music()
 '''
     用于将数据库model转换成dict形式
 '''
-def change(model, category=None):
+def change(model, category=None, ori=None, limit=None):
     if category:
         obj = model.objects.filter(category=category)
     else:
         obj = model.objects.all()
+    if ori is not None and limit:
+        return [model_to_dict(i) for i in obj[ori: ori + limit]]
     return [model_to_dict(i) for i in obj]
 
 ''' 获得cookie中的username值 '''
@@ -43,6 +45,16 @@ def add_username(request, dict):
     ——————————————————————————————————————————————————————————————————————————
     FBV
 """
+
+''' 用于测试scrapy爬虫携带的信息 '''
+def lala(request):
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
+        ip = request.META['HTTP_X_FORWARDED_FOR']
+    else:
+        ip = request.META['REMOTE_ADDR']
+    return HttpResponse({
+        request.environ['HTTP_USER_AGENT'] + '<br>' + ip + '<br>' + json.dumps(request.COOKIES)
+    })
 
 def logout(request):
     Yun_Music().logout()
@@ -136,14 +148,16 @@ class play_music(View):
 class play_list(View):
 
     def get(self, request):
-        categogy = request.GET.get('cat')
-        info = ym.get_play_list(categogy)
-        return render(request, 'play_list.html', add_username(request, {
-            'play_list': info[0],
-            'category': info[1]
-        }))
+        return render(request, 'play_list.html', add_username(request, {}))
 
     def post(self, request):
+        cat = request.POST.get('cat')
+        if cat:
+            ori = request.POST.get('ori')
+            return HttpResponse(json.dumps({
+                'data': change(play_list_model, cat, int(ori), 36),
+                'max_page': (play_list_model.objects.filter(category=cat).count() - 1) // 36
+            }))
         return search(request)
 
 class album(View):
@@ -209,17 +223,23 @@ class artist(View):
 class top_list(View):
 
     def get(self, request):
-        id = request.GET.get('id')
-        info = ym.top_list_detail(id)
-        return render(request, 'top_list.html', add_username(request, {
-            'info': info[0][0],
-            'top_lists_charac': info[1],
-            'top_lists_global': info[2],
-            'songs': info[3]
-        }))
+        top_list = top_list_model.objects.all()
+        return render(request, 'top_list.html', add_username(request, {'charac': top_list[: 4], 'global': top_list[4:]}))
 
     def post(self, request):
-        return search(request)
+        id = request.POST.get('id')
+        if id:
+            top_list = top_list_model.objects.get(top_list_id=str(id))
+            with open('{}json/{}.json'.format(ym.absolute_path, top_list.name), 'r', encoding='utf-8') as f:
+                return HttpResponse(json.dumps({
+                    'img': top_list.img,
+                    'songs': f.read(),
+                    'title': top_list.name,
+                    'last': top_list.last_change,
+                    'cycle': top_list.cycle
+                }))
+        else:
+            return search(request)
 
 class dj(View):
 

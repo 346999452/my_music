@@ -19,16 +19,22 @@ class user_spider(Spider):
 
     start_urls = [
         'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=29879272',
-        # 'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=100167517',
-        # 'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=58426904',
-        # 'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=93504818',
-        # 'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=46998208',
-        # 'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=278438485',
-        # 'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=91239965',
-        # 'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=324314596',
-        # 'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=1611157',
-        # 'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=2313954',
+        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=100167517',
+        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=58426904',
+        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=93504818',
+        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=46998208',
+        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=278438485',
+        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=91239965',
+        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=324314596',
+        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=1611157',
+        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=2313954',
     ]
+
+    # users = ['29879272', '100167517', '58426904', '93504818', '46998208',
+    #          '278438485', '91239965', '324314596', '1611157', '2313954']
+    #
+    # def start_requests(self):
+
 
     def parse(self, response):
         data = json.loads(response.body.decode('utf-8'))['playlist']

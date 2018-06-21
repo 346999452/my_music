@@ -24,12 +24,12 @@ class play_list_spider(Spider):
         yield Request('http://music.163.com/discover/playlist/', self.cat_parse)
         theme = response.xpath('//dl[@class="f-cb"]')
         for i in theme:
-            # category = i.xpath('./dt/text()').extract_first()
+            category = i.xpath('./dt/text()').extract_first()
             for j in i.xpath('./dd/a'):
-                # item = category_item()
-                # item['category'] = category
-                # item['cat'] = j.xpath('./text()').extract_first()
-                # yield item
+                item = category_item()
+                item['category'] = category
+                item['cat'] = j.xpath('./text()').extract_first()
+                yield item
                 yield Request('http://music.163.com/discover/playlist/?cat=' + j.xpath('./text()').extract_first(), self.cat_parse)
 
     def cat_parse(self, response):

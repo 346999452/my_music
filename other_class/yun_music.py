@@ -552,8 +552,12 @@ class Yun_Music(Methods, Http_Client):
 
 if __name__ == '__main__':
     ym = Yun_Music()
-    f = open('{}json/top_list.json'.format(Methods.absolute_path), 'a', encoding='utf-8')
-    f.write('hello')
-    f.close()
+    # with open('{}json/new_top_list.json'.format(Methods.absolute_path), 'r', encoding='utf-8') as f:
+    #     t = f.read()
+    # # f.close()
+    # print(type(t))
+    # for i in ym.get_play_list():
+    for j in ym.get_play_list()[1]:
+        print(j)
 
 

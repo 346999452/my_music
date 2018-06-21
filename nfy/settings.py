@@ -26,7 +26,7 @@ SPIDER_MODULES = ['nfy.spiders']
 NEWSPIDER_MODULE = 'nfy.spiders'
 
 ''' 检索时使用的默认用户代理，默认为'Scrapy/VERSION (+http://scrapy.org)' '''
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
+# USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
 
 ''' 是否遵守机器人协议 '''
 ROBOTSTXT_OBEY = True
@@ -82,6 +82,8 @@ SPIDER_MIDDLEWARES = {
 '''
 DOWNLOADER_MIDDLEWARES = {
    'nfy.middlewares.RandomUserAgentMiddleware': 560,
+   'nfy.middlewares.ProxyMiddleware': 125,
+   'nfy.middlewares.CookiesMiddleware': 126,
 }
 
 '''
@@ -172,3 +174,27 @@ MYSQL_DATABASE = {
     'PORT': 3306,
     'CHARSET': 'utf8'
 }
+
+USER_AGENT_POOL = [
+    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 5.1; U; en; rv:1.8.1) Gecko/20061208 Firefox/2.0.0 Opera 9.50',
+    'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; en) Opera 9.50',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0',
+    'Mozilla/5.0 (X11; U; Linux x86_64; zh-CN; rv:1.9.2.10) Gecko/20100922 Ubuntu/10.10 (maverick) Firefox/3.6.10',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36'
+    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
+]
+
+IPPOOL=[
+    '116.213.98.6:8080'
+]
+
+COOKIEPOOL = [
+    {
+        'jhad': 'mba_muid=1529378793040105972144; mobilev=html5; shshshfp=9fea734073f9e8021ceb3c677bb61b5b; shshshfpa=62c19140-3620-bb85-6b2f-441f15c679f4-1529378811; shshshfpb=1ea57e33a72d74a3d9b9e59f329c93741ee12b233e3f2f72b5b2877fce; __jda=122270672.1529378793040105972144.1529378793.1529386871.1529466434.3; __jdv=122270672|iosapp|t_335139774|appshare|Qqfriends|1529466434842; __jdc=122270672; sid=14791d1e05175f002b31d88e7bfde760; shshshsID=7623ba5094ae1f4c83fd905fc8f6759a_4_1529466490979; TrackerID=M3VygQSSpAM7bOhY4CEGWFOH4L2ODvVSqRHbu3uiNNvKLUb4AQSDV8Mf83-q7aFtop0dsyTGP5yDXiHL2AGT-9toU3R2k5t2x9Lfe9uSFlQ; pt_key=AAFbKc7sADB4g76Y_KtIOeAzDE3xDUFgSb1sRqW3IDb3WG7vONMFDleBNP7aJWVmlhrb1veKz7I; pt_pin=%E9%99%88%E9%9C%B2%E9%9C%B22001; pt_token=tzteqx7m; pwdt_id=%E9%99%88%E9%9C%B2%E9%9C%B22001; __jdb=122270672.4.1529378793040105972144|3.1529466434; mba_sid=15294664348459038873447501344.4'
+    },
+]

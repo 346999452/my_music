@@ -77,19 +77,53 @@ class NfySpiderMiddleware(object):
 
 class RandomUserAgentMiddleware():
 
-    def __init__(self):
-        self.user_agents = [
-            'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 5.1; U; en; rv:1.8.1) Gecko/20061208 Firefox/2.0.0 Opera 9.50',
-            'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; en) Opera 9.50',
-            'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0',
-            'Mozilla/5.0 (X11; U; Linux x86_64; zh-CN; rv:1.9.2.10) Gecko/20100922 Ubuntu/10.10 (maverick) Firefox/3.6.10',
-            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2',
-            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
-            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
-            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36'
-        ]
+    def __init__(self, user_agents):
+        self.user_agents = user_agents
 
     def process_request(self, request, spider):
-        request.headers['User_Agent'] = random.choice(self.user_agents)
+        request.headers['User-Agent'] = random.choice(self.user_agents)
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(user_agents=crawler.settings.get('USER_AGENT_POOL'))
+
+import logging, requests, json
+
+class CookiesMiddleware():
+
+    def __init__(self, cookies_url):
+        self.cookies_url = cookies_url
+
+    def get_random_cookies(self):
+        try:
+            response = requests.get(self.cookies_url)
+            if response.status_code == 200:
+                cookies = json.loads(response.text)
+                return cookies
+        except requests.ConnectionError:
+            return False
+
+    def process_request(self, request, spider):
+        # self.logger.debug('正在获取Cookies')
+        # cookies = self.get_random_cookies()
+        # if cookies:
+        request.cookies = random.choice(self.cookies_url)
+            # self.logger.debug('使用Cookies ' + json.dumps(cookies))
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        settings = crawler.settings
+        return cls(cookies_url=settings.get('COOKIEPOOL'))
+
+class ProxyMiddleware():
+
+    def __init__(self, proxy_urls):
+        self.proxy_urls = proxy_urls
+
+    def process_request(self, request, spider):
+        pass
+        # request.meta['proxy'] = 'http://{}'.format(random.choice(self.proxy_urls))
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(proxy_urls=crawler.settings.get('IPPOOL'))

@@ -48,3 +48,6 @@ class play_list_item(DjangoItem):
 
 class category_item(DjangoItem):
     django_model = category_model
+
+class top_list_info_item(DjangoItem):
+    django_model = top_list_model
