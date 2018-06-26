@@ -19,14 +19,18 @@
 """
 from scrapy import Spider
 
+
+'''
+    用于测试请求的浏览器，cookie，源ip等
+'''
 class exam_spider(Spider):
     name = 'exam'
 
     ''' 设置爬取范围 '''
-    # allowed_domains = ['163.com']
+    allowed_domains = ['nfy.fun']
 
     start_urls = [
-        'http://39.106.179.219/ac/lala',
+        'http://nfy.fun/ac/lala',
     ]
 
     def parse(self, response):

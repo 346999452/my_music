@@ -14,10 +14,14 @@ from .models import *
 from django.forms.models import model_to_dict
 import json
 from urllib.request import unquote
+from django.utils import timezone
 
 # Create your views here.
 
 ym = Yun_Music()
+
+max_visits = 100
+min_seconds = 600
 
 '''
     用于将数据库model转换成dict形式
@@ -78,6 +82,34 @@ def my_page(request):
 def search(request):
     key_word = request.POST.get('key_word')
     return render(request, 'result.html', add_username(request, {'music_list': ym.search_song(key_word)}))
+
+'''
+    ip反爬函数
+'''
+def filter_ip(request):
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
+        user_ip = request.META['HTTP_X_FORWARDED_FOR']
+    else:
+        user_ip = request.META['REMOTE_ADDR']
+
+    try:
+        record = robot_killer.objects.using('robotkiller').get(ip=user_ip)
+    except robot_killer.DoesNotExist:
+        robot_killer.objects.using('robotkiller').create(ip=user_ip, visits=1, time=timezone.now())
+        return
+
+    passed_seconds = (timezone.now() - record.time).seconds
+
+    if record.visits > max_visits and passed_seconds < min_seconds:
+        raise Exception('user ip banned.')
+    else:
+        if passed_seconds < min_seconds:
+            record.visits = record.visits + 1
+            record.save()
+        else:
+            record.visits = 1
+            record.time = timezone.now()
+            record.save()
 
 """
     ——————————————————————————————————————————————————————————————————————————
@@ -151,6 +183,11 @@ class play_list(View):
         return render(request, 'play_list.html', add_username(request, {}))
 
     def post(self, request):
+        try:
+            filter_ip(request)
+        except Exception as e:
+            if e == 'user ip banned.':
+                return render(request, 'template.html')
         cat = request.POST.get('cat')
         if cat:
             ori = request.POST.get('ori')

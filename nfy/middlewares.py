@@ -40,35 +40,35 @@ class NfySpiderMiddleware(object):
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
 
+    '''
+        这个方法在将response发往spider的过程中被调用
+        这个方法应该返回一个None或raise一个异常
+        response：正在响应的处理
+    '''
     def process_spider_input(self, response, spider):
-        # Called for each response that goes through the spider
-        # middleware and into the spider.
-
-        # Should return None or raise an exception.
         return None
 
+    '''
+        这个方法将在request或者item法网engine的过程中被调用
+        这个方法必须返回一个response，dict，item
+        result：（一个request，dict，item）有这个spider返回的结果
+    '''
     def process_spider_output(self, response, result, spider):
-        # Called with the results returned from the Spider, after
-        # it has processed the response.
-
-        # Must return an iterable of Request, dict or Item objects.
         for i in result:
             yield i
 
+    '''
+        这个方法在一个spider或者一个process_spider_input方法抛出异常的时候被调用
+        应该返回None或者一个response，dict，item
+    '''
     def process_spider_exception(self, response, exception, spider):
-        # Called when a spider or process_spider_input() method
-        # (from other spider middleware) raises an exception.
-
-        # Should return either None or an iterable of Response, dict
-        # or Item objects.
         pass
 
+    '''
+        用来处理发往engine的请求，和process_spider_output唯一不同的地方是，不接受response，
+        并且只能返回一个request
+    '''
     def process_start_requests(self, start_requests, spider):
-        # Called with the start requests of the spider, and works
-        # similarly to the process_spider_output() method, except
-        # that it doesn’t have a response associated.
-
-        # Must return only requests (not items).
         for r in start_requests:
             yield r
 
@@ -87,7 +87,7 @@ class RandomUserAgentMiddleware():
     def from_crawler(cls, crawler):
         return cls(user_agents=crawler.settings.get('USER_AGENT_POOL'))
 
-import logging, requests, json
+import requests, json
 
 class CookiesMiddleware():
 
@@ -107,7 +107,8 @@ class CookiesMiddleware():
         # self.logger.debug('正在获取Cookies')
         # cookies = self.get_random_cookies()
         # if cookies:
-        request.cookies = random.choice(self.cookies_url)
+        if spider.name == 'exam':
+            request.cookies = random.choice(self.cookies_url)
             # self.logger.debug('使用Cookies ' + json.dumps(cookies))
 
     @classmethod
@@ -127,3 +128,31 @@ class ProxyMiddleware():
     @classmethod
     def from_crawler(cls, crawler):
         return cls(proxy_urls=crawler.settings.get('IPPOOL'))
+
+'''
+    对接selenium
+'''
+# from selenium import webdriver
+# from selenium.common.exceptions import TimeoutException
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from scrapy.http import HtmlResponse
+
+# class SeleniumMiddleware():
+#     def __init__(self, timeout=None):
+#         self.browser = webdriver.PhantomJS()
+#
+#     def __del__(self):
+#         self.browser.close()
+#
+#     def process_request(self, request, spider):
+#         if spider.name == 'selenium':
+#             pass
+#
+#     @classmethod
+#     def from_crawler(cls, crawler):
+#         settings = crawler.settings
+#         return cls(
+#             timeout=settings.get('SELENIUM_TIMEOUT')
+#         )

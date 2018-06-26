@@ -72,6 +72,8 @@ def tijiao(pai, score, header):
     info = requests.get(url=tj_url, headers=header).content.decode('utf-8')
     return info
 
+
+
 if __name__ == '__main__':
     # for i in get_score('华为', header):
     #     print(i)
@@ -80,4 +82,61 @@ if __name__ == '__main__':
     # while 1:
     #     print(time())
     #     sleep(1)
-    tijiao('黑莓', '500', header)
+    # tijiao('黑莓', '500', header)
+    dict = {
+        'oe': 0,
+        'n': 0,
+        'z': 0,
+        'oK': 1,
+        '6': '1',
+        '5': 1,
+        'ow': 2,
+        '-': 2,
+        'A': 2,
+        'oi': 3,
+        'o': 3,
+        'i': 3,
+        '7e': 4,
+        'v': 4,
+        'P': 4,
+        '7K': 5,
+        '4': 5,
+        'k': 5,
+        '7w': 6,
+        'C': 6,
+        's': 6,
+        '7i': 7,
+        'S': 7,
+        'l': 7,
+        'Ne': 8,
+        'c': 8,
+        'F': 8,
+        'NK': 9,
+        'E': 9,
+        'q': 9,
+        '*': 'X'
+    }
+    key = '*S1*7wnioKnAoeCz'
+    a = ['6', '0', '3', '1', '0', '2', '0', '6', '0']
+    str_2 = '603102060'
+    key = key[4:]
+    n = 0
+    for i in range(len(key)):
+        if dict.get(key[n: n + 2]):
+            key.replace(1, 2)
+
+
+    '''
+        1440081377
+        *S1*oKvPoK6kow6 zNK ni7K4Poioq
+        
+        144 11521 09 03554339
+        
+        346999452
+        *S1*oKvPoK6kow6 5oe CFoKcA7eCP
+        144 11521 10 68182464
+        
+        419483502
+        *S1*oKvPoK6kow6 zNK -P7eoPoi-A
+        144 11521 09 24434322
+    '''

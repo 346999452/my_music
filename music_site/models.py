@@ -8,7 +8,7 @@
 
 """
 
-from django.db.models import Model, CharField, IntegerField
+from django.db.models import Model, CharField, IntegerField, DateTimeField
 
 ''' 轮播图结构 '''
 class lunbo_model(Model):
@@ -114,3 +114,18 @@ class top_list_model(Model):
     img = CharField(max_length=400)
     last_change = CharField(max_length=20)
     cycle = CharField(max_length=20)
+
+''' ip反爬虫库 '''
+class robot_killer(Model):
+    '''
+        ip: IP地址
+        visits: 请求次数
+        time: 第一次发起请求的时间
+    '''
+    id = IntegerField(primary_key=True)
+    ip = CharField(max_length=16)    #IP地址
+    visits = IntegerField()          #请求次数
+    time = DateTimeField()           #第一次发起请求的时间
+
+    class Meta:
+        db_table = 'robotkiller'

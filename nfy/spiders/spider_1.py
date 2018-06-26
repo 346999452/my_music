@@ -7,7 +7,7 @@
     @date: 2018/06/15
     
 """
-from scrapy import Spider
+from scrapy import Spider, Request
 import json
 
 class user_spider(Spider):
@@ -17,23 +17,12 @@ class user_spider(Spider):
     ''' 设置爬取范围 '''
     allowed_domains = ['163.com']
 
-    start_urls = [
-        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=29879272',
-        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=100167517',
-        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=58426904',
-        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=93504818',
-        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=46998208',
-        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=278438485',
-        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=91239965',
-        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=324314596',
-        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=1611157',
-        'http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=2313954',
-    ]
+    users = ['29879272', '100167517', '58426904', '93504818', '46998208',
+             '278438485', '91239965', '324314596', '1611157', '2313954']
 
-    # users = ['29879272', '100167517', '58426904', '93504818', '46998208',
-    #          '278438485', '91239965', '324314596', '1611157', '2313954']
-    #
-    # def start_requests(self):
+    def start_requests(self):
+        for user in self.users:
+            yield Request(url='http://music.163.com/api/user/playlist/?offset=0&limit=100&uid=' + user, callback=self.parse)
 
 
     def parse(self, response):

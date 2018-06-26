@@ -8,7 +8,7 @@
     
 """
 import yaml, json, base64, random, string, hashlib
-import re, os
+import re, os, qrcode
 
 class Methods():
 
@@ -101,6 +101,11 @@ class Methods():
     @staticmethod
     def playlist_map(*args):
         return list(map(lambda x, y, z: (x[0], x[1], y, z[0], z[1]), args[0], args[1], args[2]))
+
+    @staticmethod
+    def save_qrcode(str, path):
+        img = qrcode.make(str)
+        img.save(path)
 
     ''' 
         ——————————————————————————————————————————————————————————————————————————————————————

@@ -51,3 +51,13 @@ class category_item(DjangoItem):
 
 class top_list_info_item(DjangoItem):
     django_model = top_list_model
+
+class product_item(Item):
+
+    collection = 'products'
+    image = Field()
+    price = Field()
+    deal = Field()
+    title = Field()
+    shop = Field()
+    location = Field()

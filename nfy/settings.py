@@ -76,13 +76,25 @@ SPIDER_MIDDLEWARES = {
    'nfy.middlewares.NfySpiderMiddleware': 543,
 }
 
+'''
+    以下是scrapy本身提供的Spider中间件，用户不能直接修改
+    若要添加自定义的中间件或是禁用中间件需要在以上SPIDER_MIDDLEWARES中设置
+'''
+# SPIDER_MIDDLEWARES_BASE = {
+#     'scrapy.spidermiddlewares.httperror.HttpErrorMiddleware': 50,
+#     'scrapy.spidermiddlewares.offsite.OffsiteMiddleware': 500,
+#     'scrapy.spidermiddlewares.referer.RefererMiddleware': 700,
+#     'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware': 800,
+#     'scrapy.spidermiddlewares.depth.DepthMiddleware': 900,
+# }
+
 ''' 
    包含在项目中启用的下载器中间件及其顺序的字典
    See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 '''
 DOWNLOADER_MIDDLEWARES = {
    'nfy.middlewares.RandomUserAgentMiddleware': 560,
-   'nfy.middlewares.ProxyMiddleware': 125,
+   # 'nfy.middlewares.ProxyMiddleware': 125,
    'nfy.middlewares.CookiesMiddleware': 126,
 }
 
@@ -166,6 +178,9 @@ DEPTH_PRIORITY = 1
 SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleFifoDiskQueue'
 SCHEDULER_MEMORY_QUEUE = 'scrapy.squeues.FifoMemoryQueue'
 
+MAX_PAGE = 100
+TIME_OUT = 20
+
 MYSQL_DATABASE = {
     'HOST': 'localhost',
     'USER': 'root',
@@ -195,6 +210,11 @@ IPPOOL=[
 
 COOKIEPOOL = [
     {
-        'jhad': 'mba_muid=1529378793040105972144; mobilev=html5; shshshfp=9fea734073f9e8021ceb3c677bb61b5b; shshshfpa=62c19140-3620-bb85-6b2f-441f15c679f4-1529378811; shshshfpb=1ea57e33a72d74a3d9b9e59f329c93741ee12b233e3f2f72b5b2877fce; __jda=122270672.1529378793040105972144.1529378793.1529386871.1529466434.3; __jdv=122270672|iosapp|t_335139774|appshare|Qqfriends|1529466434842; __jdc=122270672; sid=14791d1e05175f002b31d88e7bfde760; shshshsID=7623ba5094ae1f4c83fd905fc8f6759a_4_1529466490979; TrackerID=M3VygQSSpAM7bOhY4CEGWFOH4L2ODvVSqRHbu3uiNNvKLUb4AQSDV8Mf83-q7aFtop0dsyTGP5yDXiHL2AGT-9toU3R2k5t2x9Lfe9uSFlQ; pt_key=AAFbKc7sADB4g76Y_KtIOeAzDE3xDUFgSb1sRqW3IDb3WG7vONMFDleBNP7aJWVmlhrb1veKz7I; pt_pin=%E9%99%88%E9%9C%B2%E9%9C%B22001; pt_token=tzteqx7m; pwdt_id=%E9%99%88%E9%9C%B2%E9%9C%B22001; __jdb=122270672.4.1529378793040105972144|3.1529466434; mba_sid=15294664348459038873447501344.4'
+        'pro': '你好',
+        'kai': 'nfy'
     },
+    {
+        'pro': 'hello',
+        'kai': '南辙一曲风华顾'
+    }
 ]
