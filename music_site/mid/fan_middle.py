@@ -8,11 +8,7 @@
     
 """
 from django.shortcuts import render
-
-try:
-    from django.utils.deprecation import MiddlewareMixin    # Django 1.10.x
-except ImportError:
-    MiddlewareMixin = object                                # Django 1.4.x - Django 1.9.x
+from django.utils.deprecation import MiddlewareMixin
 
 class fan_user_agent_middleware(MiddlewareMixin):
     def process_request(self, request):
