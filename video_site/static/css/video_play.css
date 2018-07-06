@@ -1,0 +1,69 @@
+
+.my_font {
+  font-size: 20px;
+  font-weight: bolder;
+}
+#all_comment {
+  margin-top: 15px;
+  border-bottom: 1px solid #87CEFA;
+}
+.single_comment {
+  min-height: 100px;
+  display: flex;
+  margin-bottom: 3px;
+  border-bottom: 1px solid #D8D8D8;
+}
+.username {
+  min-width: 150px;
+  margin: auto 0;
+}
+.contents {
+  padding: 15px;
+  min-width: 500px;
+}
+.comment_time {
+  margin: auto 0;
+}
+
+.zan {
+  width: 150px;
+}
+
+.demo {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    margin-top: 50px;
+}
+.demo video {
+    background-color: black;
+    outline: 1px solid #eee;
+}
+
+.container .canvas-barrage {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+}
+input[type="range"] {
+    vertical-align: middle;
+    margin-right: 50px;
+}
+.ui-radio + label {
+    margin-left: 5px;
+    margin-right: 20px;
+}
+input[type="submit"] {
+    margin-left: 10px;
+    margin-right: 50px;
+}
+[disabled] {
+    pointer-events: none;
+    opacity: .4;
+}
+.last {
+    border-top: 1px solid #eee;
+    margin-top: 1.5em;
+    padding-top: 2em;
+}
+

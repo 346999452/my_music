@@ -22,7 +22,7 @@ def download_pic(image_url, image_path):
             image_url (string): 图片链接
             image_path (string): 图片路径
     """
-    image_path = Methods.absolute_path + '/image/download/' + image_path
+    image_path = Methods.absolute_path + '/image/image/' + image_path
 
     if not (image_url and image_path):
         print('非法路径')

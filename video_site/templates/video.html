@@ -1,0 +1,132 @@
+{% extends './layout.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="http://vjs.zencdn.net/5.8.8/video-js.css">
+    <link rel="stylesheet" href="{% static 'css/video_play.css' %}">
+    <script>
+        window.onload = function (ev) {
+
+            $.ajax({
+                url: '/lt/play/',
+                type: 'POST',
+                data: {
+                    'movie_id': {{ id }}
+                },
+
+                success: function (data) {
+                    var in_html = '';
+                    info = JSON.parse(data);
+                    for(var i in info){
+                        data = info[i];
+                        in_html += '<li class="single_comment">\n' +
+                        '            <div class="username">\n' +
+                        '              <strong>' + data.username + '</strong>\n' +
+                        '            </div>\n' +
+                        '            <div class="contents">\n' +
+                        '              <p>' + data.comment + '</p>\n' +
+                        '            </div>\n' +
+                        '            <div class="comment_time">\n' +
+                        '              <p class="text-info">' + data.comment_time + '</p>\n' +
+                        '            </div>\n' +
+                        '            <div style="min-width: 150px">\n';
+                        if(data.liked){
+                            in_html += '<a href="/"><img src="{% static 'image/已赞.png' %}" title="您已赞过该评论" style="width: 50px; margin-left: 100px"></a>\n'
+                        }
+                        else {
+                            in_html += '<a href="/" ><img src="{% static 'image/赞.png' %}" style="width: 50px; margin-left: 100px"></a>\n'
+                        }
+                        in_html +=
+                        '                <p style="margin-left: 80px">已有' + data.likes + '人赞过</p>\n' +
+                        '            </div>\n';
+                        if (data.could_delete){
+                            in_html += '                 <div style="min-width: 50px">\n'+
+                            '                    <a href="/" style="margin-left: 30px">删除该条评论</a>\n'
+                            +
+                            '                 </div>\n' +
+                            '        </li>'
+                        }
+                    }
+                    $('#com').html(in_html)
+
+                },
+
+                error: function () {
+                    alert('请求服务器失败')
+                },
+
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            })
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <!-- 视频播放 -->
+    <canvas id="my_canvas" class="canvas-barrage" width="100%" height="500px"></canvas>
+    <video id="my_video" controls preload="auto" width="100%" height="500px"
+      class="video-js vjs-default-skin vjs-big-play-centered" loop="loop" autoplay="autoplay">
+      <source src="{{ url }}" type="video/mp4">
+    </video>
+    <hr>
+    <form id="barrageForm" method="post" autocomplete="off">
+        <p> 透明度(0-100)：
+            <input type="range" class="range" name="opacity" value="100" min="0" max="100">
+            文字大小(16-32)：
+            <input type="range" class="range" name="fontSize" value="24" min="16" max="32">
+        </p>
+        <p>弹幕位置：
+            <input type="radio" id="rangeFull" name="range" checked value="0,1">
+            <label class="ui-radio" for="rangeFull"></label><label for="rangeFull">全部位置</label>
+            <input type="radio" id="rangeTop" name="range" value="0,0.3">
+            <label class="ui-radio" for="rangeTop"></label><label for="rangeTop">顶部</label>
+            <input type="radio" id="rangeMiddle" name="range" value="0.3,0.4">
+            <label class="ui-radio" for="rangeMiddle"></label><label for="rangeMiddle">中间</label>
+            <input type="radio" id="rangeBottom" name="range" value="0.7,1">
+            <label class="ui-radio" for="rangeBottom"></label><label for="rangeBottom">底部</label>
+        </p>
+        <p class="last">
+            <input class="ui-input" id="input" name="value" required>
+            <input type="submit" class="ui-button ui-button-primary" value="发送弹幕" disabled>颜色：
+            <input type="color" id="color" name="color" value="#ff0000">
+        </p>
+    </form>
+    <p class="text-primary">当前播放时长/秒：<span id="current_time"></span></p>
+    <p class="text-primary">总时长/秒： <span id="video_duration"></span></p>
+    <hr>
+    <p class="text-primary my_font">用户评论：</p>
+    <form role="form" id="comment_data">
+        {% csrf_token %}
+      <div class="form-group">
+        <textarea class="form-control" rows="3" name="user_comment" maxlength="300" placeholder="看点 | 槽点，不吐不快！别憋着，马上说出来吧！"></textarea>
+        <input type="hidden" name="movie_id" value="{{ id }}">
+      </div>
+      <button type="button" class="btn btn-success" onclick="com_commit()">发表评论</button>
+    </form>
+    <p class="text-primary my_font" id="all_comment">全部评论</p>
+    <div class="allComments">
+      <ul class="list-unstyled comment_list" id="com">
+        <li class="single_comment">
+          <div class="username">
+            <strong></strong>
+          </div>
+          <div class="contents">
+            <p>暂无评论</p>
+          </div>
+          <div class="comment_time">
+            <p class="text-info"></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+   <script type="text/javascript" src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+   <script src="{% static 'js/canvasBarrage.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/video_play.js' %}"></script>
+{% endblock %}

@@ -12,3 +12,6 @@ from django.apps import AppConfig
 
 class MusicSiteConfig(AppConfig):
     name = 'music_site'
+
+class BlaConfig(AppConfig):
+    name = 'video_site'

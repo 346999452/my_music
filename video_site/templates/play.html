@@ -1,0 +1,199 @@
+{% extends './layout.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+    <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/video_play.css' %}">
+    <script src="{% static 'js/video_play.image' %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <!-- 视频播放 -->
+    <div class="demo">
+        <canvas id="my_canvas" class="canvas-barrage"></canvas>
+        <section id="video">
+            <video id="my_video" controls preload="auto" width="100%" height="500px"
+              class="video-js vjs-default-skin vjs-big-play-centered" autoplay="autoplay">
+              <source src="{{ url }}" type="video/mp4">
+            </video>
+        </section>
+        <hr>
+        <form id="barrageForm" method="post" autocomplete="off">
+            <section id="danmu">
+            <p>透明度(0-100)：<input type="range" class="range" name="opacity" value="100" min="0" max="100"> 文字大小(16-32)：<input type="range" class="range" name="fontSize" value="24" min="16" max="32"></p>
+            <p>弹幕位置：<input type="radio" id="rangeFull" name="range" checked value="0,1"><label class="ui-radio" for="rangeFull"></label><label for="rangeFull">全部位置</label>
+                <input type="radio" id="rangeTop" name="range" value="0,0.3"><label class="ui-radio" for="rangeTop"></label><label for="rangeTop">顶部</label>
+                <input type="radio" id="rangeBottom" name="range" value="0.7,1"><label class="ui-radio" for="rangeBottom"></label><label for="rangeBottom">底部</label>
+            </p>
+
+                <p class="last"><input class="ui-input" id="input" name="value" required><input type="submit" class="ui-button ui-button-primary" value="发送弹幕" disabled>
+                颜色：<input type="color" id="color" name="color" value="#ff0000"></p>
+            </section>
+        </form>
+    </div>
+    <p class="text-primary">当前播放时长/秒：<span id="current_time"></span></p>
+    <p class="text-primary">总时长/秒： <span id="video_duration"></span></p>
+    <hr />
+
+    <p class="text-primary my_font">用户评论：</p>
+    <form role="form" method="post">
+        {% csrf_token %}
+      <div class="form-group">
+        <textarea class="form-control" rows="3" name="user_comment" maxlength="300" placeholder="看点 | 槽点，不吐不快！别憋着，马上说出来吧！"></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">发表评论</button>
+    </form>
+    <section id="comment">
+        <p class="text-primary my_font" id="all_comment">全部评论</p>
+    </section>
+    <div class="allComments">
+      <ul class="list-unstyled comment_list">
+        <!-- 反向迭代出数据库中的数据 -->
+        {% for comment in comments_list reversed %}
+         <li class="single_comment">
+            <div class="username">
+              <strong>{{ comment.comment_username }}</strong>
+            </div>
+            <div class="contents">
+              <p>{{ comment.user_comment }}</p>
+            </div>
+            <div class="comment_time">
+              <p class="text-info">{{ comment.comment_time }}</p>
+            </div>
+            <div style="min-width: 150px">
+                {% if comment.liked %}
+                    <a href="/unlike?movie_id={{ id }}&comment_username={{ comment.comment_username }}&comment_time={{ comment.comment_time }}&loginname={{ loginname }}"><img src="../static/images/已赞.png" title="您已赞过该评论" style="width: 50px; margin-left: 100px"></a>
+                {% else %}
+                    <a href="/like?movie_id={{ id }}&comment_username={{ comment.comment_username }}&comment_time={{ comment.comment_time }}&loginname={{ loginname }}" ><img src="../static/images/赞.png" style="width: 50px; margin-left: 100px"></a>
+                {% endif %}
+                <p style="margin-left: 80px">已有{{ comment.likes }}人赞过</p>
+            </div>
+             {% if comment.p %}
+                 <div style="min-width: 50px">
+                    <a href="/shanchu?movie_id={{ id }}&comment_username={{ comment.comment_username }}&comment_time={{ comment.comment_time }}&loginname={{ loginname }}" style="margin-left: 30px">删除该条评论</a>
+                 </div>
+             {% endif %}
+        </li>
+        {% endfor %}
+        {% if not comments_list %}
+            <li class="single_comment">
+              <div class="username">
+                <strong></strong>
+              </div>
+              <div class="contents">
+                <p>暂无评论</p>
+              </div>
+              <div class="comment_time">
+                <p class="text-info"></p>
+              </div>
+            </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/video_play.image' %}"></script>
+  <script src="{% static 'js/canvasBarrage.js' %}"></script>
+   <script type="text/javascript" >
+      var my_video = document.getElementById("my_video");
+      my_video.ontimeupdate = function() {
+        var current_time = my_video.currentTime;
+        var duration = my_video.duration;
+        document.getElementById("current_time").innerHTML = Math.floor(current_time);
+        document.getElementById('video_duration').innerHTML = Math.floor(duration);
+      };
+
+      var dataBarrage = [{
+            value: 'speed设为0为非滚动',
+            time: 1, // 单位秒
+            speed: 0
+        }, {
+            value: 'time控制弹幕时间，单位秒',
+            color: 'blue',
+            time: 2
+        }, {
+            value: '视频共21秒',
+            time: 3.2
+        }, {
+            value: '视频背景为白色',
+            time: 4.5
+        }, {
+            value: '视频为录制',
+            time: 5.0
+        }, {
+            value: '视频内容简单',
+            time: 6.3
+        }, {
+            value: '是为了让视频尺寸不至于过大',
+            time: 7.8
+        }, {
+            value: '省流量',
+            time: 8.5
+        }, {
+            value: '支持弹幕暂停（视频暂停）',
+            time: 9
+        }, {
+            value: 'add()方法新增弹幕',
+            time: 11
+        }, {
+            value: 'reset()方法重置弹幕',
+            time: 11
+        }, {
+            value: '颜色，字号，透明度可全局设置',
+            time: 13
+        }, {
+            value: '具体交互细节可参考页面源代码',
+            time: 14
+        }, {
+            value: '内容不错哦！',
+            time: 18,
+            color: 'yellow'
+        }];
+
+      var my_canvas = document.getElementById("my_canvas");
+      var demoBarrage = new CanvasBarrage(my_canvas, my_video, {data: dataBarrage})
+
+      document.addEventListener("DOMContentLoaded", function() {
+        $('.range').on('change', function () {
+            // 改变弹幕的透明度和字号大小
+            demoBarrage[this.name] = this.value * 1;
+        });
+
+        $('input[name="range"]').on('click', function () {
+            // 改变弹幕在视频显示的区域范围
+            demoBarrage['range'] = this.value.split(',');
+        });
+
+        // 发送弹幕
+        var elForm = $('#barrageForm'), elInput = $('#input');
+        elForm.on('submit', function (event) {
+            event.preventDefault();
+            // 新增弹幕
+            demoBarrage.add({
+                value: $('#input').val(),
+                color: $('#color').val(),
+                time: my_video.currentTime
+            });
+
+            elInput.val('').trigger('input');
+        });
+        // 提交按钮
+        var elSubmit = elForm.find('input[type="submit"]');
+
+        // 输入框和禁用按钮
+        elInput.on('input', function () {
+            if (this.value.trim()) {
+                elSubmit.removeAttr('disabled');
+            } else {
+                elSubmit.attr('disabled', 'disabled');
+            }
+        });
+
+    }, false);
+   </script>
+{% endblock %}

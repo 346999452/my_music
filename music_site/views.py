@@ -13,7 +13,6 @@ from other_class.yun_music import Yun_Music
 from .models import *
 from django.forms.models import model_to_dict
 import json
-from urllib.request import unquote
 from django.utils import timezone
 
 # Create your views here.
@@ -22,6 +21,8 @@ ym = Yun_Music()
 
 max_visits = 100
 min_seconds = 600
+
+add_username = ym.add_username
 
 '''
     用于将数据库model转换成dict形式
@@ -34,16 +35,6 @@ def change(model, category=None, ori=None, limit=None):
     if ori is not None and limit:
         return [model_to_dict(i) for i in obj[ori: ori + limit]]
     return [model_to_dict(i) for i in obj]
-
-''' 获得cookie中的username值 '''
-def add_username(request, dict):
-    username = request.COOKIES.get('username', None)
-    if username:
-        ''' unquote: url解码 '''
-        dict['username'] = unquote(username)
-    else:
-        dict['error'] = True
-    return dict
 
 """
     ——————————————————————————————————————————————————————————————————————————
@@ -317,7 +308,6 @@ class login(View):
         super(login, self).__init__()
         self.dict = {
             'title': '登录',
-            'year': datetime.now().year,
         }
 
     def get(self, request):

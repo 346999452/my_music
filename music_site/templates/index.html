@@ -84,9 +84,13 @@
 
                 error: function () {
                     alert('请求超时')
+                },
+
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
                 }
-            })
-        }
+            });
+        };
     </script>
 {% endblock %}
 

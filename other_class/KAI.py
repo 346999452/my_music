@@ -57,8 +57,6 @@ url_4 = 'http://music.163.com/discover/playlist/'
 
 proxy = {
     # 'http': 'http://221.232.195.14:808',
-    'http': 'http://39.106.179.219:80',
-    'https': 'http://39.106.179.219:443'
 }
 
 def get_score(pai, header):
@@ -121,10 +119,15 @@ if __name__ == '__main__':
     str_2 = '603102060'
     key = key[4:]
     n = 0
-    for i in range(len(key)):
-        if dict.get(key[n: n + 2]):
-            key.replace(1, 2)
+    # for i in range(len(key)):
+    #     if dict.get(key[n: n + 2]):
+    #         key.replace(1, 2)
 
+    # from datetime import datetime
+    # print(datetime.now().year)
+    # print(1)
+    import base64
+    print(base64.b64decode('Y29udGFjdEBraW5nbmFtZS5pbmZvCg==').decode('utf-8'))
 
     '''
         1440081377

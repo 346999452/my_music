@@ -37,7 +37,7 @@ CONCURRENT_REQUESTS = 32
 ''' 
    下载器在从同一网站下载连续页面之前应等待的时间（以秒为单位）
    这可以用于限制爬取速度，以避免被服务器限制。支持小数， 默认为0
-   See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
+   See http://scrapy.readthedocs.org/en/latest/topics/settings.html#image-delay
 '''
 DOWNLOAD_DELAY = 0.25
 

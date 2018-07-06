@@ -1,0 +1,216 @@
+{% extends './layout.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+
+{% endblock %}
+
+{% block content %}
+    <!--Portfolio-->
+<section id="portfolio" class="page-section section appear clearfix secPad">
+	<div class="container">
+
+		<div class="heading text-center">
+			<!-- Heading -->
+			<h2>查询结果</h2>
+			<p>为您挑选精品电影和预览 详细信息请记得注册登录 加入我们一起开始电影的探寻之旅 值得期待和拥有</p>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="portfolio-items isotopeWrapper clearfix" id="3">
+                        {% if not info %}
+                            <h3 style="text-align: center">未搜索到相关视频</h3>
+                        {% endif %}
+                        {% for i in info %}
+						<article class="col-sm-4 isotopeItem photography">
+							<div class="portfolio-item">
+								<img src="{{ i.img }}" alt="" />
+								<div class="portfolio-desc align-center">
+									<div class="folio-去观看">
+										<a href="/video?id={{ i.id }}" class="fancybox">
+											<i class="fa fa-arrows-alt fa-2x"></i></a>
+									</div>
+								</div>
+							</div>
+						</article>
+                        {% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<!--Package-->
+<section id="packages" class="secPad">
+	<div class="container">
+		<div class="heading text-center">
+			<!-- Heading -->
+			<h2>电影分类</h2>
+			<p>各种类型应有尽有</p>
+		</div>
+		<div class="row">
+			<div class="col-md-3 col-sm-6">
+						<div class="cuadro_intro_hover " style="background-color:#cccccc;">
+							<p style="text-align:center;">
+								<img src="../static/images/pic/pic-1.jpg" class="img-responsive" alt="">
+							</p>
+							<div class="caption">
+								<div class="blur"></div>
+								<div class="caption-text">
+									<h3>搞笑</h3>
+									<p>笑到捧腹不能自拔</p>
+									<a class=" btn btn-default" href="/cat/?cat=搞笑"><i class="fa fa-chevron-circle-right">去观看</i></a>
+								</div>
+							</div>
+						</div>
+
+			</div>
+			<div class="col-md-3 col-sm-6">
+						<div class="cuadro_intro_hover " style="background-color:#cccccc;">
+							<p style="text-align:center;">
+								<img src="../static/images/pic/pic-2.jpg" class="img-responsive" alt="">
+							</p>
+							<div class="caption">
+								<div class="blur"></div>
+								<div class="caption-text">
+									<h3>运动</h3>
+									<p>多运动，多健康</p>
+									<a class=" btn btn-default" href="/cat/?cat=运动"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+								</div>
+							</div>
+						</div>
+
+			</div>
+			<div class="col-md-3 col-sm-6">
+						<div class="cuadro_intro_hover " style="background-color:#cccccc;">
+							<p style="text-align:center;">
+								<img src="../static/images/pic/pic-3.jpg" class="img-responsive" alt="">
+							</p>
+							<div class="caption">
+								<div class="blur"></div>
+								<div class="caption-text">
+									<h3>动画</h3>
+									<p>每个人的童年</p>
+									<a class=" btn btn-default" href="/cat/?cat=动画"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+								</div>
+							</div>
+						</div>
+
+			</div>
+			<div class="col-md-3 col-sm-6">
+						<div class="cuadro_intro_hover " style="background-color:#cccccc;">
+							<p style="text-align:center;">
+								<img src="../static/images/pic/pic-4.jpg" class="img-responsive" alt="">
+							</p>
+							<div class="caption">
+								<div class="blur"></div>
+								<div class="caption-text">
+									<h3>游戏</h3>
+									<p>来一起嗨</p>
+									<a class=" btn btn-default" href="/cat/?cat=游戏"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+								</div>
+							</div>
+						</div>
+
+			</div>
+		</div>
+		 <div class="row">
+			<div class="col-md-3 col-sm-6">
+						<div class="cuadro_intro_hover " style="background-color:#cccccc;">
+							<p style="text-align:center;">
+								<img src="../static/images/pic/pic-5.jpg" class="img-responsive" alt="">
+							</p>
+							<div class="caption">
+								<div class="blur"></div>
+								<div class="caption-text">
+									<h3>音乐</h3>
+									<p>轻拨琴弦，体会音乐之美</p>
+									<a class=" btn btn-default" href="/cat/?cat=音乐"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+								</div>
+							</div>
+						</div>
+
+			</div>
+			<div class="col-md-3  col-sm-6">
+						<div class="cuadro_intro_hover " style="background-color:#cccccc;">
+							<p style="text-align:center;">
+								<img src="../static/images/pic/pic-6.jpg" class="img-responsive" alt="">
+							</p>
+							<div class="caption">
+								<div class="blur"></div>
+								<div class="caption-text">
+									<h3>旅行</h3>
+									<p>世界那么大，我想去看看</p>
+									<a class=" btn btn-default" href="/cat/?cat=旅行"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+								</div>
+							</div>
+						</div>
+
+			</div>
+			<div class="col-md-3  col-sm-6">
+						<div class="cuadro_intro_hover " style="background-color:#cccccc;">
+							<p style="text-align:center;">
+								<img src="../static/images/pic/pic-7.jpg" class="img-responsive" alt="">
+							</p>
+							<div class="caption">
+								<div class="blur"></div>
+								<div class="caption-text">
+									<h3>科普</h3>
+									<p>世界有多大，我来告诉你</p>
+									<a class=" btn btn-default" href="/cat/?cat=科普"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+								</div>
+							</div>
+						</div>
+
+			</div>
+			<div class="col-md-3  col-sm-6">
+						<div class="cuadro_intro_hover " style="background-color:#cccccc;">
+							<p style="text-align:center;">
+								<img src="../static/images/pic/pic-8.jpg" class="img-responsive" alt="">
+							</p>
+							<div class="caption">
+								<div class="blur"></div>
+								<div class="caption-text">
+									<h3>时尚</h3>
+									<p>时尚时尚最时尚</p>
+									<a class=" btn btn-default" href="/cat/?cat=时尚"><i class="fa fa-chevron-circle-right"></i> 去观看</a>
+								</div>
+							</div>
+						</div>
+
+			</div>
+		</div>
+	 </div>
+</section>
+
+
+
+<!--searh-->
+<section id="contactUs" class="page-section secPad">
+	<div class="container">
+		<form action="" method="post" class="form-horizontal" name="search">
+            {% csrf_token %}
+            <div class="row" style="margin: 10px;overflow: hidden">
+                <div class="col-md-9">
+                    <input type="text" class="form-control" name="key_word" placeholder="输入电影关键词进行搜索">
+                </div>
+                <div class="col-md-3">
+                    <input type="submit" value="搜索" class="btn btn-default">
+                </div>
+            </div>
+        </form>
+
+		</div>
+	<!--/.container-->
+</section>
+
+<!--/.page-section-->
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

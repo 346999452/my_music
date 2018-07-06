@@ -9,10 +9,12 @@
     <script>
         var current_page;
         var max_page;
+        var category;
         window.onload = function (ev) {
             current_page = 0;
             max_page = 0;
-            change('全部', 0)
+            category = '全部';
+            change(category, 0)
         }
     </script>
 {% endblock %}
@@ -287,6 +289,8 @@
             var play_list = document.getElementsByClassName('music-list clearfix')[0];
             var current_cat = document.getElementsByTagName('h2')[0];
             var buttons = document.getElementsByClassName('btn btn-default btn-sm');
+            current_page = ori / 36;
+            category = cat;
 
             $.ajax({
                 url: '/ac/play_list/',
@@ -319,8 +323,13 @@
                     category = info[0].category;
                     current_cat.innerHTML = '<i class="fa fa-music red"></i>' + category;
                 },
+
                 error: function () {
                     alert('请求服务器超时')
+                },
+
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
                 }
             })
 
@@ -332,13 +341,13 @@
                 if(current_page <= 0){
                     current_page = 0;
                 }
-                change('全部', current_page * 36);
+                change(category, current_page * 36);
             }else {
                 current_page += 1;
                 if(current_page >= max_page){
                     current_page = max_page;
                 }
-                change('全部', current_page * 36);
+                change(category, current_page * 36);
             }
         }
     </script>

@@ -7,16 +7,6 @@
     @date: 2018/06/19
     
 """
-
-# ! usr/bin/env python
-# -*- coding=utf-8 -*-
-"""
-
-    @author: 南辙一曲风华顾
-    @file: spider_1
-    @date: 2018/06/15
-
-"""
 from scrapy import Spider
 
 

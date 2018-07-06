@@ -9,6 +9,8 @@
 """
 import yaml, json, base64, random, string, hashlib
 import re, os, qrcode
+from urllib.request import unquote
+from datetime import datetime
 
 class Methods():
 
@@ -106,6 +108,29 @@ class Methods():
     def save_qrcode(str, path):
         img = qrcode.make(str)
         img.save(path)
+
+    ''' 获得cookie中的username值 '''
+
+    @staticmethod
+    def add_username(request, dict):
+        username = request.COOKIES.get('username', None)
+        if username:
+            ''' unquote: url解码 '''
+            dict['username'] = unquote(username)
+        else:
+            dict['error'] = True
+        try:
+            dict['year'] = datetime.now().year[0]
+        except:
+            dict['year'] = datetime.now().year
+        return dict
+
+    @staticmethod
+    def get_login_info(request):
+        username = request.COOKIES.get('username', None)
+        if username:
+            username = unquote(username)
+        return username, request.COOKIES.get('id', None)
 
     ''' 
         ——————————————————————————————————————————————————————————————————————————————————————

@@ -17,5 +17,7 @@ admin.site.register(commend_model)
 admin.site.register(new_model)
 admin.site.register(rank_model)
 admin.site.register(singer_model)
+admin.site.register(movie_model)
+admin.site.register(user_comment)
 
 

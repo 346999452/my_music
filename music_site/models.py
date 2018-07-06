@@ -122,10 +122,64 @@ class robot_killer(Model):
         visits: 请求次数
         time: 第一次发起请求的时间
     '''
+    ip = CharField(max_length=16)
+    visits = IntegerField()
+    time = DateTimeField()
+
+''' 视频信息 '''
+class movie_model(Model):
+    '''
+        title: 标题
+        category: 分类
+        img: 图片链接
+        slogan: 标语
+        homepage: 图片链接
+        play_url: 视频地址
+        id: 视频id
+    '''
+    title = CharField(max_length = 300)
+    category = CharField(max_length=100)
+    img = CharField(max_length=1000)
+    slogan = CharField(max_length=1000)
+    home_page = CharField(max_length=1000)
+    play_url = CharField(max_length=1000)
     id = IntegerField(primary_key=True)
-    ip = CharField(max_length=16)    #IP地址
-    visits = IntegerField()          #请求次数
-    time = DateTimeField()           #第一次发起请求的时间
+
+''' 用户评论 '''
+class user_comment(Model):
+    '''
+        movie_id: 电影id
+        username: 评论用户
+        user_id: 用户id
+        user_comment: 评论
+        comment_time: 评论时间
+        likes: 点赞数
+    '''
+    movie_id = CharField(max_length=20)
+    user_id = CharField(max_length = 20)
+    username = CharField(max_length=20)
+    comment = CharField(max_length = 300)
+    comment_time = CharField(max_length = 40)
+    likes = IntegerField(default=0)
+
+    def __str__(self):
+        return "{} : {} | {}".format(self.user_id, self.comment, self.comment_time)
+
+''' 点赞 '''
+class likes(Model):
+    '''
+        movie_id: 电影id
+        comment_time: 评论时间
+        comment_user_id: 评论用户id
+        user_id: 点赞用户id
+    '''
+    movie_id = IntegerField()
+    comment_user_id = CharField(max_length=20)
+    comment_time = CharField(max_length=40)
+    user_id = CharField(max_length=20)
 
     class Meta:
-        db_table = 'robotkiller'
+        unique_together = ('movie_id', 'comment_user_id', 'comment_time','user_id')
+
+    primary = ('movie_id', 'comment_user_id', 'comment_time', 'user_id')
+

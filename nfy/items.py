@@ -61,3 +61,6 @@ class product_item(Item):
     title = Field()
     shop = Field()
     location = Field()
+
+class movie_item(DjangoItem):
+    django_model = movie_model

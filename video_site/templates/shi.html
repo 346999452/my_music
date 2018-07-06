@@ -1,0 +1,153 @@
+{% extends './layout.html' %}
+
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+		<div class="row">
+			<div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static 'image/pic-1.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>搞笑</h3>
+                            <p>笑到捧腹不能自拔</p>
+                            <a class=" btn btn-default" href="/cat/?cat=搞笑"><i class="fa fa-chevron-circle-right">去观看</i></a>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static 'image/pic-2.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>运动</h3>
+                            <p>多运动，多健康</p>
+                            <a class=" btn btn-default" href="/cat/?cat=运动"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static 'image/pic-3.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>动画</h3>
+                            <p>每个人的童年</p>
+                            <a class=" btn btn-default" href="/cat/?cat=动画"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static 'image/pic-4.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>游戏</h3>
+                            <p>来一起嗨</p>
+                            <a class=" btn btn-default" href="/cat/?cat=游戏"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+		 <div class="row">
+			<div class="col-md-3 col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static 'image/pic-5.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>音乐</h3>
+                            <p>轻拨琴弦，体会音乐之美</p>
+                            <a class=" btn btn-default" href="/cat/?cat=音乐"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-3  col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static 'image/pic-6.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>旅行</h3>
+                            <p>世界那么大，我想去看看</p>
+                            <a class=" btn btn-default" href="/cat/?cat=旅行"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-3  col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static 'image/pic-7.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>科普</h3>
+                            <p>世界有多大，我来告诉你</p>
+                            <a class=" btn btn-default" href="/cat/?cat=科普"><i class="fa fa-chevron-circle-right"> 去观看</i></a>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<div class="col-md-3  col-sm-6">
+                <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                    <p style="text-align:center;">
+                        <img src="{% static 'image/pic-8.jpg' %}" class="img-responsive" alt="">
+                    </p>
+                    <div class="caption">
+                        <div class="blur"></div>
+                        <div class="caption-text">
+                            <h3>时尚</h3>
+                            <p>时尚时尚最时尚</p>
+                            <a class=" btn btn-default" href="/cat/?cat=时尚"><i class="fa fa-chevron-circle-right"></i> 去观看</a>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+    </div>
+
+    <div>
+      <hr />
+      <ul class="nav nav-tabs nav-justified" id="index">
+        <li class="active"><a href="#tab0" data-toggle="tab">搞笑</a></li>
+        <li><a href="#tab1" data-toggle="tab">运动</a></li>
+        <li><a href="#tab2" data-toggle="tab">动画</a></li>
+        <li><a href="#tab3" data-toggle="tab">游戏</a></li>
+        <li><a href="#tab4" data-toggle="tab">音乐</a></li>
+        <li><a href="#tab5" data-toggle="tab">旅行</a></li>
+        <li><a href="#tab6" data-toggle="tab">科普</a></li>
+        <li><a href="#tab7" data-toggle="tab">时尚</a></li>
+      </ul>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
