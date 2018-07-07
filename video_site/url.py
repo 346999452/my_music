@@ -13,10 +13,9 @@ from .views import *
 
 urlpatterns = [
     url('^$', index.as_view(), name='js'),
-    url('^image/', play_video.as_view(), name='image'),
     url('^cat/', cat, name='cat'),
     url('^search/', search.as_view(), name='search'),
-    url('^like/', like, name='like'),
+    url(r'^like$', like, name='like'),
     url('^unlike/', unlike, name='unlike'),
     url('^shanchu/', shanchu, name='delete'),
     url(r'^shi$', shi),
