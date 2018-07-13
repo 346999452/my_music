@@ -148,3 +148,6 @@ class Http_Client():
                 return error_data
         except:
             return error_data
+
+    def __del__(self):
+        self.sess.close()

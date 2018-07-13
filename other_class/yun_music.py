@@ -557,7 +557,6 @@ if __name__ == '__main__':
     # # f.close()
     # print(type(t))
     # for i in ym.get_play_list():
-    for j in ym.get_play_list()[1]:
-        print(j)
+    print(ym.user_detail('29879272'))
 
 

@@ -61,12 +61,7 @@ def logout(request):
 def my_page(request):
     id = request.COOKIES.get('id', None)
     if id:
-        info = ym.user_detail(id)
-        return render(request, 'user.html', add_username(request, {
-            'info': info[0],
-            'create': info[1],
-            'collec': info[2]
-        }))
+        return HttpResponseRedirect('/ac/user/?id=' + id)
     else:
         return HttpResponseRedirect('/ac/login')
 
@@ -279,9 +274,15 @@ class dj(View):
         return search(request)
 
 class user(View):
+    users = ['29879272', '100167517', '58426904', '93504818', '46998208',
+             '278438485', '91239965', '324314596', '1611157', '2313954', '630423930']
 
     def get(self, request):
         id = request.GET.get('id')
+        if id not in self.users:
+            print(1)
+        else:
+            print(2)
         info = ym.user_detail(id)
         return render(request, 'user.html', add_username(request, {
             'info': info[0],
