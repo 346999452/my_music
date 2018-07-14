@@ -132,22 +132,28 @@
                 </div>
 			</div>
 		</div>
-    </div>
 
-    <div>
-      <hr />
-      <ul class="nav nav-tabs nav-justified" id="index">
-        <li class="active"><a href="#tab0" data-toggle="tab">搞笑</a></li>
-        <li><a href="#tab1" data-toggle="tab">运动</a></li>
-        <li><a href="#tab2" data-toggle="tab">动画</a></li>
-        <li><a href="#tab3" data-toggle="tab">游戏</a></li>
-        <li><a href="#tab4" data-toggle="tab">音乐</a></li>
-        <li><a href="#tab5" data-toggle="tab">旅行</a></li>
-        <li><a href="#tab6" data-toggle="tab">科普</a></li>
-        <li><a href="#tab7" data-toggle="tab">时尚</a></li>
-      </ul>
+
+        <div>
+          <hr />
+          <ul class="nav nav-tabs nav-justified" id="index">
+            <li class="active"><a href="javascript: void(0);" onclick="load('搞笑')" data-toggle="tab">搞笑</a></li>
+            <li><a href="javascript: void(0);" onclick="load('运动')" data-toggle="tab">运动</a></li>
+            <li><a href="javascript: void(0);" onclick="load('动画')" data-toggle="tab">动画</a></li>
+            <li><a href="javascript: void(0);" onclick="load('游戏')" data-toggle="tab">游戏</a></li>
+            <li><a href="javascript: void(0);" onclick="load('音乐')" data-toggle="tab">音乐</a></li>
+            <li><a href="javascript: void(0);" onclick="load('旅行')" data-toggle="tab">旅行</a></li>
+            <li><a href="javascript: void(0);" onclick="load('科普')" data-toggle="tab">科普</a></li>
+            <li><a href="javascript: void(0);" onclick="load('时尚')" data-toggle="tab">时尚</a></li>
+          </ul>
+        </div>
+
+        <hr>
+        <div class="row" id="commend">
+        </div>
     </div>
 {% endblock %}
 
 {% block scripts %}
+    <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

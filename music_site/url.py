@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^dj/$', dj.as_view(), name='dj'),
     url(r'^mv/$', mv.as_view(), name='mv'),
     url(r'^my_page$', my_page, name='my_page'),
-    url(r'^lala', lala, name='lala')
+    url(r'^lala', lala)
 ]

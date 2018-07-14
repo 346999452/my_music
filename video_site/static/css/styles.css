@@ -31,7 +31,7 @@
 }
 
 .cuadro_intro_hover .blur {
-        background-color: rgba(0, 0, 0, .4);
+    background-color: rgba(0, 0, 0, .4);
     height: 300px;
     z-index: 5;
     position: absolute;

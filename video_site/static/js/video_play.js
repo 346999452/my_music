@@ -1,3 +1,8 @@
+window.onload = function (ev) {
+    load();
+    jiazai();
+};
+
 var my_video = document.getElementById("my_video");
 
 my_video.ontimeupdate = function() {
@@ -8,51 +13,46 @@ my_video.ontimeupdate = function() {
 };
 
 var dataBarrage = [{
-        value: 'speed设为0为非滚动',
-        time: 1, // 单位秒
-        speed: 0
-    }, {
-        value: 'time控制弹幕时间，单位秒',
-        color: 'blue',
-        time: 2
-    }, {
-        value: '视频共21秒',
-        time: 3.2
-    }, {
-        value: '视频背景为白色',
-        time: 4.5
-    }, {
-        value: '视频为录制',
-        time: 5.0
-    }, {
-        value: '视频内容简单',
-        time: 6.3
-    }, {
-        value: '是为了让视频尺寸不至于过大',
-        time: 7.8
-    }, {
-        value: '省流量',
-        time: 8.5
-    }, {
-        value: '支持弹幕暂停（视频暂停）',
-        time: 9
-    }, {
-        value: 'add()方法新增弹幕',
-        time: 11
-    }, {
-        value: 'reset()方法重置弹幕',
-        time: 11
-    }, {
-        value: '颜色，字号，透明度可全局设置',
-        time: 13
-    }, {
-        value: '具体交互细节可参考页面源代码',
-        time: 14
-    }, {
-        value: '内容不错哦！',
-        time: 18,
-        color: 'yellow'
+    value: '您好, 这是默认的弹幕，用于缓解无弹幕尴尬',
+    color: '#FFFFFF',
+    time: 0.3
 }];
+
+function jiazai() {
+    $('.range').on('change', function () {
+        // 改变弹幕的透明度和字号大小
+        demoBarrage[this.name] = this.value * 1;
+    });
+
+    $('input[name="range"]').on('click', function () {
+        // 改变弹幕在视频显示的区域范围
+        demoBarrage['range'] = this.value.split(',');
+    });
+
+    $.ajax({
+            url: '/lt/barrage/?movie_id=' + movie_id,
+            type: 'GET',
+
+            success: function (data) {
+                info = JSON.parse(data);
+                for (var i in info){
+                    demoBarrage.add({
+                        value: info[i].value,
+                        color: info[i].color,
+                        time: info[i].time
+                    });
+                }
+            },
+
+            error: function () {
+                alert('发送弹幕失败')
+            },
+
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        })
+}
 
 var my_canvas = document.getElementById("my_canvas");
 var demoBarrage = new CanvasBarrage(my_canvas, my_video, {data: dataBarrage});
@@ -73,13 +73,32 @@ document.addEventListener("DOMContentLoaded", function() {
     elForm.on('submit', function (event) {
         event.preventDefault();
         // 新增弹幕
-        demoBarrage.add({
+
+        barrage_data = {
             value: $('#input').val(),
             color: $('#color').val(),
-            time: my_video.currentTime
-        });
+            time: my_video.currentTime,
+            movie_id: movie_id
+        };
 
-        elInput.val('').trigger('input');
+        $.ajax({
+            url: '/lt/barrage/',
+            type: 'POST',
+            data: barrage_data,
+
+            success: function (data) {
+                demoBarrage.add(barrage_data);
+                elInput.val('').trigger('input');
+            },
+
+            error: function () {
+                alert('发送弹幕失败')
+            },
+
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        })
     });
     // 提交按钮
     var elSubmit = elForm.find('input[type="submit"]');
@@ -105,7 +124,8 @@ function com_commit() {
         contentType: false,
 
         success: function(data) {
-            alert(data)
+            alert(data);
+            load()
         },
 
         error: function(){
@@ -117,3 +137,137 @@ function com_commit() {
         }
     });
 };
+
+function like(like, movie_id, comment_user_id, comment_time) {
+    if (like){
+        url = '/lt/like/'
+    }else {
+        url = '/lt/unlike/'
+    }
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            'movie_id': movie_id,
+            'comment_user_id': comment_user_id,
+            'comment_time': comment_time,
+            'user_id': getCookie('id')
+        },
+
+        success: function (data) {
+            load();
+            alert(data)
+        },
+
+        error: function () {
+            alert('请求服务器超时')
+        },
+
+        beforeSend: function (xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    })
+}
+
+function load(){
+    $.ajax({
+        url: '/lt/play/',
+        type: 'POST',
+        data: {
+            'movie_id': movie_id
+        },
+
+        success: function (data) {
+            var in_html = '';
+            info = JSON.parse(data);
+            for(var i in info){
+                data = info[i];
+                in_html += '<li class="single_comment">\n' +
+                '            <div class="username">\n' +
+                '              <strong>' + data.username + '</strong>\n' +
+                '            </div>\n' +
+                '            <div class="contents">\n' +
+                '              <p>' + data.comment + '</p>\n' +
+                '            </div>\n' +
+                '            <div class="comment_time">\n' +
+                '              <p class="text-info">' + data.comment_time + '</p>\n' +
+                '            </div>\n' +
+                '            <div style="min-width: 150px">\n';
+                if(data.liked){
+                    in_html += '<a href="javascript:void(0);" onclick="like(false, \'' + movie_id + '\', \'' + data.user_id + '\', \'' + data.comment_time + '\')"><img src="/static/image/已赞.png" title="您已赞过该评论" style="width: 50px; margin-left: 100px"></a>\n'
+                }
+                else {
+                    in_html += '<a href="javascript:void(0);" onclick="like(true, \'' + movie_id +'\', \'' + data.user_id + '\', \'' + data.comment_time + '\')">' +
+                        '<img src="/static/image/赞.png" style="width: 50px; margin-left: 100px"></a>\n'
+                }
+                in_html +=
+                '                <p style="margin-left: 80px">已有' + data.likes + '人赞过</p>\n' +
+                '            </div>\n';
+                if (data.could_delete){
+                    in_html += '                 <div style="min-width: 50px">\n'+
+                    '                    <a href="javascript: void(0);" onclick="shanchu(\'' + data.user_id + '\', \'' + data.comment_time + '\')" style="margin-left: 30px">删除该条评论</a>\n'
+                    +
+                    '                 </div>\n' +
+                    '        </li>'
+                }
+            }
+            if (in_html) {
+                $('#com').html(in_html)
+            }
+        },
+
+        error: function () {
+            alert('请求服务器失败')
+        },
+
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    })
+}
+
+function shanchu(user_id, comment_time) {
+    $.ajax({
+        url: '/lt/delete/',
+        type: 'POST',
+        data: {
+            'movie_id': movie_id,
+            'user_id': user_id,
+            'comment_time': comment_time
+        },
+
+        success: function (data) {
+            load();
+            alert(data)
+        },
+
+        error: function () {
+            alert('请求服务器超时')
+        },
+
+        beforeSend: function (xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    })
+}
+
+var CanvasAutoResize = {
+  draw: function() {
+    var ctx = document.getElementById('my_canvas').getContext('2d');
+    var canvasContainer = document.getElementById('canvas_container');
+    ctx.canvas.width  = canvasContainer.offsetWidth - 30;
+  },
+
+  initialize: function(){
+    var self = CanvasAutoResize;
+    self.draw();
+    $(window).on('resize', function(event){
+      self.draw();
+    });
+  }
+};
+
+$(function(argument) {
+  CanvasAutoResize.initialize();
+});

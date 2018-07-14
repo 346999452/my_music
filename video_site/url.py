@@ -12,12 +12,13 @@ from django.conf.urls import url
 from .views import *
 
 urlpatterns = [
-    url('^$', index.as_view(), name='js'),
-    url('^cat/', cat, name='cat'),
-    url('^search/', search.as_view(), name='search'),
-    url(r'^like$', like, name='like'),
-    url('^unlike/', unlike, name='unlike'),
-    url('^shanchu/', shanchu, name='delete'),
-    url(r'^shi$', shi),
-    url(r'^play/$', play.as_view())
+    url(r'^home$', index.as_view()),
+    url(r'^cat/', cat),
+    url(r'^search/', search.as_view()),
+    url(r'^like/$', like),
+    url(r'^unlike/$', unlike),
+    url(r'^delete/$', delete),
+    url(r'^$', home.as_view(), name='video'),
+    url(r'^play/$', play.as_view()),
+    url(r'^barrage/$', danmu.as_view())
 ]

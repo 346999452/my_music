@@ -151,3 +151,11 @@ class Http_Client():
 
     def __del__(self):
         self.sess.close()
+
+if __name__ == '__main__':
+    import time
+    start = time.time()
+    hc = Http_Client()
+    print(hc.send('http://comment.bilibili.com/5011006.xml'))
+    end = time.time()
+    print(end-start)

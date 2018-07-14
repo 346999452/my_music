@@ -127,7 +127,7 @@ if __name__ == '__main__':
     # print(datetime.now().year)
     # print(1)
     import base64
-    print(base64.b64decode('Y29udGFjdEBraW5nbmFtZS5pbmZvCg==').decode('utf-8'))
+    #print(base64.b64decode('Y29udGFjdEBraW5nbmFtZS5pbmZvCg==').decode('utf-8'))
 
     '''
         1440081377
@@ -143,3 +143,13 @@ if __name__ == '__main__':
         *S1*oKvPoK6kow6 zNK -P7eoPoi-A
         144 11521 09 24434322
     '''
+    di = {'a': 1, 'b': 2}
+    def jj(**kwargs):
+        if kwargs:
+            print(kwargs)
+        else:
+            print(2)
+    def x(a, b):
+        print(a, b)
+    jj()
+    x(**di)

@@ -110,6 +110,26 @@ class Yun_Music(Methods, Http_Client):
             else:
                 return False, '手机号错误或未注册'
 
+    def email_login(self, username, password):
+        url = 'http://music.163.com/weapi/login?csrf_token='
+        data = {
+            'params': self.get_params({
+                'username': username,
+                'password': self.hash(password),
+                'rememberLogin': 'true'
+            }),
+            'encSecKey': '08ffac1245c7c48e91872468d5e897d69f8c0671ef97b746c84bad75f22e9a3eca8c292e7c4d67e4df7576a7db511a36112117a013c0ffe2d70fa2f067f6e9db9004bcdd0cfe9abee4eea52736aee39ac8644d46ef7718ebcefe9f1f717848d9f8e528defc438accdd223fafff315b1e96eeae7a4080cad8495f9296243e798c'
+        }
+        data = self.send(url, data)
+        if 'profile' in data:
+            info = data['profile']
+            return True, (info['userId'], info['nickname'])
+        else:
+            if 'msg' in data:
+                return False, data['msg']
+            else:
+                return False, '手机号错误或未注册'
+
     def logout(self):
         self.send('http://music.163.com/api/logout')
 
@@ -557,6 +577,7 @@ if __name__ == '__main__':
     # # f.close()
     # print(type(t))
     # for i in ym.get_play_list():
-    print(ym.user_detail('29879272'))
+    # print(ym.user_detail('29879272'))
+    print(ym.email_login('18636190292@163.com', '921002191'))
 
 

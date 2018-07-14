@@ -12,7 +12,7 @@ from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from other_class.yun_music import Yun_Music
 from .models import *
 from django.forms.models import model_to_dict
-import json
+import json, re
 from django.utils import timezone
 
 # Create your views here.
@@ -318,7 +318,10 @@ class login(View):
         if request.POST.get('login'):
             loginname = request.POST.get('loginname')
             password = request.POST.get('password')
-            state, info = ym.login(loginname, password)
+            if re.match(re.compile(r'\d{11}$'), loginname):
+                state, info = ym.login(loginname, password)
+            else:
+                state, info = ym.email_login(loginname, password)
             if state:
                 response = HttpResponseRedirect('/')
                 """

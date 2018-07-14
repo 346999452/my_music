@@ -8,7 +8,7 @@
 
 """
 
-from django.db.models import Model, CharField, IntegerField, DateTimeField
+from django.db.models import Model, CharField, IntegerField, DateTimeField, FloatField
 
 ''' 轮播图结构 '''
 class lunbo_model(Model):
@@ -182,4 +182,17 @@ class likes(Model):
         unique_together = ('movie_id', 'comment_user_id', 'comment_time','user_id')
 
     primary = ('movie_id', 'comment_user_id', 'comment_time', 'user_id')
+
+''' 弹幕 '''
+class barrage(Model):
+    '''
+        value: 弹幕内容
+        color: 弹幕颜色
+        time: 弹幕出现开始时间
+        movie_id: 对应的movie的id
+    '''
+    value = CharField(max_length=100)
+    color = CharField(max_length=10)
+    time = FloatField()
+    movie_id = CharField(max_length=20)
 

@@ -19,6 +19,7 @@
 }
 .contents {
   padding: 15px;
+  max-width: 500px;
   min-width: 500px;
 }
 .comment_time {

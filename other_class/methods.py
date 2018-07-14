@@ -11,7 +11,11 @@ import yaml, json, base64, random, string, hashlib
 import re, os, qrcode
 from urllib.request import unquote
 from datetime import datetime
+from django.forms.models import model_to_dict
 
+'''
+    常用方法
+'''
 class Methods():
 
     resource_path = 'music_site/static/'
@@ -81,12 +85,6 @@ class Methods():
                 if re.match(r'^\w{20}.png$', filename) is not None:
                     os.remove(path + '/' + filename)
 
-    def change_key_value(self):
-        with open('{}json/top_list.json'.format(self.absolute_path), 'r', encoding='utf-8') as f:
-            new_dict = {value: key for key, value in json.loads(f.read()).items()}
-            with open('{}json/new_top_list.json'.format(self.absolute_path), 'w', encoding='utf-8') as t:
-                t.write(json.dumps(new_dict))
-
     @staticmethod
     def add_list(list, song_list, list_name):
         agency_list = []
@@ -131,6 +129,16 @@ class Methods():
         if username:
             username = unquote(username)
         return username, request.COOKIES.get('id', None)
+
+    @staticmethod
+    def select(model, ori=None, limit=None, **kwargs):
+        if kwargs:
+            obj = model.objects.filter(**kwargs)
+        else:
+            obj = model.objects.all()
+        if ori is not None and limit:
+            return [model_to_dict(i) for i in obj[ori: ori + limit]]
+        return [model_to_dict(i) for i in obj]
 
     ''' 
         ——————————————————————————————————————————————————————————————————————————————————————

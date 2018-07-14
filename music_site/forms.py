@@ -21,3 +21,7 @@ class likes_form(ModelForm):
         model = likes
         fields = ['movie_id', 'comment_user_id','comment_time', 'user_id']
 
+class barrage_form(ModelForm):
+    class Meta:
+        model = barrage
+        fields = ['movie_id', 'value', 'color', 'time']
